@@ -32,3 +32,24 @@ Add a note to an object
         {
             "status": "OK"
         }
+
+### /getNotes.php [POST /getNotes.php]
+
+Get a list of notes for an object
+
++ Request (application/json)
+
+    + Attributes (object)
+        + object_type: `contact` (enum[string], required) - The type of object
+            + Members
+                + contact
+                + company
+                + sale
+                + project
+                + meeting
+        + object_id: `1` (number, required) - ID of the object
+        + pageno: `0` (number, required) - The current page, the first page is 0
+
++ Response 200 (application/json)
+
+    + Attributes (array[Note])
