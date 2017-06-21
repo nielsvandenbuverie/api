@@ -44,9 +44,26 @@ Add product
 
 Update product
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
+
+    + Attributes (object)
+        + product_id: `1234` (string, required) - Id of the product
+        + name: `Johan` (string, optional) - The name of the product
+        + price: `12.34` (string, optional) - The price of the new product
+        + external_id: `1234A` (string, optional) - External ID code
+        + stock_amount: `100` (number, optional) - The new value for stock
+        + purchase_price: `12.34` (number, optional) - The purchase price of the product
+        + custom_field_ID: `any` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
+    + Body
+
+            product_id=1234&name=Johan&price=12.34&external_id=1234A&stock_amount=100&purchase_price=12.34&custom_field_310=test
+
+
 
 + Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the update operation.
 
 
 ### /deleteProduct.php [POST /deleteProduct.php]
