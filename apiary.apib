@@ -959,6 +959,8 @@ Get product details
         + include_photos: 1 (number, optional) - If this flag is set to 1, the product image url will be fetched
 
 + Response 200 (text/html)
+
+    + Attributes (Product)
     
     + Body
             
@@ -1128,3 +1130,28 @@ Get product details
 + date_lost_formatted: 16/02/2017 (string)
 + reason_refused: `No interest` (string)
 + source_id: `8799` (number)
+
+## Product (object)
++ id: 202188 (number)
++ name: Nice product (string)
++ external_id: 23 (string)
++ vat: 19 (string)
++ inv_account_id: 1097 (number)
++ description: A nice product description (string)
++ stock: 30 (number)
++ min_stock: 10 (number)
++ date_edited: 1472645009 (number)
++ prices (array)
+    + (object)
+        + name: Price Foo (string)
+        + price_excl_vat: 20.000 (string)
+        + price_incl_vat: 23.8 (number)
++ custom_fields (object)
++ suppliers (array) - A supplier
+    + (object)
+        + type: company (string)
+        + id : 37625 (number)
+        + name: Products and Services Inc. (string)
+        + purchase_price: 10.0000 (string)
+        + is_main_supplier: 1 (string)
+        + supplier_product_code: PRODUCTCODE1 (string)
