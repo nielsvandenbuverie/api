@@ -879,6 +879,66 @@ Delete a file
             "status": "success"
         }
 
+# Group Timetracking
+
+## Timetracking [/timetracking]
+
+### /addTimetracking.php [POST /addTimetracking.php]
+
++ Request (application/x-www-form-urlencoded)
+
+    Additional cost can be added with optional params. These params are suffixed with the index (1 based) of the
+    additional cost  (`<param>_<index_of_additional_cost>`).
+    So the description of the first additional cost will be `description_1` and `description_2` for the second
+    additional cost.
+
+    + Attributes
+        + description: description (string) - Description of the activity
+        + start_date: `1498048402` (number) - Start date of the activity as Unix timestamp (seconds)
+        + end_date: `1498048402` (number) - End date of the activity as Unix timestamp (seconds)
+        + worker_id: `12` (number) - Id of the user
+        + task_type_id: `13` (number) - Type id of the task
+        + for: company (enum[string], optional) - Who this activity should be billed to
+            + Members
+                + contact
+                + company
+                + project_milestone
+        + for_id: `1` (number, optional) - The id of who this activity should be billed to
+        + invoiceable: `0` (enum[number], optional) - Can this time be invoiced later or not? This parameter has no effect for project-related timetracking, because invoiceability is determined by the related milestone.
+            + Members
+                + 0
+                + 1
+        + subtract_break: `1` (enum[number], optional) - If this parameter is set to 1 lunchbreaks will be substracted from the timetracking
+             + Members
+                 + 0
+                 + 1
+        + related_object_type: task (enum[string], optional) - What kind of item this activity is related to
+            + Members
+                + none
+                + task
+        + related_object_id: `1` (number, optional) - If this activity is related to a task, pass in the task ID
+        + description_1: description (string, optional) - Additional costs description
+        + price_1: `100` (number, optional) - Additional cost price
+        + amount_1: `100` (number, optional) - Additional cost amount
+        + vat_1: `06` (enum[string], optional) - The vat tariff for this line for the additional cost
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - Id of the product for the additional cost
+        + subtitle_1: subtitle (string, optional) - Additional cost subtitle
+
++ Response 200 (text/html)
+
+    + Body
+
+         "OK"
+
 # Data Structures
 
 ## Contact (object)
