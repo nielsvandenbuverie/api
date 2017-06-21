@@ -88,16 +88,48 @@ Delete product
 
 Search all products
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
 
-+ Response 200 (application/json)
+    + Attributes
+        + amount: 10 (number, required) - The amount of products returned per request
+        + pageno: 2 (number, required) - The pag number (the first page is 0)
+        + searchBy: scissor (string, optional) - The search string. Teamleader will try to match each part of the string to the name or external ID of the product
+        + modifiedsince: 1498056035 (number, optional) - Unix timestamp. Teamleader will only return products that have been added or modified since that timestamp
+
++ Response 200 (text/html)
+
+    + Attributes (object)
+        + id: 203052 (number)
+        + external_id: ext_id_827 (string)
+        + name: Nice product (string)
+        + vat: 19 (string)
+        + booking_account: 700 (number)
+        + booking_account_id: 10 (number)
+        + price_value_1: 30.0000 (number) - These field names are dynamic
+    
+    + Body
+    
+            [
+                {
+                    "id": 203052,
+                    "external_id": "EXTERNAL_11",
+                    "name": "Nice product",
+                    "vat": "19",
+                    "booking_account": 700,
+                    "booking_account_id": 10,
+                    "price_value_1": "30.00000000",
+                    "price_value_2": "15.00000000",
+                    "price_value_3": "0.00000000",
+                    ...
+                }
+            ]
 
 
 ### /getProduct.php [POST /getProduct.php]
 
 Get product details
 
-+ Request (application/x-www-form-urlencoded )
++ Request (application/x-www-form-urlencoded)
 
     + Attributes
         + product_id: 20 (number, required) - The id of the product
