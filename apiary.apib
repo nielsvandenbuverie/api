@@ -951,9 +951,18 @@ Update product
 
 Delete product
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
+
+    + Attributes (object)
+        + product_id: `1234` (string, required) - Id of the product
+
+    + Body
+
+            product_id=1234
 
 + Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the update operation.
 
 ### /getProducts.php [POST /getProducts.php]
 
