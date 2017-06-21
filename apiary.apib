@@ -959,6 +959,24 @@ Add a Teamleader meeting
             "id":"1"
         }
 
+### /updateMeeting.php [POST /updateMeeting.php]
+
+Update a Teamleader meeting
+
++ Request (application/json)
+
+    + Attributes (object)
+        + meeting_id: `1` (number, required) - The ID of the meeting you want to update
+        + title: `Lunch meeting` (string, optional)
+        + start_date: `1386756548` (number, optional) - Unix timestamp
+        + duration_minutes: `30` (string, optional) - Duration in minutes
+
++ Response 200 (application/json)
+
+        {
+            "status":"OK"
+        }
+
 # Data Structures
 
 ## Contact (object)
