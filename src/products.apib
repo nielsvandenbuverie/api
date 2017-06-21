@@ -4,9 +4,41 @@
 
 Add product
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
 
-+ Response 200 (application/json)
+    + Attributes (object)
+        + name: `Johan` (string, required) - The name of the product
+        + price: `12.34` (string, required) - The price of the new product
+        + external_id: `1234A` (string, optional) - External ID code
+        + vat: `00` (enum[string]), optional) - The VAT tariff for the new product
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + account_id: `1234` (number, optional) - The ID of the bookkeeping account
+        + automerge_by_name: `true` (boolean, optional) - If this flag is set to 1, Teamleader will merge this info into an existing product with the same name, if it finds any.
+            + Default: false
+        + purchase_price: `12.34` (number, optional) - The purchase price of the product
+        + custom_field_ID: `any` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
+    + Body
+
+            name=Johan&price=12.34&external_id=1234A&vat=00&account_id=1234&automerge_by_name=1&purchase_price=12.34&custom_field_310=test
+
+
+
++ Response 200 (text/html)
+    + Attributes (object)
+        + id: `416654` (number) - ID of the product that was added
+
+    + Body
+
+            416654
 
 ### /updateProduct.php [POST /updateProduct.php]
 
