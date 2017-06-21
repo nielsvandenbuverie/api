@@ -978,6 +978,9 @@ Search all products
         + modifiedsince: 1498056035 (number, optional) - Unix timestamp. Teamleader will only return products that have been added or modified since that timestamp
 
 + Response 200 (text/html)
+    
+    Prices will be returned as `price_value_<index_of_price>`, they are suffixed with the price index. 
+    For example, first price returned will be `price_value_1` and the second will be `price_value_2`.
 
     + Attributes (object)
         + id: 203052 (number)
@@ -986,7 +989,7 @@ Search all products
         + vat: 19 (string)
         + booking_account: 700 (number)
         + booking_account_id: 10 (number)
-        + price_value_1: 30.0000 (number) - These field names are dynamic
+        + price_value_1: 30.0000 (number)
     
     + Body
     
@@ -1019,6 +1022,8 @@ Get product details
 
 + Response 200 (text/html)
 
+    Custom fields will be returned as on object with the custom field id as a key and the custom field value as the value.
+    
     + Attributes (Product)
     
     + Body
