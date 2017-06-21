@@ -977,6 +977,22 @@ Update a Teamleader meeting
             "status":"OK"
         }
 
+### /addContactToMeeting.php [POST /addContactToMeeting.php]
+
+Update a Teamleader meeting
+
++ Request (application/json)
+
+    + Attributes (object)
+        + meeting_id: `1` (number, required) - The ID of the meeting you want to update
+        + contact_id: `5` (number, required) - The ID of the contact you want to add
+
++ Response 200 (application/json)
+
+        {
+            "status":"OK"
+        }
+
 # Data Structures
 
 ## Contact (object)
