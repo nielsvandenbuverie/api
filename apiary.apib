@@ -938,6 +938,26 @@ Delete a meeting from Teamleader
 
 + Response 204
 
+### /addMeeting.php [POST /addMeeting.php]
+
+Add a Teamleader meeting
+
++ Request (application/json)
+
+    + Attributes (object)
+        + start_date: `1386756548` (number, required) - Unix timestamp
+        + user_id: `1` (number, required) - The user_id of the attending user
+        + title: `Lunch meeting` (string, required)
+        + description: `Met at expo` (string, required)
+        + duration: `30` (string, required) - Duration in minutes
+        + milestone_id: `5` (number, optional)
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
++ Response 201 (application/json)
+
+        {
+            "id":"1"
+        }
 
 # Data Structures
 
