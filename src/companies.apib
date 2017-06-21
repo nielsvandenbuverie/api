@@ -7,12 +7,12 @@ Search companies
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
+        + amount: `20` (number, required) - The amount of companies returned per request, max 1 to 100
         + pageno: `0` (number, required) - The current page, the first page is 0
-        + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
-        + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
+        + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the company name and email address.
+        + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return companies that have been added or modified since that timestamp.
         + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
-        + segment_id: `4` (number, optional) - The ID of a segment created for contacts. Teamleader will only return contacts that have been filtered out by the segment settings.
+        + segment_id: `4` (number, optional) - The ID of a segment created for companies. Teamleader will only return companies that have been filtered out by the segment settings.
         + selected_customfields: `` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
 
 + Response 200 (application/json)
@@ -40,10 +40,10 @@ Add a Teamleader company
 
     + Attributes (object)
         + name: `1` (string, required)
-        + email: `john@example.com` (string, required) - The email address of the new contact
-        + vat_code: `Mr` (string, optional)
+        + email: `john@example.com` (string, optional) - The email address of the new company
+        + vat_code: `BE0899.623.035` (string, optional)
         + telephone: `1234567` (string, optional)
-        + country: `7654321` (string, optional)
+        + country: `BE` (string, optional)
         + zipcode: `90201` (string, optional)
         + city: `Cityville` (string, optional)
         + street: `Central Ave` (string, optional)
@@ -65,17 +65,17 @@ Add a Teamleader company
         + number_invoicing: `1` (string, optional)
         + invoice_email_address: `invoicing@example.com` (string, optional)
         + website: `http://example.com` (string, optional)
-        + description: `Met at expo` (string, optional) - Background information on the contact
+        + description: `Met at expo` (string, optional) - Background information on the company
         + account_manager_id: `1` (number, optional)
         + local_business_number: `BE0123.123.123` (string, optional) - the local business number (KVK in the Netherlands)
         + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
         + automerge_by_name: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same forename and surname, if it finds any.
+            If this flag is set to 1, Teamleader will merge this info into an existing company with the same name, if it finds any.
             + Default: `false`
         + automerge_by_email: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same email address, if it finds any.
+            If this flag is set to 1, Teamleader will merge this info into an existing company with the same email address, if it finds any.
             + Default: `false`
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
@@ -92,27 +92,27 @@ Update a Teamleader company
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: `1` (number, required) - The ID of the contact you want to update
+        + company_id: `1` (number, required) - The ID of the company you want to update
         + track_changes: `1` (number, required) - If set to 1, all changes are logged and visible to users in the web-interface
-        + name: `1` (string, required)
-        + email: `john@example.com` (string, required) - The email address of the new contact
-        + vat_code: `Mr` (string, optional)
+        + name: `1` (string, optional)
+        + email: `john@example.com` (string, optional) - The email address of the new company
+        + vat_code: `BE0899.623.035` (string, optional)
         + telephone: `1234567` (string, optional)
         + fax: `7654321` (string, optional)
-        + country: `7654321` (string, optional)
+        + country: `BE` (string, optional)
         + zipcode: `90201` (string, optional)
         + city: `Cityville` (string, optional)
         + street: `Central Ave` (string, optional)
         + number: `1` (string, optional)
         + invoice_email_address: `invoicing@example.com` (string, optional)
         + website: `http://example.com` (string, optional)
-        + description: `Met at expo` (string, optional) - Background information on the contact
+        + description: `Met at expo` (string, optional) - Background information on the company
         + account_manager_id: `1` (number, optional)
         + local_business_number: `BE0123.123.123` (string, optional) - the local business number (KVK in the Netherlands)
         + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
-        + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
+        + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the company.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
 + Response 200 (application/json)
