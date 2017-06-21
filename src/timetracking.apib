@@ -115,3 +115,59 @@
     + Body
 
          "OK"
+
+
+### /getTimetrackingEntry.php [GET /getTimetrackingEntry.php]
+
++ Request (application/x-www-form-urlencoded)
+
+    + Attributes
+        + timetracking_id: `1` (number) - The id of the timetracking entry
+
++ Response (text/html)
+
+    + Attributes
+        + id: `98` (number) - Id of the timetracking
+        + user_id: `1` (number) -
+        + employee_name: `Jane Doe` (string) -
+        + date: `1452553200` (number) -
+        + date_formatted: `dd/mm/yyyy` (string) -
+        + duration: `5` (number) -
+        + contact_id: `2` (number) -
+        + company_id: `3` (number) -
+        + project_id: `4` (number) -
+        + project_title: `Title` (string) -
+        + description: `Description` (string) -
+        + milestone_id: `5` (number) -
+        + milestone_title `Title` (string) -
+        + ticket_id: `6` (number) -
+        + is_invoicable: `true` (boolean)
+        + related_to (object)
+            + object_type: `none` (string)
+            + object_id: `1` (number)
+
+    + Body
+
+                 [
+                     {
+                         "id": 98,
+                         "user_id": 1,
+                         "employee_name": "Jane Doe",
+                         "date": 1452553200,
+                         "date_formatted": "12\/01\/2016",
+                         "duration": 1440,
+                         "contact_id": "",
+                         "company_id": "",
+                         "project_id": "",
+                         "project_title": "",
+                         "milestone_id": "",
+                         "milestone_title": "",
+                         "description": "test",
+                         "ticket_id": "",
+                         "is_invoiceable": 0,
+                         "related_to": {
+                             "object_type": "none",
+                             "object_id": ""
+                         }
+                     }
+                 ]
