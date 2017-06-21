@@ -885,7 +885,7 @@ Delete a file
 
 Search meetings
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
 
     + Attributes (object)
         + amount: `20` (number, required) - The amount of meetings returned per request, max 1 to 100
@@ -915,7 +915,7 @@ Get a detailed overview of a single meeting.
 
 + Attributes (Meeting)
 
-+ Request (multipart/form-data)
++ Request (application/x-www-form-urlencoded)
 
     + Body
         {
@@ -931,7 +931,7 @@ Get a detailed overview of a single meeting.
 
 Delete a meeting from Teamleader
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
 
     + Attributes (object)
         + meeting_id: `1` (number, required) - The ID of the meeting you wish to delete
@@ -942,7 +942,7 @@ Delete a meeting from Teamleader
 
 Add a Teamleader meeting
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
 
     + Attributes (object)
         + start_date: `1386756548` (number, required) - Unix timestamp
@@ -963,7 +963,7 @@ Add a Teamleader meeting
 
 Update a Teamleader meeting
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
 
     + Attributes (object)
         + meeting_id: `1` (number, required) - The ID of the meeting you want to update
@@ -981,7 +981,7 @@ Update a Teamleader meeting
 
 Update a Teamleader meeting
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
 
     + Attributes (object)
         + meeting_id: `1` (number, required) - The ID of the meeting you want to update
@@ -997,7 +997,7 @@ Update a Teamleader meeting
 
 Update a Teamleader meeting
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
 
     + Attributes (object)
         + meeting_id: `1` (number, required) - The ID of the meeting you want to update
