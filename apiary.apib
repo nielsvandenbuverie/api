@@ -917,15 +917,12 @@ Get a detailed overview of a single meeting.
 
 + Request (application/x-www-form-urlencoded)
 
-    + Body
-        {
-            `meeting_id`: 1
-        }
+    + Attributes (object)
+        + meeting_id: `1` (number, required) - The ID of the meeting you wish to delete
 
 + Response 200 (aplication/json)
 
     + Attributes (Meeting)
-
 
 ### /deleteMeeting.php [POST /deleteMeeting.php]
 
@@ -953,11 +950,14 @@ Add a Teamleader meeting
         + milestone_id: `5` (number, optional)
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 201 (application/json)
++ Response 200 (text/html)
 
-        {
-            "id":"1"
-        }
+    + Attributes (object)
+        + id: `416654` (number) - ID of the meeting that was added
+
+    + Body
+
+            416654
 
 ### /updateMeeting.php [POST /updateMeeting.php]
 
@@ -974,7 +974,7 @@ Update a Teamleader meeting
 + Response 200 (application/json)
 
         {
-            "status":"OK"
+            "status":"success"
         }
 
 ### /addContactToMeeting.php [POST /addContactToMeeting.php]
@@ -987,11 +987,14 @@ Update a Teamleader meeting
         + meeting_id: `1` (number, required) - The ID of the meeting you want to update
         + contact_id: `5` (number, required) - The ID of the contact you want to add
 
-+ Response 200 (application/json)
++ Response 200 (text/html)
 
-        {
-            "status":"OK"
-        }
+    + Attributes (object)
+        + status: `OK` (number) 
+
+    + Body
+
+            OK
 
 ### /removeContactFromMeeting.php [POST /removeContactFromMeeting.php]
 
@@ -1003,11 +1006,14 @@ Update a Teamleader meeting
         + meeting_id: `1` (number, required) - The ID of the meeting you want to update
         + contact_id: `5` (number, required) - The ID of the contact you want to remove
 
-+ Response 200 (application/json)
++ Response 200 (text/html)
 
-        {
-            "status":"OK"
-        }
+    + Attributes (object)
+        + status: `OK` (number) 
+
+    + Body
+
+            OK
 
 # Data Structures
 
