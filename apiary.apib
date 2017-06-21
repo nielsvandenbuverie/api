@@ -917,11 +917,56 @@ Search all products
 
 ### /getProduct.php [POST /getProduct.php]
 
-Fetch single product
+Get product details
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded )
 
-+ Response 200 (application/json)
+    + Attributes
+        + product_id: 20 (number, required) - The id of the product
+        + include_all_custom_fields: 1 (number, optional) - If this flag is set to 1, all custom fields will be fetched 
+        + include_photos: 1 (number, optional) - If this flag is set to 1, the product image url will be fetched
+
++ Response 200 (text/html)
+    
+    + Body
+            
+            {
+                "id": 202188,
+                "name": "Nice product",
+                "external_id": "23",
+                "vat": "19",
+                "inv_account_id": 1097,
+                "description": "A nice product description",
+                "stock": 30,
+                "min_stock": 10,
+                "date_edited": 1472645009,
+                "prices": [
+                    {
+                        "name": "Price Foo",
+                        "price_excl_vat": "20.0000",
+                        "price_incl_vat": 23.8
+                    },
+                    {
+                        "name": "Price BAR",
+                        "price_excl_vat": "30.0000",
+                        "price_incl_vat": 35.7
+                    },
+                ],
+                "custom_fields": {
+                    "1": "Custom field 1",
+                    "2": 245,
+                },
+                "suppliers": [
+                    {
+                        "type":"company",
+                        "id":484866,
+                        "name":"Products and Services Inc.",
+                        "purchase_price":"10.0000",
+                        "is_main_supplier":1,
+                        "supplier_product_code":"PRODUCT_CODE1"
+                    }
+                ]
+            }
 
 # Data Structures
 
