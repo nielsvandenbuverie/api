@@ -32,8 +32,6 @@ Search meetings
 
 Get a detailed overview of a single meeting.
 
-+ Attributes (Meeting)
-
 + Request (application/x-www-form-urlencoded)
 
     + Attributes (object)
@@ -65,7 +63,7 @@ Add a Teamleader meeting
         + user_id: `1` (number, required) - The user_id of the attending user
         + title: `Lunch meeting` (string, required)
         + description: `Met at expo` (string, required)
-        + duration: `30` (string, required) - Duration in minutes
+        + duration: `30` (number, required) - Duration in minutes
         + milestone_id: `5` (number, optional)
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
@@ -84,7 +82,7 @@ Update a Teamleader meeting
         + meeting_id: `1` (number, required) - The ID of the meeting you want to update
         + title: `Lunch meeting` (string, optional)
         + start_date: `1386756548` (number, optional) - Unix timestamp
-        + duration_minutes: `30` (string, optional) - Duration in minutes
+        + duration_minutes: `30` (number, optional) - Duration in minutes
 
 + Response 200 (application/json)
 
@@ -105,7 +103,7 @@ Update a Teamleader meeting
 + Response 200 (text/html)
 
     + Attributes (object)
-        + status: `OK` (number) 
+        + status: `OK` (string)
 
     + Body
 
@@ -124,7 +122,7 @@ Update a Teamleader meeting
 + Response 200 (text/html)
 
     + Attributes (object)
-        + status: `OK` (number) 
+        + status: `OK` (string)
 
     + Body
 
