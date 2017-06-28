@@ -166,6 +166,20 @@ Update the comments on an invoice
     + Attributes (object)
         + status: `success` (string) - Indicating success or failure of the operation.
 
+### /deleteInvoice.php [POST /deleteInvoice.php]
+
+Delete an invoice. It's not possible to delete invoices which are exported to a bookkeeping tool. It's only possible to delete an invoice if this doesn't causa a gap in numbering and if there are no creditnotes for this invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
 ### /getInvoices.php [POST /getInvoices.php]
 
 Search invoices
