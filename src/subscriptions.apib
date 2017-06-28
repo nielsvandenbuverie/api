@@ -109,7 +109,52 @@ Add subscription
 
 + Request (application/json)
 
+    + Attributes
+        + subscription_id: `1` (number, required) - ID of the subscription
+
 + Response 200 (application/json)
+
+    + Attributes
+        + id: `1` (number) - ID of the subscription
+        + active: `0` (enum[number]) - Subscription status.
+            + members
+                + 0
+                + 1
+        + title: `Subscription title` (string) - Title
+        + repeat: `monthly` (enum[string], required) - Invoice repeat cycle 
+            + Members
+                + monthly
+                + twomonthly
+                + quarterly
+                + sixmonthly
+                + yearly
+                + twoyearly
+        + department_id: `1` (number) - ID of the department
+        + date_start: `554774400` (number) - Start date of subscription as unix timestamp
+        + date_start_formatted: `01/08/1987` (string) - Start date of subscritpion in formatted string mm/dd/yyyy.
+        + date_end: `554774400` (number) -  End date of subscription as unix timestamp
+        + date_end_formatted: `01/08/1987` (string) - End date of subscritpion in formatted string mm/dd/yyyy.
+        + total_price_excl_vat: `12.34` (string) - Price excl VAT
+        + total_price_incl_vat: `12.34` (string) - Price incl VAT
+        + next_renewal_date: `554774400` (number) - Next renewal date of subscription as unix timestamp
+        + next_renewal_date_formatted: `01/08/1987` - (string) Next renewal date of subscritpion in formatted string mm/dd/yyyy.
+        + items: [] (array[object]) - Item line
+            + (object)
+                + text: `title` (string) - Title
+                + amount: `1` (number) - Item amount
+                + line_total_incl_vat `12.34` (string) - Line incl VAT
+                + line_total_excl_vat `12.34` (string) - Line excl VAT
+                + vat_rate `21` (number) - VAT rate
+                + account `1` (number) - Account ID
+                + subtitle `Line subtitle` (string) - Subtitle for line
+                + description `Line description` (string) - Description for line
+        + for: `contact` (enum[string], required) - Who is the subscription for?
+            + Members
+                + contact
+                + company
+        + for_id: `1` (number) - ID of the related contact or company
+        + custom_fields: [] (array) - Array containing the id's of the custom fields and their values
+
 
 ### /getSubscriptions.php [POST /getSubscriptions.php]
 
