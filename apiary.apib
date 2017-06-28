@@ -939,11 +939,18 @@ Add subscription
 
 ### /getSubscriptionsByDeal.php [POST /getSubscriptionsByDeal.php]
 
-    subscription
+    Fetching all subscriptions related to a deal
 
 + Request (application/json)
 
+    + Attributes(object)
+        + deal_id: 1337 (number, required) - The id of the deal
+
 + Response 200 (application/json)
+
+    + Attributes(array)
+        + (object)
+            + id: 7457 (number)
 
 ### /getSubscriptionsByContactOrCompany.php [POST /getSubscriptionsByContactOrCompany.php]
 
@@ -952,19 +959,17 @@ Add subscription
 + Request (application/json)
 
     + Attributes(object)
-        + contact_or_company: contact (enum[string], required)
+        + contact_or_company: contact (enum[string], required) - State 'what' you are searching for, a contact or a company
             + Members
                 + contact
                 + company
-        + contact_or_company_id: 1234 (number, required)
-
+        + contact_or_company_id: 1234 (number, required) - The id of the contact or the company 
 
 + Response 200 (application/json)
 
     + Attributes(array)
         + (object)
             + id: 1247 (number)
-
 
 # Data Structures
 
