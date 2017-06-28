@@ -885,7 +885,7 @@ Delete a file
 
 Search meetings
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes (object)
         + amount: `20` (number, required) - The amount of meetings returned per request, max 1 to 100
@@ -913,12 +913,12 @@ Search meetings
 
 Get a detailed overview of a single meeting.
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes (object)
         + meeting_id: `1` (number, required) - The ID of the meeting you wish to delete
 
-+ Response 200 (aplication/json)
++ Response 200 (application/json)
 
     + Attributes (Meeting)
 
@@ -926,7 +926,7 @@ Get a detailed overview of a single meeting.
 
 Delete a meeting from Teamleader
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes (object)
         + meeting_id: `1` (number, required) - The ID of the meeting you wish to delete
@@ -937,7 +937,7 @@ Delete a meeting from Teamleader
 
 Add a Teamleader meeting
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes (object)
         + start_date: `1386756548` (number, required) - Unix timestamp
@@ -948,7 +948,7 @@ Add a Teamleader meeting
         + milestone_id: `5` (number, optional)
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (text/html)
++ Response 200 (application/json)
 
     + Attributes (object)
         + id: `416654` (number) - ID of the meeting that was added
@@ -957,7 +957,7 @@ Add a Teamleader meeting
 
 Update a Teamleader meeting
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes (object)
         + meeting_id: `1` (number, required) - The ID of the meeting you want to update
@@ -975,13 +975,13 @@ Update a Teamleader meeting
 
 Update a Teamleader meeting
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes (object)
         + meeting_id: `1` (number, required) - The ID of the meeting you want to update
         + contact_id: `5` (number, required) - The ID of the contact you want to add
 
-+ Response 200 (text/html)
++ Response 200 (application/json)
 
     + Attributes (object)
         + status: `OK` (string)
@@ -994,13 +994,13 @@ Update a Teamleader meeting
 
 Update a Teamleader meeting
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes (object)
         + meeting_id: `1` (number, required) - The ID of the meeting you want to update
         + contact_id: `5` (number, required) - The ID of the contact you want to remove
 
-+ Response 200 (text/html)
++ Response 200 (application/json)
 
     + Attributes (object)
         + status: `OK` (string)
