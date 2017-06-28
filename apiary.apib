@@ -954,15 +954,35 @@ Add subscription
 
 + Request (application/json)
 
-+ Response 200 (text/html)
+    + Attributes
+        + subscription_id: `1` (number, required) - ID of the subscription
+        + date_start: `01/08/1987` (string, optional) - Date the first invoice should be created. The date should be in the format dd/mm/yyyy.
+        + repeat_after: `monthly` (enum[string], optional) -  Invoice repeat cycle
+            + Members
+                + monthly
+                + twomonthly
+                + quarterly
+                + sixmonthly
+                + yearly
+                + twoyearly
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string)
 
 ### /deleteSubscription.php [POST /deleteSubscription.php]
 
-    Update subscription
+    Delete subscription
 
 + Request (application/json)
 
+    + Attributes
+        + subscription_id: `1` (number, required) - ID of the subscription
+
 + Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string)
 
 ### /getSubscription.php [POST /getSubscription.php]
 
