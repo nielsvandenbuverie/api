@@ -896,18 +896,16 @@ Search meetings
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": 1,
-                "title": "Lunch meeting",
-                "duration_minutes": 30,
-                "date_timestamp": 1498055469,
-                "date_day": "21/02/2012",
-                "date_hour": "12:30",
-                "related_project_id": "5",
-                "related_milestone_id": "10"
-            }
-        ]
+    + Attributes (array)
+        + (object)
+            "id": 1,
+            "title": "Lunch meeting",
+            "duration_minutes": 30,
+            "date_timestamp": 1498055469,
+            "date_day": "21/02/2012",
+            "date_hour": "12:30",
+            "related_project_id": "5",
+            "related_milestone_id": "10"
 
 ### /getMeeting.php [POST /getMeeting.php]
 
@@ -967,9 +965,8 @@ Update a Teamleader meeting
 
 + Response 200 (application/json)
 
-        {
-            "status":"success"
-        }
+    + Attributes (object)
+        + status: `success` (string)
 
 ### /addContactToMeeting.php [POST /addContactToMeeting.php]
 
