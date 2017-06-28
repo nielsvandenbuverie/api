@@ -947,11 +947,23 @@ Add subscription
 
 ### /getSubscriptionsByContactOrCompany.php [POST /getSubscriptionsByContactOrCompany.php]
 
-    subscription
+    Fetching all subscripions related to a contact or company
 
 + Request (application/json)
 
+    + Attributes(object)
+        + contact_or_company: contact (enum[string], required)
+            + Members
+                + contact
+                + company
+        + contact_or_company_id: 1234 (number, required)
+
+
 + Response 200 (application/json)
+
+    + Attributes(array)
+        + (object)
+            + id: 1247 (number)
 
 
 # Data Structures
