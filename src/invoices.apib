@@ -15,7 +15,7 @@ Adding an invoice
         + sys_department_id: `2` (number, required) -  ID of the department the invoice will be added to
         + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
         + price_1: `100` (number, required)
-        + amount_1: `3` (number, required) 
+        + amount_1: `3` (number, required)
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
             + Members
                 + 00
@@ -73,7 +73,7 @@ Adding a creditnote
 
     + Attributes (object)
         + invoice_id: `1` (number, required) - ID of the invoice related to this credit note. It must be a booked invoice.
-        + contact_or_company: `company` (enum[string], optional) - When there's no invoice_id provided, you need to provide contact_or_company, contact_or_company, sys_department_id, force_set_number and (if you already have invoices) force_set_date 
+        + contact_or_company: `company` (enum[string], optional) - When there's no invoice_id provided, you need to provide contact_or_company, contact_or_company, sys_department_id, force_set_number and (if you already have invoices) force_set_date
             + Members
                 + company
                 + contact
@@ -81,7 +81,7 @@ Adding a creditnote
         + sys_department_id: `2` (number, optional) -  ID of the department the creditnote will be added to
         + description_1: `An awesome product` (string, required) - At least one creditnote line needs to be provided
         + price_1: `100` (number, required)
-        + amount_1: `3` (number, required) 
+        + amount_1: `3` (number, required)
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
             + Members
                 + 00
@@ -131,7 +131,7 @@ Update an invoice. The invoice lines you provide will be the new invoice lines o
         + invoice_id: `1` (number, required) - ID of the invoice
         + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
         + price_1: `100` (number, required)
-        + amount_1: `3` (number, required) 
+        + amount_1: `3` (number, required)
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
             + Members
                 + 00
@@ -264,3 +264,16 @@ Search invoices: get all invoices related to a deal
 
     + Attributes (object)
         + related_invoice_ids (array[number]) - array containing all the id's of the invoices related to this deal
+
+### /getInvoice.php [POST /getInvoice.php]
+
+Search invoices
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    + Attributes (InvoiceDetail)
