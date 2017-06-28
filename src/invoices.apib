@@ -499,3 +499,16 @@ Search information about an invoice by structured announcement (OGM)
         + comments: "Comments on the credit note" (string)
         + due_date: 1493157599 (number)
         + due_date_formatted: "25/04/2017" (string)
+
+### /downloadInvoicePDF.php [POST /downloadInvoicePDF.php]
+
+Generating PDF files from invoices or credit notes
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    Teamleader will return the PDF data and also sent the correct headers.
