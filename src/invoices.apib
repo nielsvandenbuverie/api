@@ -1,5 +1,71 @@
 ## Invoices [/invoices]
 
+### /addInvoice.php [POST /addInvoice.php]
+
+Adding an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_or_company: `company` (enum[string], required) - Who is the invoice for?
+            + Members
+                + company
+                + contact
+        + contact_or_company_id: `1` (number, required) - ID of the related contact or company
+        + sys_department_id: `2` (number, required) -  ID of the department the invoice will be added to
+        
+        + description_1: `An awesome product` (string, required) - At least one invoice item needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) id of the bookkeeping account (optional)
+        + subtitle_1: `Subtitle` (string, optional)
+        + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
+        + for_attention_of: `An awesome customer` (string, optional)
+        + payment_term: `30D` (enum[string], optional) - 30D by default. 7D : 7 days, 30DEM : 30 days end of month.
+            + Members
+                + 0D
+                + 7D
+                + 10D
+                + 15D
+                + 21D
+                + 30D
+                + 45D
+                + 60D
+                + 30DEM
+                + 60DEM
+                + 90DEM
+        + draft_invoice: `1` (enum[number], optional) - set to 1 to insert this invoice as a draft.(default: 0)
+            + Members
+                + 0
+                + 1
+        + layout_id: `1` (number, optional) - ID of the custom layout you wish to use for this invoice
+        + date: `21/06/2017` (string, optional) - date (dd/mm/yyyy): the date of the invoice. (default: today)
+        + po_number: `1` (string, optional) - The external order number
+        + related_deal_id: `1` (number, optional) - ID of the deal this invoice is related to
+        + direct_debit: `1` (number, optional) set to 1 to enable direct debit. (default: 0)
+            + Members
+                + 0
+                + 1
+        + comments: `An invoice with awesome products` (string, optional)
+        + force_set_number: `20170001` (number, optional) - force invoice number to the given integer. Is only taken into account when there's no date provided
+        + force_set_date: `21/06/2017` (string, optional) - date (dd/mm/yyyy): forces the date of the invoice. (default: today). Is only taken into account when there's a force_set_number provided and no date
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: (number) - ID of the invoice that was added
+
 ### /getInvoices.php [POST /getInvoices.php]
 
 Search invoices
