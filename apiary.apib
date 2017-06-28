@@ -1107,7 +1107,7 @@ Search information about an invoice by invoice number and fiscal year
 
 ### /getCreditnoteByNr.php [POST /getCreditnoteByNr.php]
 
-Search information about an credit note by credit note number and fiscal year
+Search information about a credit note by credit note number and fiscal year
 
 + Request (application/json)
 
@@ -1143,6 +1143,49 @@ Search information about an credit note by credit note number and fiscal year
             + discounts_on_vat_by_vat_rate (array[number])
         + comments: "Comments on the credit note" (string)
         + related_invoice_id: 173111 (number)
+
+### /getInvoiceByOGM.php [POST /getInvoiceByOGM.php]
+
+Search information about an invoice by structured announcement (OGM)
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ogm: `1` (string, required) - the entire OGM in the following format: +++xxx/yyy/zzzzz+++
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: 173111 (number)
+        + invoice_nr: 5 (number)
+        + invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
+        + booked: 0 (enum[number])
+                    + Members
+                        + 0
+                        + 1
+        + structured_communication: "+++000/1731/11048+++" (string)
+        + date: 1491343199 (number)
+        + date_formatted: "04/04/2017" (string)
+        + date_paid: 1493157599 (number)
+        + date_paid_formatted: "25/04/2017" (string)
+        + paid: 1 (enum[number])
+            + Members
+                + 0
+                + 1
+        + total_price_excl_vat: 100 (number)
+        + total_price_incl_vat: 121 (number)
+        + for: "company" (enum[string])
+            + Members
+                + "company"
+                + "contact"
+        + for_id: 12 (number) - id of the contact or company
+        + items (array[InvoiceItem])
+        + discount_info (object)
+            + discounts_excl_vat_by_vat_rate (array[number])
+            + discounts_on_vat_by_vat_rate (array[number])
+        + comments: "Comments on the credit note" (string)
+        + due_date: 1493157599 (number)
+        + due_date_formatted: "25/04/2017" (string)
 
 ## Files [/files]
 
