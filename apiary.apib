@@ -887,7 +887,66 @@ Add subscription
 
 + Request (application/json)
 
-+ Response 200 (text/html)
+    Item lines can be added by giving the item line <id> as prefix. eg description_1 will contain the description for Item line 1, description_2 will contain the description for item line 2, ...
+
+    + Attributes(object)
+        + name: `Johan` (string, required) - The name of the product
+        + contact_or_company: `contact` (enum[string], required) - Who is the subscription for?
+            + Members
+                + contact
+                + company
+        + contact_or_company_id: `1` (number, required) - ID of the contact or company
+        + sys_department_id: `1` (number, required) - ID of the department the invoice will be added to
+        + date_start: `01/08/1987` (string, required) - Date the first invoice should be created. The date should be in the format dd/mm/yyyy
+        + repeat_after: `monthly` (enum[string], required) - Repeat cycle 
+            + Members
+                + monthly
+                + twomonthly
+                + quarterly
+                + sixmonthly
+                + yearly
+                + twoyearly
+        + title: `example.com` (string, required) - eg: Hosting, Domain names,...
+        + date_end: `01/08/1987` (string, optional) - Date this subscription should expire. Date should be in the format dd/mm/yyyy
+        + related_deal_id: `1` (number, optional) - ID of the deal this subscription is related to
+        + permanent_invoicing: `0` (string, optional) - When set to 0 this subscription won't be automatically booked. Default enabled (1).
+        + autosend_invoice: `0` (string, optional) - When set to 1, this subscription invoice will be send automatically.
+        + autosend_bpost: `0` (string, optional) - When set to 1, this subscription invoice through physical mail will be send automatically.
+        + comments: `Comment` (string, optional) - Comments
+        + days_in_advance: `1` (string, optional) - Sending of the invoice. Set to 0 to send out the invoice on the day it's due. Defaults to 7 days
+        + payment_term: `` (enum[string], optional) - Default: 30D
+            + 0D
+            + 7D
+            + 10D
+            + 15D
+            + 21D
+            + 30D
+            + 45D
+            + 60D
+            + 30DEM
+            + 60DEM
+            + 90DEM
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+        + description_<id>: `Item description` (string, optional) - Description of item line <id>
+        + price_<id>: `12.34` (string, optional) - Item line <id> price
+        + amount_<id>: `100` (string, optional) - Item line <id> amount
+        + vat_<id>: `00` (enum[string], optional) - The vat tariff for item line <id>
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_<id>_1: `1` (number, optional) Id of the product for item line <id>
+        + account_<id>: `1` (number, optional)  Id of the bookkeeping account for item line <id>
+        + subtitle_<id>: `Sub sub title` (string, optional) Subtitle for item line <id>
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + id: `416654` (number) - ID of the subscription that was added
 
 ### /updateSubscription.php [POST /updateSubscription.php]
 
