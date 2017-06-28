@@ -290,3 +290,25 @@ Search creditnotes
 + Response 200 (application/json)
 
     + Attributes (CreditnoteDetail)
+
+### /getTimetrackingForInvoice.php [POST /getTimetrackingForInvoice.php]
+
+Search all timetracking related to an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: 1 (number) - id of the timetracking
+        + employee_name: `Gavin Belson` (string)
+        + date: 1491480887 (number)
+        + duration: 60 (number) - duration in minutes
+        + type: `meeting` (string)
+        + milestone_id: 5 (number)
+        + milestone_title: `Milestone 5` (string)
+        + hourly_cost: 25 (string)
+        + description: `Timetracking description` (string)
