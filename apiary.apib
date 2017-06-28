@@ -931,11 +931,19 @@ Add subscription
 
 ### /getRelatedSubscriptionsByInvoice.php [POST /getRelatedSubscriptionsByInvoice.php]
 
-    subscription
+    Fetching all subscriptions related to an invoice
 
 + Request (application/json)
 
+    + Attributes(object)
+        + invoice_id: 1471 (number, required) - The id of the invoice
+
 + Response 200 (application/json)
+
+    + Attributes(array)
+        + (object)
+            + subscription_id: 7457 (number)
+            + subscription_title: Monthly subscription Teamleader (string)
 
 ### /getSubscriptionsByDeal.php [POST /getSubscriptionsByDeal.php]
 
