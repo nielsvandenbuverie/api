@@ -4,7 +4,7 @@
 
 ### /addTimetracking.php [POST /addTimetracking.php]
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     Additional cost can be added with optional params. These params are suffixed with the index (1 based) of the
     additional cost  (`<param>_<index_of_additional_cost>`).
@@ -61,7 +61,7 @@
 
 ### /updateTimetracking.php [POST /updateTimetracking.php]
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     Additional cost can be added with optional params. These params are suffixed with the index (1 based) of the
     additional cost  (`<param>_<index_of_additional_cost>`).
@@ -119,12 +119,12 @@
 
 ### /getTimetrackingEntry.php [GET /getTimetrackingEntry.php]
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes
         + timetracking_id: `1` (number) - The id of the timetracking entry
 
-+ Response 200 (text/html)
++ Response 200 (application/json)
 
     + Attributes
         + id: `98` (number) - Id of the timetracking
@@ -146,35 +146,9 @@
             + object_type: `none` (string)
             + object_id: `1` (number)
 
-    + Body
-
-             [
-                 {
-                     "id": 98,
-                     "user_id": 1,
-                     "employee_name": "Jane Doe",
-                     "date": 1452553200,
-                     "date_formatted": "12\/01\/2016",
-                     "duration": 1440,
-                     "contact_id": "",
-                     "company_id": "",
-                     "project_id": "",
-                     "project_title": "",
-                     "milestone_id": "",
-                     "milestone_title": "",
-                     "description": "test",
-                     "ticket_id": "",
-                     "is_invoiceable": 0,
-                     "related_to": {
-                         "object_type": "none",
-                         "object_id": ""
-                     }
-                 }
-             ]
-
 ### /getTimetracking.php [GET /getTimetracking.php]
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     Date range can be a maximum period of one month. Id filters cannot be combined.
 
@@ -186,7 +160,7 @@
         + company_id: `3` (number, optional) - Return only timetracking tracked by this company
         + contact_id: `4` (number, optional) - Return only timetracking tracked by this contact
 
-+ Response 200 (text/html)
++ Response 200 (application/json)
 
     + Attributes
         + id: `98` (number) - Id of the timetracking
@@ -194,7 +168,7 @@
         + employee_name: `Jane Doe` (string)
         + team: `Team` (string)
         + date: `1452553200` (number) - Unix timestamp
-        + date_formatted: `dd/mm/yyyy` (string)
+        + date_formatted: `12/06/2016` (string)
         + duration: `5` (number) - Duration of the timetracking in minutes
         + type: `Type` (string)
         + contact_id: `2` (number)
@@ -211,37 +185,6 @@
         + company_name: `Doe inc.` (string)
         + contact_name: `John Doe` (string)
         + hourly_cost: `10` (number)
-
-    + Body
-
-            [
-                {
-                    "id": 98,
-                    "user_id": 1,
-                    "employee_name": "Jane Doe",
-                    "team": "Teamleader",
-                    "date": 1452553200,
-                    "date_formatted": "12\/01\/2016",
-                    "duration": 1440,
-                    "type": "Category",
-                    "contact_id": "",
-                    "contact_name": "",
-                    "company_id": "",
-                    "company_name": "",
-                    "project_id": "",
-                    "project_title": "",
-                    "milestone_id": "",
-                    "milestone_title": "",
-                    "description": "test",
-                    "ticket_id": "",
-                    "is_invoiceable": 0,
-                    "related_to": {
-                        "object_type": "none",
-                        "object_id": ""
-                    },
-                    "hourly_cost": 10.20
-                 }
-            ]
 
 ### getTimetrackingForTask.php [POST /getTimetrackingForTask.php]
 
