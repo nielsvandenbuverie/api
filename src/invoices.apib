@@ -120,7 +120,37 @@ Mark an invoice to paid or not paid
 
     + Attributes (object)
         + status: `success` (string) - Indicating success or failure of the operation.
-        
+
+### /updateInvoice.php [POST /updateInvoice.php]
+
+Update an invoice. The invoice lines you provide will be the new invoice lines of the invoice. The old invoice lines will be removed. All changes made via the API to invoices will be registered in the tracking section of the invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+        + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) id of the bookkeeping account (optional)
+        + subtitle_1: `Subtitle` (string, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `OK` (string) - Indicating success or failure of the operation.
+
 ### /getInvoices.php [POST /getInvoices.php]
 
 Search invoices
