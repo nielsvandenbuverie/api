@@ -963,7 +963,41 @@ Search invoices
 
 + Response 200 (application/json)
 
-    + Attributes (InvoiceDetail)
+    + Attributes (object)
+        + id: 173111 (number)
+        + invoice_nr: 5 (number)
+        + invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
+        + booked: 0 (enum[number])
+            + Members
+                + 0
+                + 1
+        + date: 1491343199 (number)
+        + date_formatted: "04/04/2017" (string)
+        + due_date: 1493157599 (number)
+        + due_date_formatted: "25/04/2017" (string)
+        + date_paid: `-1` (number)
+        + paid: 0 (number)
+        + total_price_excl_vat: 100 (number)
+        + total_price_incl_vat: 121 (number)
+        + for: "company" (enum[string])
+            + Members
+                + "company"
+                + "contact"
+        + for_id: 12 (number) - id of the contact or company
+        + items (array[InvoiceItem])
+        + discount_info (object)
+            + discounts_excl_vat_by_vat_rate (array[number])
+            + discounts_on_vat_by_vat_rate (array[number])
+        + comments: "Comments on the invoice" (string)
+        + invoice_on_hold: 0 (enum[number])
+            + Members
+                + 0
+                + 1
+        + client_name: "De Rode Duivels" (string)
+        + for_attention_of: "Radja Nainggolan" (string)
+        + structured_communication: "+++000/1731/11048+++" (string)
+        + partial_payments: 50 (number)
+        + custom_fields (object)
 
 ### /getCreditnote.php [POST /getCreditnote.php]
 
@@ -1212,42 +1246,6 @@ Delete a file
 + structured_communication: "+++000/1731/11048+++" (string)
 + contact_or_company: "company" (string)
 + contact_or_company_id: 485906 (number)
-
-## InvoiceDetail (object)
-+ id: 173111 (number)
-+ invoice_nr: 5 (number)
-+ invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
-+ booked: 0 (enum[number])
-    + Members
-        + 0
-        + 1
-+ date: 1491343199 (number)
-+ date_formatted: "04/04/2017" (string)
-+ due_date: 1493157599 (number)
-+ due_date_formatted: "25/04/2017" (string)
-+ date_paid: `-1` (number)
-+ paid: 0 (number)
-+ total_price_excl_vat: 100 (number)
-+ total_price_incl_vat: 121 (number)
-+ for: "company" (enum[string])
-    + Members
-        + "company"
-        + "contact"
-+ for_id: 12 (number) - id of the contact or company
-+ items (array[InvoiceItem])
-+ discount_info (object)
-    + discounts_excl_vat_by_vat_rate (array[number])
-    + discounts_on_vat_by_vat_rate (array[number])
-+ comments: "Comments on the invoice" (string)
-+ invoice_on_hold: 0 (enum[number])
-    + Members
-        + 0
-        + 1
-+ client_name: "De Rode Duivels" (string)
-+ for_attention_of: "Radja Nainggolan" (string)
-+ structured_communication: "+++000/1731/11048+++" (string)
-+ partial_payments: 50 (number)
-+ custom_fields (object)
 
 ## InvoiceItem (object)
 + text: "An awesome product" (string)
