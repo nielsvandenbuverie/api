@@ -71,7 +71,7 @@ Search creditnotes
 
     + Attributes (array[Creditnote])
 
-### /sendInvoice.php [/sendInvoice.php]
+### /sendInvoice.php [POST /sendInvoice.php]
 
 Send booked invoices via email. A maximum of 10 attachments can be provided.
 
@@ -89,3 +89,26 @@ Send booked invoices via email. A maximum of 10 attachments can be provided.
 
     + Attributes (object)
         + status: `success` (string) - Indicating success or failure of the operation.
+
+### /getInvoiceReminderTemplates.php [POST /getInvoiceReminderTemplates.php]
+
+Get the id and name of available email reminder templates for an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to view available reminders for
+        
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+        + data: (array)
+            + (object)
+                + id: `1` (number)
+                +name: `template1` (string)
