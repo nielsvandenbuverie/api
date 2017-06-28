@@ -978,7 +978,56 @@ Add subscription
 
 + Request (application/json)
 
+    + Attributes(object)
+        + amount: 50 (number, required) - The amount of subscriptions returned per request (between 1 and 100)
+        + pageno: 0 (number, required) - The page number (the first page is 0)
+        + selected_customfields: 14,15 (array[number]) - Comma-separated list of the IDs of the custom fields you wish to select (max 10)
+        + searchby: teamleader (string) - We'll try to match each part of the string to the subscription title and content
+
 + Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: 48100 (number) - The id of the subscription
+            + active: 1 (enum[number]) - Boolean indicating if the invoice is active
+                + Members
+                    + 1
+                    + 0
+            + repeat: quarterly (enum[string])
+                + Members
+                    + monthly
+                    + quarterly
+                    + yearly
+                    + sixmonthly
+                    + twomonthly
+                    + twoyearly
+                    + 3yearly
+                    + 4yearly
+                    + 5yearly
+                    + twoweekly
+                    + 6yearly
+                    + 7yearly
+                    + 8yearly
+                    + 9yearly
+                    + 10yearly
+                    + fourmonthly
+            + client_name: Erlich Bachman (string) - Name of the client
+            + department_name: Finance (string) - Department for which the subscription is created
+            + department_id: 2 (number) - Id of the department
+            + date_start: 1480287600 (number) - Unix timestamp of the start date of the subscription
+            + date_start_formatted: 28/11/2016 (string) - Formatted start date of the subscription
+            + date_end (number, nullable) - Unix timestamp of the end date of the subscription (can be empty)
+            + date_end_formatted (string, nullable) Formatted end date of the subscription
+            + total_price_excl_vat: 100.00 (number) - Price, excluding VAT
+            + total_price_incl_vat: 106.00 (number) - Price, including VAT
+            + next_renewal_date: 1488236400 (number) - Unix timestamp of the next renewal date
+            + next_renewal_date_formatted: 28/02/2017 - Formatted next renewal date
+            + contact_or_company: contact (enum[string]) - Indicates the subscription is linked to a contact or a company
+                + Members
+                    + contact
+                    + company
+            + contact_or_company_id: 1174438 (number) - The id of the contact or company
+            
 
 ### /getInvoicesBySubscription.php [POST /getInvoicesBySubscription.php]
 
