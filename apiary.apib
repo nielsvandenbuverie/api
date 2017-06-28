@@ -885,7 +885,7 @@ Delete a file
 
 Add product
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes (object)
         + name: `Johan` (string, required) - The name of the product
@@ -916,7 +916,7 @@ Add product
 
 
 
-+ Response 200 (text/html)
++ Response 200 (application/json)
     + Attributes (object)
         + id: `416654` (number) - ID of the product that was added
 
@@ -928,7 +928,7 @@ Add product
 
 Update product
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes (object)
         + product_id: `1234` (string, required) - Id of the product
@@ -954,7 +954,7 @@ Update product
 
 Delete product
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes (object)
         + product_id: `1234` (string, required) - Id of the product
@@ -971,7 +971,7 @@ Delete product
 
 Search all products
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes
         + amount: 10 (number, required) - The amount of products returned per request
@@ -979,7 +979,7 @@ Search all products
         + searchBy: scissor (string, optional) - The search string. Teamleader will try to match each part of the string to the name or external ID of the product
         + modifiedsince: 1498056035 (number, optional) - Unix timestamp. Teamleader will only return products that have been added or modified since that timestamp
 
-+ Response 200 (text/html)
++ Response 200 (application/json)
     
     Prices will be returned as `price_value_<index_of_price>`, they are suffixed with the price index. 
     For example, first price returned will be `price_value_1` and the second will be `price_value_2`.
@@ -1015,14 +1015,14 @@ Search all products
 
 Get product details
 
-+ Request (application/x-www-form-urlencoded)
++ Request (application/json)
 
     + Attributes
         + product_id: 20 (number, required) - The id of the product
         + include_all_custom_fields: 1 (number, optional) - If this flag is set to 1, all custom fields will be fetched 
         + include_photos: 1 (number, optional) - If this flag is set to 1, the product image url will be fetched
 
-+ Response 200 (text/html)
++ Response 200 (application/json)
 
     Custom fields will be returned as on object with the custom field id as a key and the custom field value as the value.
     
