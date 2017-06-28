@@ -101,11 +101,17 @@ Add subscription
 
 ### /getInvoicesBySubscription.php [POST /getInvoicesBySubscription.php]
 
-    Find all subscriptions related to an invoice
+    Fetching all invoices created by a subscription
 
 + Request (application/json)
 
+    + Attributes(object)
+        + subscription_id: 1245 (number, required) - The id of the subscription
+
 + Response 200 (application/json)
+
+    + Attributes(object)
+        + generated_invoice_ids: 11400, 11401 (array[number])
 
 ### /getRelatedSubscriptionsByInvoice.php [POST /getRelatedSubscriptionsByInvoice.php]
 
