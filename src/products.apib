@@ -22,8 +22,10 @@ Add product
                 + MC
                 + VCMD
         + account_id: `1234` (number, optional) - The ID of the bookkeeping account
-        + automerge_by_name: `true` (boolean, optional) - If this flag is set to 1, Teamleader will merge this info into an existing product with the same name, if it finds any.
-            + Default: false
+        + automerge_by_name: `0` (enum[number]) - If this flag is set to 1, Teamleader will merge this info into an existing product with the same name, if it finds any.
+            + Members
+                + 0
+                + 1
         + purchase_price: `12.34` (number, optional) - The purchase price of the product
         + custom_field_ID: `any` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
