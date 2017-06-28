@@ -973,11 +973,16 @@ Add subscription
 
 ### /deleteSubscription.php [POST /deleteSubscription.php]
 
-    Update subscription
+    Delete subscription
 
 + Request (application/json)
 
+    + Attributes
+        + subscription_id: `1` (number, required) - ID of the subscription
+
 + Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string)
 
 ### /getSubscription.php [POST /getSubscription.php]
 
