@@ -1189,12 +1189,25 @@ Search information about an invoice by structured announcement (OGM)
 
 ### /downloadInvoicePDF.php [POST /downloadInvoicePDF.php]
 
-Generating PDF files from invoices or credit notes
+Generating PDF files from invoices
 
 + Request (application/json)
 
     + Attributes (object)
         + invoice_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    Teamleader will return the PDF data and also sent the correct headers.
+
+### /downloadCreditnotePDF.php [POST /downloadCreditnotePDF.php]
+
+Generating PDF files from credit notes
+
++ Request (application/json)
+
+    + Attributes (object)
+        + creditnote_id: `1` (number, required)
 
 + Response 200 (application/json)
 
