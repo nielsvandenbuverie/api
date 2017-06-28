@@ -242,3 +242,24 @@
                     "hourly_cost": 10.20
                  }
             ]
+
+### getTimetrackingForTask.php [POST /getTimetrackingForTask.php]
+
++ Request (application/json)
+
+    + Attributes
+        + task_id: (number)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + id: 1 (number)
+        + user_id: 2 (number)
+        + user_name: Jane Doe (string)
+        + date: 1452553200 (number)
+        + date_formatted: 12/01/2016 (string)
+        + duration: 120 (number)
+        + is_invoiceable: 1 (enum[number])
+            + Members
+                 + 0
+                 + 1
