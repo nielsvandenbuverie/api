@@ -98,11 +98,6 @@ Get the id and name of available email reminder templates for an invoice
 
     + Attributes (object)
         + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to view available reminders for
-        
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + status: `success` (string) - Indicating success or failure of the operation.
 
 + Response 200 (application/json)
 
@@ -111,4 +106,22 @@ Get the id and name of available email reminder templates for an invoice
         + data: (array)
             + (object)
                 + id: `1` (number)
-                +name: `template1` (string)
+                + name: `template1` (string)
+
+### /getInvoiceReminderTemplateContent.php [POST /getInvoiceReminderTemplateContent.php]
+
+Renders a certain reminder template for a given invoice. You can use this to send a reminder to your customer with the sendInvoice endpoint, as this endpoint does not send any reminders itself.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to view available reminders for
+        + template_id: `1` (number, required) - ID of the template you want to render
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+        + data: (object)
+            + subject: `Reminder to pay invoice 20170001` (string)
+            + text: `Please pay invoice 20170001` (string)
