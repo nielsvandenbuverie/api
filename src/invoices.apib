@@ -13,8 +13,7 @@ Adding an invoice
                 + contact
         + contact_or_company_id: `1` (number, required) - ID of the related contact or company
         + sys_department_id: `2` (number, required) -  ID of the department the invoice will be added to
-        
-        + description_1: `An awesome product` (string, required) - At least one invoice item needs to be provided
+        + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
         + price_1: `100` (number, required)
         + amount_1: `3` (number, required) 
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
@@ -65,6 +64,44 @@ Adding an invoice
 
     + Attributes (object)
         + id: (number) - ID of the invoice that was added
+
+### addCreditnote.php [POST /addCreditnote.php]
+
+Adding a creditnote
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice related to this credit note. It must be a booked invoice.
+        + contact_or_company: `company` (enum[string], optional) - When there's no invoice_id provided, you need to provide contact_or_company, contact_or_company, sys_department_id, force_set_number and (if you already have invoices) force_set_date 
+            + Members
+                + company
+                + contact
+        + contact_or_company_id: `1` (number, optional) - ID of the related contact or company
+        + sys_department_id: `2` (number, optional) -  ID of the department the creditnote will be added to
+        + description_1: `An awesome product` (string, required) - At least one creditnote line needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) id of the bookkeeping account (optional)
+        + subtitle_1: `Subtitle` (string, optional)
+        + force_set_number: `20170001` (number, optional) - force creditnote number to the given integer.
+        + force_set_date: `21/06/2017` (string, optional) - date (dd/mm/yyyy): forces the date of the creditnote. (default: today). Is only taken into account when there's a force_set_number provided
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: (number) - ID of the creditnote that was added
 
 ### /getInvoices.php [POST /getInvoices.php]
 
