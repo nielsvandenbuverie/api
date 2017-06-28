@@ -700,8 +700,7 @@ Adding an invoice
                 + contact
         + contact_or_company_id: `1` (number, required) - ID of the related contact or company
         + sys_department_id: `2` (number, required) -  ID of the department the invoice will be added to
-        
-        + description_1: `An awesome product` (string, required) - At least one invoice item needs to be provided
+        + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
         + price_1: `100` (number, required)
         + amount_1: `3` (number, required) 
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
@@ -751,7 +750,122 @@ Adding an invoice
 + Response 200 (application/json)
 
     + Attributes (object)
-        + id: (number) - ID of the invoice that was added
+        + id: `1` (number) - ID of the invoice that was added
+
+### addCreditnote.php [POST /addCreditnote.php]
+
+Adding a creditnote
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice related to this credit note. It must be a booked invoice.
+        + contact_or_company: `company` (enum[string], optional) - When there's no invoice_id provided, you need to provide contact_or_company, contact_or_company, sys_department_id, force_set_number and (if you already have invoices) force_set_date 
+            + Members
+                + company
+                + contact
+        + contact_or_company_id: `1` (number, optional) - ID of the related contact or company
+        + sys_department_id: `2` (number, optional) -  ID of the department the creditnote will be added to
+        + description_1: `An awesome product` (string, required) - At least one creditnote line needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) id of the bookkeeping account (optional)
+        + subtitle_1: `Subtitle` (string, optional)
+        + force_set_number: `20170001` (number, optional) - force creditnote number to the given integer.
+        + force_set_date: `21/06/2017` (string, optional) - date (dd/mm/yyyy): forces the date of the creditnote. (default: today). Is only taken into account when there's a force_set_number provided
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (number) - ID of the creditnote that was added
+
+### /setInvoicePaymentStatus.php [POST /setInvoicePaymentStatus.php]
+
+Mark an invoice to paid or not paid
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice. The invoice needs to be booked in order to mark it as paid.
+        + status: `paid` (enum[string], required) - It's not possible to mark a paid invoice as paid, or unpaid invoice as unpaid.
+            + Members
+                + paid
+                + not_paid
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
+### /updateInvoice.php [POST /updateInvoice.php]
+
+Update an invoice. The invoice lines you provide will be the new invoice lines of the invoice. The old invoice lines will be removed. All changes made via the API to invoices will be registered in the tracking section of the invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+        + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) id of the bookkeeping account (optional)
+        + subtitle_1: `Subtitle` (string, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `OK` (string) - Indicating success or failure of the operation.
+
+### /updateInvoiceComments.php [POST /updateInvoiceComments.php]
+
+Update the comments on an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+        + comments: `Comments on the invoice` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
+### /deleteInvoice.php [POST /deleteInvoice.php]
+
+Delete an invoice. It's not possible to delete invoices which are exported to a bookkeeping tool. It's only possible to delete an invoice if this doesn't causa a gap in numbering and if there are no creditnotes for this invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
 
 ### /getInvoices.php [POST /getInvoices.php]
 
