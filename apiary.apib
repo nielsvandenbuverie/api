@@ -1139,7 +1139,17 @@ Update a Teamleader meeting
 + creator_id: 1 (number)
 + canceller_id: 1 (number)
 + location: `Street 1, B-1234 City` (string)
-+ location_detailed: [type, contact, company] (array[])
++ location_detailed: [] (array[object])
+    + (object)
+        + type: `company_location` (enum[string]) - Whose location is it
+            + Members
+                + company_location
+                + contact_location
+                + virtual
+                + predefined_location
+                + manually_entered
+        + contact `Street 1, B-1234 City` (string) - Contact location detail
+        + company `Street 1, B-1234 City` (string) - Company location detail
 + project_id: 1 (number)
 + milestone_id: 1 (number)
 + date_added: 554774400 (number)
