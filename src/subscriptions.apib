@@ -19,11 +19,21 @@ Add subscription
         + repeat_after: `monthly` (enum[string], required) - Repeat cycle 
             + Members
                 + monthly
-                + twomonthly
                 + quarterly
-                + sixmonthly
                 + yearly
+                + sixmonthly
+                + twomonthly
                 + twoyearly
+                + 3yearly
+                + 4yearly
+                + 5yearly
+                + twoweekly
+                + 6yearly
+                + 7yearly
+                + 8yearly
+                + 9yearly
+                + 10yearly
+                + fourmonthly
         + title: `Monthly subscription Teamleader` (string, required) - eg: Hosting, Domain names,...
         + date_end: `01/08/1987` (string, optional) - Date this subscription should expire. Date should be in the format dd/mm/yyyy
         + related_deal_id: `1` (number, optional) - ID of the deal this subscription is related to
@@ -78,11 +88,21 @@ Add subscription
         + repeat_after: `monthly` (enum[string], optional) -  Invoice repeat cycle
             + Members
                 + monthly
-                + twomonthly
                 + quarterly
-                + sixmonthly
                 + yearly
+                + sixmonthly
+                + twomonthly
                 + twoyearly
+                + 3yearly
+                + 4yearly
+                + 5yearly
+                + twoweekly
+                + 6yearly
+                + 7yearly
+                + 8yearly
+                + 9yearly
+                + 10yearly
+                + fourmonthly
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
 + Response 200 (application/json)
@@ -123,11 +143,21 @@ Add subscription
         + repeat: `monthly` (enum[string], required) - Invoice repeat cycle 
             + Members
                 + monthly
-                + twomonthly
                 + quarterly
-                + sixmonthly
                 + yearly
+                + sixmonthly
+                + twomonthly
                 + twoyearly
+                + 3yearly
+                + 4yearly
+                + 5yearly
+                + twoweekly
+                + 6yearly
+                + 7yearly
+                + 8yearly
+                + 9yearly
+                + 10yearly
+                + fourmonthly
         + department_id: `1` (number) - ID of the department
         + date_start: `554774400` (number) - Start date of subscription as unix timestamp
         + date_start_formatted: `01/08/1987` (string) - Start date of subscritpion in formatted string mm/dd/yyyy.
