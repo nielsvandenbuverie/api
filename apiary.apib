@@ -879,6 +879,62 @@ Delete a file
             "status": "success"
         }
 
+## Notes [/notes]
+
+### /addNote.php [POST /addNote.php]
+
+Add a note to an object
+
++ Request (application/json)
+
+    + Attributes (object)
+        + object_type: `contact` (enum[string], required) - The type of object
+            + Members
+                + contact
+                + company
+                + sale
+                + project
+                + meeting
+        + object_id: `1` (number, required) - ID of the object
+        + note_title: `Phone call` (string, required) - A short title for the note (max. 100 characters)
+        + note_extra_information: `A longer text that can contain plaintext or HTML` (string, optional)
+        + note_extra_information_type: `HTML` (enum[string], optional) - The type of extra information
+            + Members
+                + plaintext
+                + HTML
+        + disable_modification: `1` (enum[number], optional) - Can be used to disable editing/deleting this note
+            + Members
+                + 0
+                + 1
+        + date: `1` (number, optional) - Unix timestamp: add a custom timestamp
+
++ Response 200 (application/json)
+
+        {
+            "status": "OK"
+        }
+
+### /getNotes.php [POST /getNotes.php]
+
+Get a list of notes for an object
+
++ Request (application/json)
+
+    + Attributes (object)
+        + object_type: `contact` (enum[string], required) - The type of object
+            + Members
+                + contact
+                + company
+                + sale
+                + project
+                + meeting
+        + object_id: `1` (number, required) - ID of the object
+        + pageno: `0` (number, required) - The current page, the first page is 0
+
++ Response 200 (application/json)
+
+    + Attributes (array[Note])
+
 # Data Structures
 
 ## Contact (object)
