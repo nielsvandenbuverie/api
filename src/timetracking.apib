@@ -206,3 +206,28 @@
             + Members
                  + 0
                  + 1
+
+### updateTask.php [POST /updateTask.php]
+
++ Request (application/json)
+
+    + Attributes
+        + task_id: 1 (number, required) - Id of the task
+        + description: Description (string) - Description of the task
+        + duration: 120 (number) - Amount of mintues that should be spent on the task
+        + task_type_id: 3 (number) - Category of the task
+        + priority: A (enum[string]) - Priority of the task
+            + Members
+                + A
+                + B
+                + C
+                + D
+        + done: 0 (enum[number]) - Done state of the task
+            + Members
+                + 0
+                + 1
+        + custom_field_<id>: 6 (number, optional) - Where <id> is an custom field id
+
++ Response 200 (application/json)
+
+        "OK"
