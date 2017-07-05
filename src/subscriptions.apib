@@ -37,20 +37,20 @@ Add subscription
         + title: `Monthly subscription Teamleader` (string, required) - eg: Hosting, Domain names,...
         + date_end: `01/08/1987` (string, optional) - Date this subscription should expire. Date should be in the format dd/mm/yyyy
         + related_deal_id: `1` (number, optional) - ID of the deal this subscription is related to
-        + permanent_invoicing: `0` (enum[string], optional) - Default 1.
+        + permanent_invoicing: `0` (enum[number], optional) - Default 1.
             + Members
                 + 0 - Do not automatically book subscription.
                 + 1 - Automatically book subscription.
-        + autosend_invoice: `0` (enum[string], optional) - Automatically send subscription invoice
+        + autosend_invoice: `0` (enum[number], optional) - Automatically send subscription invoice
             + Members
                 + 0 - Do not send subcription invoice automatically.
                 + 1 - Sends subscription invoice automatically.
-        + autosend_bpost: `0` (enum[string], optional) - Automatically send subscription invoice through phsyical mail.
+        + autosend_bpost: `0` (enum[number], optional) - Automatically send subscription invoice through phsyical mail.
             + Members
                 + 0 - Do not send subscription invoice through physical mail
                 + 1 - Send subscription invoice through physical mail automatically.
         + comments: `Comment` (string, optional) - Comments
-        + days_in_advance: `1` (string, optional) - Sending of the invoice. Set to 0 to send out the invoice on the day it's due. Defaults to 7 days
+        + days_in_advance: `1` (number, optional) - Sending of the invoice. Set to 0 to send out the invoice on the day it's due. Defaults to 7 days
         + payment_term: `0D` (enum[string], optional) - Default: 30D
             + Members
                 + 0D
@@ -66,8 +66,8 @@ Add subscription
                 + 90DEM
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
         + description_ID: `Item description` (string, optional) - Description of item line ID
-        + price_ID: `12.34` (string, optional) - Item line ID price
-        + amount_ID: `100` (string, optional) - Item line ID amount
+        + price_ID: `12.34` (number, optional) - Item line ID price
+        + amount_ID: `100` (number, optional) - Item line ID amount
         + vat_ID: `00` (enum[string], optional) - The vat tariff for item line ID
             + Members
                 + 00
@@ -173,16 +173,16 @@ Add subscription
         + date_start_formatted: `01/08/1987` (string) - Start date of subscritpion in formatted string mm/dd/yyyy.
         + date_end: `554774400` (number) -  End date of subscription as unix timestamp
         + date_end_formatted: `01/08/1987` (string) - End date of subscritpion in formatted string mm/dd/yyyy.
-        + total_price_excl_vat: `12.34` (string) - Price excl VAT
-        + total_price_incl_vat: `12.34` (string) - Price incl VAT
+        + total_price_excl_vat: `12.34` (number) - Price excl VAT
+        + total_price_incl_vat: `12.34` (number) - Price incl VAT
         + next_renewal_date: `554774400` (number) - Next renewal date of subscription as unix timestamp
         + next_renewal_date_formatted: `01/08/1987` - (string) Next renewal date of subscritpion in formatted string mm/dd/yyyy.
         + items: [] (array[object]) - Item line
             + (object)
                 + text: `title` (string) - Title
                 + amount: `1` (number) - Item amount
-                + line_total_incl_vat `12.34` (string) - Line incl VAT
-                + line_total_excl_vat `12.34` (string) - Line excl VAT
+                + line_total_incl_vat `12.34` (number) - Line incl VAT
+                + line_total_excl_vat `12.34` (number) - Line excl VAT
                 + vat_rate `21` (number) - VAT rate
                 + account `1` (number) - Account ID
                 + subtitle `Line subtitle` (string) - Subtitle for line
