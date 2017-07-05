@@ -887,7 +887,7 @@ Add subscription
 
 + Request (application/json)
 
-    Item lines can be added by giving the item line <id> as suffix. eg description_1 will contain the description for Item line 1, description_2 will contain the description for item line 2, ...
+    Item lines can be added by giving the item line _ID as suffix. eg description_1 will contain the description for Item line 1, description_2 will contain the description for item line 2, ...
 
     + Attributes(object)
         + contact_or_company: `contact` (enum[string], required) - Who is the subscription for?
@@ -936,10 +936,10 @@ Add subscription
             + 60DEM
             + 90DEM
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
-        + description_<id>: `Item description` (string, optional) - Description of item line <id>
-        + price_<id>: `12.34` (string, optional) - Item line <id> price
-        + amount_<id>: `100` (string, optional) - Item line <id> amount
-        + vat_<id>: `00` (enum[string], optional) - The vat tariff for item line <id>
+        + description_ID: `Item description` (string, optional) - Description of item line ID
+        + price_ID: `12.34` (string, optional) - Item line ID price
+        + amount_ID: `100` (string, optional) - Item line ID amount
+        + vat_ID: `00` (enum[string], optional) - The vat tariff for item line ID
             + Members
                 + 00
                 + 06
@@ -949,9 +949,9 @@ Add subscription
                 + EX
                 + MC
                 + VCMD
-        + product_<id>_1: `1` (number, optional) - Id of the product for item line <id>
-        + account_<id>: `1` (number, optional) - Id of the bookkeeping account for item line <id>
-        + subtitle_<id>: `Sub sub title` (string, optional) - Subtitle for item line <id>
+        + product_ID_1: `1` (number, optional) - Id of the product for item line ID
+        + account_ID: `1` (number, optional) - Id of the bookkeeping account for item line ID
+        + subtitle_ID: `Sub sub title` (string, optional) - Subtitle for item line ID
 
 + Response 200 (application/json)
     + Attributes (object)
