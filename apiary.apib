@@ -887,7 +887,7 @@ Add subscription
 
 + Request (application/json)
 
-    Item lines can be added by giving the item line _ID as suffix. eg description_1 will contain the description for Item line 1, description_2 will contain the description for item line 2, ...
+    Item lines can be added by giving the item line ID as suffix. eg description_1 will contain the description for Item line 1, description_2 will contain the description for item line 2, ...
 
     + Attributes(object)
         + contact_or_company: `contact` (enum[string], required) - Who is the subscription for?
@@ -918,23 +918,33 @@ Add subscription
         + title: `Monthly subscription Teamleader` (string, required) - eg: Hosting, Domain names,...
         + date_end: `01/08/1987` (string, optional) - Date this subscription should expire. Date should be in the format dd/mm/yyyy
         + related_deal_id: `1` (number, optional) - ID of the deal this subscription is related to
-        + permanent_invoicing: `0` (string, optional) - When set to 0 this subscription won't be automatically booked. Default enabled (1).
-        + autosend_invoice: `0` (string, optional) - When set to 1, this subscription invoice will be send automatically.
-        + autosend_bpost: `0` (string, optional) - When set to 1, this subscription invoice through physical mail will be send automatically.
+        + permanent_invoicing: `0` (enum[string], optional) - Default 1.
+            + Members
+                + 0 - Do not automatically book subscription.
+                + 1 - Automatically book subscription.
+        + autosend_invoice: `0` (enum[string], optional) - Automatically send subscription invoice
+            + Members
+                + 0 - Do not send subcription invoice automatically.
+                + 1 - Sends subscription invoice automatically.
+        + autosend_bpost: `0` (enum[string], optional) - Automatically send subscription invoice through phsyical mail.
+            + Members
+                + 0 - Do not send subscription invoice through physical mail
+                + 1 - Send subscription invoice through physical mail automatically.
         + comments: `Comment` (string, optional) - Comments
         + days_in_advance: `1` (string, optional) - Sending of the invoice. Set to 0 to send out the invoice on the day it's due. Defaults to 7 days
-        + payment_term: `` (enum[string], optional) - Default: 30D
-            + 0D
-            + 7D
-            + 10D
-            + 15D
-            + 21D
-            + 30D
-            + 45D
-            + 60D
-            + 30DEM
-            + 60DEM
-            + 90DEM
+        + payment_term: `0D` (enum[string], optional) - Default: 30D
+            + Members
+                + 0D
+                + 7D
+                + 10D
+                + 15D
+                + 21D
+                + 30D
+                + 45D
+                + 60D
+                + 30DEM
+                + 60DEM
+                + 90DEM
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
         + description_ID: `Item description` (string, optional) - Description of item line ID
         + price_ID: `12.34` (string, optional) - Item line ID price
