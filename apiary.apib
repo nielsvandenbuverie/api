@@ -1085,7 +1085,7 @@ Add subscription
     + Attributes(object)
         + amount: `50` (number, required) - The amount of subscriptions returned per request (between 1 and 100)
         + pageno: `0` (number, required) - The page number (the first page is 0)
-        + selected_customfields: `14,15` (array[number]) - Comma-separated list of the IDs of the custom fields you wish to select (max 10)
+        + selected_customfields: 14,15 (array[number]) - Comma-separated list of the IDs of the custom fields you wish to select (max 10)
         + searchby: `teamleader` (string) - We'll try to match each part of the string to the subscription title and content
 
 + Response 200 (application/json)
@@ -1145,7 +1145,7 @@ Add subscription
 + Response 200 (application/json)
 
     + Attributes(object)
-        + generated_invoice_ids: `11400, 11401` (array[number])
+        + generated_invoice_ids: 11400, 11401 (array[number])
 
 ### /getRelatedSubscriptionsByInvoice.php [POST /getRelatedSubscriptionsByInvoice.php]
 
@@ -1175,7 +1175,7 @@ Add subscription
 + Response 200 (application/json)
 
     + Attributes(object)
-        + related_subscription_ids: `1245, 2584` (array[number])
+        + related_subscription_ids: 1245, 2584 (array[number])
 
 ### /getSubscriptionsByContactOrCompany.php [POST /getSubscriptionsByContactOrCompany.php]
 
