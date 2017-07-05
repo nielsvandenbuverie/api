@@ -939,9 +939,9 @@ Add subscription
                 + EX
                 + MC
                 + VCMD
-        + product_<id>_1: `1` (number, optional) Id of the product for item line <id>
-        + account_<id>: `1` (number, optional)  Id of the bookkeeping account for item line <id>
-        + subtitle_<id>: `Sub sub title` (string, optional) Subtitle for item line <id>
+        + product_<id>_1: `1` (number, optional) - Id of the product for item line <id>
+        + account_<id>: `1` (number, optional) - Id of the bookkeeping account for item line <id>
+        + subtitle_<id>: `Sub sub title` (string, optional) - Subtitle for item line <id>
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -1081,7 +1081,7 @@ Add subscription
             + date_start: 1480287600 (number) - Unix timestamp of the start date of the subscription
             + date_start_formatted: 28/11/2016 (string) - Formatted start date of the subscription
             + date_end (number, nullable) - Unix timestamp of the end date of the subscription (can be empty)
-            + date_end_formatted (string, nullable) Formatted end date of the subscription
+            + date_end_formatted (string, nullable) - Formatted end date of the subscription
             + total_price_excl_vat: 100.00 (number) - Price, excluding VAT
             + total_price_incl_vat: 106.00 (number) - Price, including VAT
             + next_renewal_date: 1488236400 (number) - Unix timestamp of the next renewal date
