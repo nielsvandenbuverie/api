@@ -758,6 +758,35 @@ Search creditnotes
 
     + Attributes (array[Creditnote])
 
+### /getInvoiceCloudURL.php [POST /getInvoiceCloudURL.php]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + invoice_nr: `2017 / 8` (string)
+        + invoicecloud_secret_url: `http://dev.invoicecloud.be/?invoice_id=1&gid=1&token=Gg8oUwLf9EmzS7Wxkr0L2fT6kgcBuXO04NeO9QT9l5y43lseCiPvnzryFuZ0` (string)
+        + invoicecloud_secret: `Gg8oUwLf9EmzS7Wxkr0L2fT6kgcBuXO04NeO9QT9l5y43lseCiPvnzryFuZ0` (string)
+
+### /getBookkeepingAccounts.php [POST /getBookkeepingAccounts.php]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + sys_department_id: `1` (number, required) - ID of the department 
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + id: `1` (number)
+        + account: `70000` (number)
+        + name_nl: `general account` (string)
+        + name_fr: `account general` (string)
+
 ## Files [/files]
 
 ### /getFiles.php [GET /getFiles.php]
