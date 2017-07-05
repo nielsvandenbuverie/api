@@ -1043,21 +1043,21 @@ Add subscription
 + Request (application/json)
 
     + Attributes(object)
-        + amount: 50 (number, required) - The amount of subscriptions returned per request (between 1 and 100)
-        + pageno: 0 (number, required) - The page number (the first page is 0)
-        + selected_customfields: 14,15 (array[number]) - Comma-separated list of the IDs of the custom fields you wish to select (max 10)
-        + searchby: teamleader (string) - We'll try to match each part of the string to the subscription title and content
+        + amount: `50` (number, required) - The amount of subscriptions returned per request (between 1 and 100)
+        + pageno: `0` (number, required) - The page number (the first page is 0)
+        + selected_customfields: `14,15` (array[number]) - Comma-separated list of the IDs of the custom fields you wish to select (max 10)
+        + searchby: `teamleader` (string) - We'll try to match each part of the string to the subscription title and content
 
 + Response 200 (application/json)
 
     + Attributes (array)
         + (object)
-            + id: 48100 (number) - The id of the subscription
-            + active: 1 (enum[number]) - Boolean indicating if the invoice is active
+            + id: `48100` (number) - The id of the subscription
+            + active: `1` (enum[number]) - Boolean indicating if the invoice is active
                 + Members
                     + 1
                     + 0
-            + repeat: quarterly (enum[string])
+            + repeat: `quarterly` (enum[string])
                 + Members
                     + monthly
                     + quarterly
@@ -1075,22 +1075,22 @@ Add subscription
                     + 9yearly
                     + 10yearly
                     + fourmonthly
-            + client_name: Erlich Bachman (string) - Name of the client
-            + department_name: Finance (string) - Department for which the subscription is created
-            + department_id: 2 (number) - Id of the department
-            + date_start: 1480287600 (number) - Unix timestamp of the start date of the subscription
-            + date_start_formatted: 28/11/2016 (string) - Formatted start date of the subscription
+            + client_name: `Erlich Bachman` (string) - Name of the client
+            + department_name: `Finance` (string) - Department for which the subscription is created
+            + department_id: `2` (number) - Id of the department
+            + date_start: `1480287600` (number) - Unix timestamp of the start date of the subscription
+            + date_start_formatted: `28/11/2016` (string) - Formatted start date of the subscription
             + date_end `1480287600` (number, nullable) - Unix timestamp of the end date of the subscription (can be empty)
             + date_end_formatted `28/11/2016` (string, nullable) - Formatted end date of the subscription
-            + total_price_excl_vat: 100.00 (number) - Price, excluding VAT
-            + total_price_incl_vat: 106.00 (number) - Price, including VAT
-            + next_renewal_date: 1488236400 (number) - Unix timestamp of the next renewal date
-            + next_renewal_date_formatted: 28/02/2017 - Formatted next renewal date
-            + contact_or_company: contact (enum[string]) - Indicates the subscription is linked to a contact or a company
+            + total_price_excl_vat: `100.00` (number) - Price, excluding VAT
+            + total_price_incl_vat: `106.00` (number) - Price, including VAT
+            + next_renewal_date: `1488236400` (number) - Unix timestamp of the next renewal date
+            + next_renewal_date_formatted: `28/02/2017` - Formatted next renewal date
+            + contact_or_company: `contact` (enum[string]) - Indicates the subscription is linked to a contact or a company
                 + Members
                     + contact
                     + company
-            + contact_or_company_id: 1174438 (number) - The id of the contact or company
+            + contact_or_company_id: `1174438` (number) - The id of the contact or company
             
 
 ### /getInvoicesBySubscription.php [POST /getInvoicesBySubscription.php]
@@ -1100,12 +1100,12 @@ Add subscription
 + Request (application/json)
 
     + Attributes(object)
-        + subscription_id: 1245 (number, required) - The id of the subscription
+        + subscription_id: `1245` (number, required) - The id of the subscription
 
 + Response 200 (application/json)
 
     + Attributes(object)
-        + generated_invoice_ids: 11400, 11401 (array[number])
+        + generated_invoice_ids: `11400, 11401` (array[number])
 
 ### /getRelatedSubscriptionsByInvoice.php [POST /getRelatedSubscriptionsByInvoice.php]
 
@@ -1114,14 +1114,14 @@ Add subscription
 + Request (application/json)
 
     + Attributes(object)
-        + invoice_id: 1471 (number, required) - The id of the invoice
+        + invoice_id: `1471` (number, required) - The id of the invoice
 
 + Response 200 (application/json)
 
     + Attributes(array)
         + (object)
-            + subscription_id: 7457 (number)
-            + subscription_title: Monthly subscription Teamleader (string)
+            + subscription_id: `7457` (number)
+            + subscription_title: `Monthly subscription Teamleader` (string)
 
 ### /getSubscriptionsByDeal.php [POST /getSubscriptionsByDeal.php]
 
@@ -1130,12 +1130,12 @@ Add subscription
 + Request (application/json)
 
     + Attributes(object)
-        + deal_id: 1337 (number, required) - The id of the deal
+        + deal_id: `1337` (number, required) - The id of the deal
 
 + Response 200 (application/json)
 
     + Attributes(object)
-        + related_subscription_ids: 1245, 2584 (array[number])
+        + related_subscription_ids: `1245, 2584` (array[number])
 
 ### /getSubscriptionsByContactOrCompany.php [POST /getSubscriptionsByContactOrCompany.php]
 
@@ -1144,17 +1144,17 @@ Add subscription
 + Request (application/json)
 
     + Attributes(object)
-        + contact_or_company: contact (enum[string], required) - State 'what' you are searching for, a contact or a company
+        + contact_or_company: `contact` (enum[string], required) - State 'what' you are searching for, a contact or a company
             + Members
                 + contact
                 + company
-        + contact_or_company_id: 1234 (number, required) - The id of the contact or the company 
+        + contact_or_company_id: `1234` (number, required) - The id of the contact or the company 
 
 + Response 200 (application/json)
 
     + Attributes(array)
         + (object)
-            + id: 1247 (number)
+            + id: `1247` (number)
 
 # Data Structures
 
