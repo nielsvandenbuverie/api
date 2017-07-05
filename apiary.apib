@@ -879,6 +879,121 @@ Delete a file
             "status": "success"
         }
 
+## Products [/products]
+
+### /addProduct.php [POST /addProduct.php]
+
+Add product
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Teamleader Monthly Subscription` (string, required) - The name of the product
+        + price: `12.34` (number, required) - The price of the new product
+        + stock_amount: `100` (number, optional) - The new value for stock
+        + external_id: `1234A` (string, optional) - External ID code
+        + vat: `00` (enum[string]), optional) - The VAT tariff for the new product
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + account_id: `1234` (number, optional) - The ID of the bookkeeping account
+        + automerge_by_name: `0` (enum[number]) - If this flag is set to 1, Teamleader will merge this info into an existing product with the same name, if it finds any.
+            + Members
+                + 0
+                + 1
+        + purchase_price: `12.34` (number, optional) - The purchase price of the product
+        + custom_field_ID: `any` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + id: `416654` (number) - ID of the product that was added
+
+### /updateProduct.php [POST /updateProduct.php]
+
+Update product
+
++ Request (application/json)
+
+    + Attributes (object)
+        + product_id: `1234` (number, required) - Id of the product
+        + name: `Teamleader Monthly Subscription` (string, optional) - The name of the product
+        + price: `12.34` (number, optional) - The price of the new product
+        + external_id: `1234A` (string, optional) - External ID code
+        + stock_amount: `100` (number, optional) - The new value for stock
+        + purchase_price: `12.34` (number, optional) - The purchase price of the product
+        + custom_field_ID: `any` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the update operation.
+
+
+### /deleteProduct.php [POST /deleteProduct.php]
+
+Delete product
+
++ Request (application/json)
+
+    + Attributes (object)
+        + product_id: `1234` (number, required) - Id of the product
+
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the update operation.
+
+### /getProducts.php [POST /getProducts.php]
+
+Search all products
+
++ Request (application/json)
+
+    + Attributes
+        + amount: `10` (number, required) - The amount of products returned per request
+        + pageno: `2` (number, required) - The pag number (the first page is 0)
+        + searchBy: `scissor` (string, optional) - The search string. Teamleader will try to match each part of the string to the name or external ID of the product
+        + modifiedsince: `1498056035` (number, optional) - Unix timestamp. Teamleader will only return products that have been added or modified since that timestamp
+
++ Response 200 (application/json)
+    
+    Prices will be returned as `price_value_<index_of_price>`, they are suffixed with the price index. 
+    For example, first price returned will be `price_value_1` and the second will be `price_value_2`.
+
+    + Attributes (array)
+        + (object)
+            + id: `203052` (number)
+            + external_id: `ext_id_827` (string)
+            + name: `Nice product` (string)
+            + vat: `19` (string)
+            + booking_account: `700` (number)
+            + booking_account_id: `10` (number)
+            + price_value_1: `30.0000` (number)
+
+### /getProduct.php [POST /getProduct.php]
+
+Get product details
+
++ Request (application/json)
+
+    + Attributes
+        + product_id: `20` (number, required) - The id of the product
+        + include_all_custom_fields: `1` (number, optional) - If this flag is set to 1, all custom fields will be fetched 
+        + include_photos: `1` (number, optional) - If this flag is set to 1, the product image url will be fetched
+
++ Response 200 (application/json)
+
+    Custom fields will be returned as on object with the custom field id as a key and the custom field value as the value.
+    
+    + Attributes (Product)
+
 ## Notes [/notes]
 
 ### /addNote.php [POST /addNote.php]
@@ -1076,6 +1191,31 @@ Delete a meeting from Teamleader
 + date_lost_formatted: 16/02/2017 (string)
 + reason_refused: `No interest` (string)
 + source_id: `8799` (number)
+
+## Product (object)
++ id: 202188 (number)
++ name: Nice product (string)
++ external_id: 23 (string)
++ vat: 19 (string)
++ inv_account_id: 1097 (number)
++ description: A nice product description (string)
++ stock: 30 (number)
++ min_stock: 10 (number)
++ date_edited: 1472645009 (number)
++ prices (array)
+    + (object)
+        + name: Price Foo (string)
+        + price_excl_vat: 20.000 (number)
+        + price_incl_vat: 23.8 (number)
++ custom_fields (object)
++ suppliers (array) - A supplier
+    + (object)
+        + type: company (string)
+        + id : 37625 (number)
+        + name: Products and Services Inc. (string)
+        + purchase_price: 10.0000 (number)
+        + is_main_supplier: 1 (string)
+        + supplier_product_code: PRODUCTCODE1 (string)
 
 ## Note (object)
 + date: 1487250618 (number) - UNIX timestamp
