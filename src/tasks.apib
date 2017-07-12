@@ -68,3 +68,17 @@
 
     + Attributes
         + state: success (string)
+
+### getTasks.php [POST /getTasks.php]
+
++ Request (application/json)
+
+    + Attributes
+        + amount: `25` (number, required) - The amount of tasks returned per request
+        + pageno: `0` (number, required) - The current page
+        + selected_customfields: `42,142` (string) - Comma-separated list of the Id's of the custom fields you wish to select
+        + user_id: `1` (number) - Rreturn only tasks for this user
+
++ Response 200 (application/json)
+
+    + Attributes (array[Task])
