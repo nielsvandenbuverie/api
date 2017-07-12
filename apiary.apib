@@ -293,12 +293,12 @@ Search companies
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
+        + amount: `20` (number, required) - The amount of companies returned per request, max 1 to 100
         + pageno: `0` (number, required) - The current page, the first page is 0
-        + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
-        + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
+        + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the company name and email address.
+        + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return companies that have been added or modified since that timestamp.
         + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
-        + segment_id: `4` (number, optional) - The ID of a segment created for contacts. Teamleader will only return contacts that have been filtered out by the segment settings.
+        + segment_id: `4` (number, optional) - The ID of a segment created for companies. Teamleader will only return companies that have been filtered out by the segment settings.
         + selected_customfields: `` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
 
 + Response 200 (application/json)
@@ -325,11 +325,11 @@ Add a Teamleader company
 + Request (application/json)
 
     + Attributes (object)
-        + name: `1` (string, required)
-        + email: `john@example.com` (string, required) - The email address of the new contact
-        + vat_code: `Mr` (string, optional)
+        + name: `Teamleader` (string, required)
+        + email: `john@example.com` (string, optional) - The email address of the new company
+        + vat_code: `BE0899.623.035` (string, optional)
         + telephone: `1234567` (string, optional)
-        + country: `7654321` (string, optional)
+        + country: `BE` (string, optional)
         + zipcode: `90201` (string, optional)
         + city: `Cityville` (string, optional)
         + street: `Central Ave` (string, optional)
@@ -351,17 +351,17 @@ Add a Teamleader company
         + number_invoicing: `1` (string, optional)
         + invoice_email_address: `invoicing@example.com` (string, optional)
         + website: `http://example.com` (string, optional)
-        + description: `Met at expo` (string, optional) - Background information on the contact
+        + description: `Met at expo` (string, optional) - Background information on the company
         + account_manager_id: `1` (number, optional)
         + local_business_number: `BE0123.123.123` (string, optional) - the local business number (KVK in the Netherlands)
         + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
         + automerge_by_name: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same forename and surname, if it finds any.
+            If this flag is set to 1, Teamleader will merge this info into an existing company with the same name, if it finds any.
             + Default: `false`
         + automerge_by_email: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same email address, if it finds any.
+            If this flag is set to 1, Teamleader will merge this info into an existing company with the same email address, if it finds any.
             + Default: `false`
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
@@ -378,27 +378,27 @@ Update a Teamleader company
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: `1` (number, required) - The ID of the contact you want to update
+        + company_id: `1` (number, required) - The ID of the company you want to update
         + track_changes: `1` (number, required) - If set to 1, all changes are logged and visible to users in the web-interface
-        + name: `1` (string, required)
-        + email: `john@example.com` (string, required) - The email address of the new contact
-        + vat_code: `Mr` (string, optional)
+        + name: `Teamleader` (string, optional)
+        + email: `john@example.com` (string, optional) - The email address of the new company
+        + vat_code: `BE0899.623.035` (string, optional)
         + telephone: `1234567` (string, optional)
         + fax: `7654321` (string, optional)
-        + country: `7654321` (string, optional)
+        + country: `BE` (string, optional)
         + zipcode: `90201` (string, optional)
         + city: `Cityville` (string, optional)
         + street: `Central Ave` (string, optional)
         + number: `1` (string, optional)
         + invoice_email_address: `invoicing@example.com` (string, optional)
         + website: `http://example.com` (string, optional)
-        + description: `Met at expo` (string, optional) - Background information on the contact
+        + description: `Met at expo` (string, optional) - Background information on the company
         + account_manager_id: `1` (number, optional)
         + local_business_number: `BE0123.123.123` (string, optional) - the local business number (KVK in the Netherlands)
         + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
-        + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
+        + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the company.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
 + Response 200 (application/json)
@@ -687,6 +687,186 @@ Get a list of all deal sources
 
 ## Invoices [/invoices]
 
+### /addInvoice.php [POST /addInvoice.php]
+
+Adding an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_or_company: `company` (enum[string], required) - Who is the invoice for?
+            + Members
+                + company
+                + contact
+        + contact_or_company_id: `1` (number, required) - ID of the related contact or company
+        + sys_department_id: `2` (number, required) -  ID of the department the invoice will be added to
+        + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) - ID of the bookkeeping account
+        + subtitle_1: `Subtitle` (string, optional)
+        + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
+        + for_attention_of: `An awesome customer` (string, optional)
+        + payment_term: `30D` (enum[string], optional) - 30D by default. 7D : 7 days, 30DEM : 30 days end of month.
+            + Members
+                + 0D
+                + 7D
+                + 10D
+                + 15D
+                + 21D
+                + 30D
+                + 45D
+                + 60D
+                + 30DEM
+                + 60DEM
+                + 90DEM
+        + draft_invoice: `1` (enum[number], optional) - set to 1 to insert this invoice as a draft.(default: 0)
+            + Members
+                + 0
+                + 1
+        + layout_id: `1` (number, optional) - ID of the custom layout you wish to use for this invoice
+        + date: `21/06/2017` (string, optional) - date (dd/mm/yyyy): the date of the invoice. (default: today)
+        + po_number: `1` (string, optional) - The external order number
+        + related_deal_id: `1` (number, optional) - ID of the deal this invoice is related to
+        + direct_debit: `1` (enum[number], optional) - set to 1 to enable direct debit. (default: 0)
+            + Members
+                + 0
+                + 1
+        + comments: `An invoice with awesome products` (string, optional)
+        + force_set_number: `20170001` (number, optional) - force invoice number to the given integer. Is only taken into account when there's no date provided
+        + force_set_date: `21/06/2017` (string, optional) - date (dd/mm/yyyy): forces the date of the invoice. (default: today). Is only taken into account when there's a force_set_number provided and no date
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (number) - ID of the invoice that was added
+
+### /addCreditnote.php [POST /addCreditnote.php]
+
+Adding a creditnote
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice related to this credit note. It must be a booked invoice.
+        + contact_or_company: `company` (enum[string], optional) - When there's no invoice_id provided, you need to provide contact_or_company, contact_or_company, sys_department_id, force_set_number and (if you already have invoices) force_set_date 
+            + Members
+                + company
+                + contact
+        + contact_or_company_id: `1` (number, optional) - ID of the related contact or company
+        + sys_department_id: `2` (number, optional) -  ID of the department the creditnote will be added to
+        + description_1: `An awesome product` (string, required) - At least one creditnote line needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) - ID of the bookkeeping account
+        + subtitle_1: `Subtitle` (string, optional)
+        + force_set_number: `20170001` (number, optional) - force creditnote number to the given integer.
+        + force_set_date: `21/06/2017` (string, optional) - date (dd/mm/yyyy): forces the date of the creditnote. (default: today). Is only taken into account when there's a force_set_number provided
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (number) - ID of the creditnote that was added
+
+### /setInvoicePaymentStatus.php [POST /setInvoicePaymentStatus.php]
+
+Mark an invoice as paid or not paid
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice. The invoice needs to be booked in order to mark it as paid.
+        + status: `paid` (enum[string], required) - It's not possible to mark a paid invoice as paid, or unpaid invoice as unpaid.
+            + Members
+                + paid
+                + not_paid
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
+### /updateInvoice.php [POST /updateInvoice.php]
+
+Update an invoice. The invoice lines you provide will be the new invoice lines of the invoice. The old invoice lines will be removed. All changes made via the API to invoices will be registered in the tracking section of the invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+        + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) - ID of the bookkeeping account
+        + subtitle_1: `Subtitle` (string, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `OK` (string) - Indicating success or failure of the operation.
+
+### /updateInvoiceComments.php [POST /updateInvoiceComments.php]
+
+Update the comments on an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+        + comments: `Comments on the invoice` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
+### /deleteInvoice.php [POST /deleteInvoice.php]
+
+Delete an invoice. It's not possible to delete invoices which are exported to a bookkeeping tool. It's only possible to delete an invoice if this doesn't cause a gap in numbering and if there are no creditnotes for this invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
 ### /getInvoices.php [POST /getInvoices.php]
 
 Search invoices
@@ -735,7 +915,7 @@ Search invoices
 + Request (application/json)
 
     + Attributes (object)
-        + project_id: `1` (number, required)
+        + project_id: `1` (number, required) - ID of the project
         + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
             + Default: `0`
 
@@ -750,13 +930,102 @@ Search creditnotes
 + Request (application/json)
 
     + Attributes (object)
-        + project_id: `1` (number, required)
+        + project_id: `1` (number, required) - ID of the project
         + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
             + Default: `0`
 
 + Response 200 (application/json)
 
     + Attributes (array[Creditnote])
+
+### /sendInvoice.php [POST /sendInvoice.php]
+
+Send booked invoices via email. A maximum of 10 attachments can be provided.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to render to PDF
+        + email_to: `info@teamleader.eu,support@teamleader.eu` (string, required) - Use a comma separated list to send the email to a maximum of 5 addresses.
+        + email_subject: `Reminder to pay invoice` (string, required)
+        + email_text: `Please pay your invoice` (string, required)
+        + attachment_filename_1: `attachment1.pdf` (string, optional) - filename for the attachment
+        + attachment_base64_content_1: `asdfsdfsdf...` (string, optional) - Base64 encoded file contents
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
+### /getInvoiceReminderTemplates.php [POST /getInvoiceReminderTemplates.php]
+
+Get the id and name of available email reminder templates for an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to view available reminders for
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+        + data (array[object])
+            + (object)
+                + id: `1` (number)
+                + name: `template1` (string)
+
+### /getInvoiceReminderTemplateContent.php [POST /getInvoiceReminderTemplateContent.php]
+
+Renders a certain reminder template for a given invoice. You can use this to send a reminder to your customer with the sendInvoice endpoint, as this endpoint does not send any reminders itself.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to view available reminders for
+        + template_id: `1` (number, required) - ID of the template you want to render
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+        + data (object)
+            + subject: `Reminder to pay invoice 20170001` (string)
+            + text: `Please pay invoice 20170001` (string)
+
+### /getInvoiceCloudURL.php [POST /getInvoiceCloudURL.php]
+
+Generates the invoicecloud URL for an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + invoice_nr: `2017 / 8` (string)
+        + invoicecloud_secret_url: `http://dev.invoicecloud.be/?invoice_id=1&gid=1&token=Gg8oUwLf9EmzS7Wxkr0L2fT6kgcBuXO04NeO9QT9l5y43lseCiPvnzryFuZ0` (string)
+        + invoicecloud_secret: `Gg8oUwLf9EmzS7Wxkr0L2fT6kgcBuXO04NeO9QT9l5y43lseCiPvnzryFuZ0` (string)
+
+### /getBookkeepingAccounts.php [POST /getBookkeepingAccounts.php]
+
+Get more information about the bookkeeping accounts
+
++ Request (application/json)
+
+    + Attributes (object)
+        + sys_department_id: `1` (number, required) - ID of the department 
+
++ Response 200 (application/json)
+
+    + Attributes (array[object])
+        + (object)
+            + id: `1` (number)
+            + account: `70000` (number)
+            + name_nl: `general account` (string)
+            + name_fr: `account general` (string)
 
 ## Files [/files]
 
@@ -878,6 +1147,494 @@ Delete a file
         {
             "status": "success"
         }
+
+## Subscriptions [/subscriptions]
+
+### /addSubscription.php [POST /addSubscription.php]
+
+Add subscription
+
++ Request (application/json)
+
+    Item lines can be added by giving the item line ID as suffix. eg description_1 will contain the description for Item line 1, description_2 will contain the description for item line 2, ...
+
+    + Attributes(object)
+        + contact_or_company: `contact` (enum[string], required) - Who is the subscription for?
+            + Members
+                + contact
+                + company
+        + contact_or_company_id: `1` (number, required) - ID of the contact or company
+        + sys_department_id: `1` (number, required) - ID of the department the invoice will be added to
+        + date_start: `01/08/1987` (string, required) - Date the first invoice should be created. The date should be in the format dd/mm/yyyy
+        + repeat_after: `monthly` (enum[string], required) - Repeat cycle 
+            + Members
+                + monthly
+                + quarterly
+                + yearly
+                + sixmonthly
+                + twomonthly
+                + twoyearly
+                + 3yearly
+                + 4yearly
+                + 5yearly
+                + twoweekly
+                + 6yearly
+                + 7yearly
+                + 8yearly
+                + 9yearly
+                + 10yearly
+                + fourmonthly
+        + title: `Monthly subscription Teamleader` (string, required) - eg: Hosting, Domain names,...
+        + date_end: `01/08/1987` (string, optional) - Date this subscription should expire. Date should be in the format dd/mm/yyyy
+        + related_deal_id: `1` (number, optional) - ID of the deal this subscription is related to
+        + permanent_invoicing: `0` (enum[number], optional) - Default 1.
+            + Members
+                + 0 - Do not automatically book subscription.
+                + 1 - Automatically book subscription.
+        + autosend_invoice: `0` (enum[number], optional) - Automatically send subscription invoice
+            + Members
+                + 0 - Do not send subcription invoice automatically.
+                + 1 - Sends subscription invoice automatically.
+        + autosend_bpost: `0` (enum[number], optional) - Automatically send subscription invoice through phsyical mail.
+            + Members
+                + 0 - Do not send subscription invoice through physical mail
+                + 1 - Send subscription invoice through physical mail automatically.
+        + comments: `Comment` (string, optional) - Comments
+        + days_in_advance: `1` (number, optional) - Sending of the invoice. Set to 0 to send out the invoice on the day it's due. Defaults to 7 days
+        + payment_term: `0D` (enum[string], optional) - Default: 30D
+            + Members
+                + 0D
+                + 7D
+                + 10D
+                + 15D
+                + 21D
+                + 30D
+                + 45D
+                + 60D
+                + 30DEM
+                + 60DEM
+                + 90DEM
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+        + description_ID: `Item description` (string, optional) - Description of item line ID
+        + price_ID: `12.34` (number, optional) - Item line ID price
+        + amount_ID: `100` (number, optional) - Item line ID amount
+        + vat_ID: `00` (enum[string], optional) - The vat tariff for item line ID
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_ID_1: `1` (number, optional) - Id of the product for item line ID
+        + account_ID: `1` (number, optional) - Id of the bookkeeping account for item line ID
+        + subtitle_ID: `Sub sub title` (string, optional) - Subtitle for item line ID
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + id: `416654` (number) - ID of the subscription that was added
+
+### /updateSubscription.php [POST /updateSubscription.php]
+
+    Update subscription
+
++ Request (application/json)
+
+    + Attributes
+        + subscription_id: `1` (number, required) - ID of the subscription
+        + date_start: `01/08/1987` (string, optional) - Date the first invoice should be created. The date should be in the format dd/mm/yyyy.
+        + repeat_after: `monthly` (enum[string], optional) -  Invoice repeat cycle
+            + Members
+                + monthly
+                + quarterly
+                + yearly
+                + sixmonthly
+                + twomonthly
+                + twoyearly
+                + 3yearly
+                + 4yearly
+                + 5yearly
+                + twoweekly
+                + 6yearly
+                + 7yearly
+                + 8yearly
+                + 9yearly
+                + 10yearly
+                + fourmonthly
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string)
+
+### /deleteSubscription.php [POST /deleteSubscription.php]
+
+    Delete subscription
+
++ Request (application/json)
+
+    + Attributes
+        + subscription_id: `1` (number, required) - ID of the subscription
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string)
+
+### /getSubscription.php [POST /getSubscription.php]
+
+    Find single subscription
+
++ Request (application/json)
+
+    + Attributes
+        + subscription_id: `1` (number, required) - ID of the subscription
+
++ Response 200 (application/json)
+
+    + Attributes
+        + id: `1` (number) - ID of the subscription
+        + active: `0` (enum[number]) - Subscription status.
+            + members
+                + 0
+                + 1
+        + title: `Subscription title` (string) - Title
+        + repeat: `monthly` (enum[string], required) - Invoice repeat cycle 
+            + Members
+                + monthly
+                + quarterly
+                + yearly
+                + sixmonthly
+                + twomonthly
+                + twoyearly
+                + 3yearly
+                + 4yearly
+                + 5yearly
+                + twoweekly
+                + 6yearly
+                + 7yearly
+                + 8yearly
+                + 9yearly
+                + 10yearly
+                + fourmonthly
+        + department_id: `1` (number) - ID of the department
+        + date_start: `554774400` (number) - Start date of subscription as unix timestamp
+        + date_start_formatted: `01/08/1987` (string) - Start date of subscritpion in formatted string mm/dd/yyyy.
+        + date_end: `554774400` (number) -  End date of subscription as unix timestamp
+        + date_end_formatted: `01/08/1987` (string) - End date of subscritpion in formatted string mm/dd/yyyy.
+        + total_price_excl_vat: `12.34` (number) - Price excl VAT
+        + total_price_incl_vat: `12.34` (number) - Price incl VAT
+        + next_renewal_date: `554774400` (number) - Next renewal date of subscription as unix timestamp
+        + next_renewal_date_formatted: `01/08/1987` - (string) Next renewal date of subscritpion in formatted string mm/dd/yyyy.
+        + items (array) - Item line
+            + (object)
+                + text: `title` (string) - Title
+                + amount: `1` (number) - Item amount
+                + line_total_incl_vat `12.34` (number) - Line incl VAT
+                + line_total_excl_vat `12.34` (number) - Line excl VAT
+                + vat_rate `21` (number) - VAT rate
+                + account `1` (number) - Account ID
+                + subtitle `Line subtitle` (string) - Subtitle for line
+                + description `Line description` (string) - Description for line
+        + for: `contact` (enum[string], required) - Who is the subscription for?
+            + Members
+                + contact
+                + company
+        + for_id: `1` (number) - ID of the related contact or company
+        + custom_fields: 1, 2, 3 (array[number]) - Array containing the id's of the custom fields and their values
+
+
+### /getSubscriptions.php [POST /getSubscriptions.php]
+
+    Search subscriptions
+
++ Request (application/json)
+
+    + Attributes(object)
+        + amount: `50` (number, required) - The amount of subscriptions returned per request (between 1 and 100)
+        + pageno: `0` (number, required) - The page number (the first page is 0)
+        + selected_customfields: 14,15 (array[number]) - Comma-separated list of the IDs of the custom fields you wish to select (max 10)
+        + searchby: `teamleader` (string) - We'll try to match each part of the string to the subscription title and content
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: `48100` (number) - The id of the subscription
+            + active: `1` (enum[number]) - Boolean indicating if the invoice is active
+                + Members
+                    + 1
+                    + 0
+            + repeat: `quarterly` (enum[string])
+                + Members
+                    + monthly
+                    + quarterly
+                    + yearly
+                    + sixmonthly
+                    + twomonthly
+                    + twoyearly
+                    + 3yearly
+                    + 4yearly
+                    + 5yearly
+                    + twoweekly
+                    + 6yearly
+                    + 7yearly
+                    + 8yearly
+                    + 9yearly
+                    + 10yearly
+                    + fourmonthly
+            + client_name: `Erlich Bachman` (string) - Name of the client
+            + department_name: `Finance` (string) - Department for which the subscription is created
+            + department_id: `2` (number) - Id of the department
+            + date_start: `1480287600` (number) - Unix timestamp of the start date of the subscription
+            + date_start_formatted: `28/11/2016` (string) - Formatted start date of the subscription
+            + date_end `1480287600` (number, nullable) - Unix timestamp of the end date of the subscription (can be empty)
+            + date_end_formatted `28/11/2016` (string, nullable) - Formatted end date of the subscription
+            + total_price_excl_vat: `100.00` (number) - Price, excluding VAT
+            + total_price_incl_vat: `106.00` (number) - Price, including VAT
+            + next_renewal_date: `1488236400` (number) - Unix timestamp of the next renewal date
+            + next_renewal_date_formatted: `28/02/2017` (string) - Formatted next renewal date
+            + contact_or_company: `contact` (enum[string]) - Indicates the subscription is linked to a contact or a company
+                + Members
+                    + contact
+                    + company
+            + contact_or_company_id: `1174438` (number) - The id of the contact or company
+            
+
+### /getInvoicesBySubscription.php [POST /getInvoicesBySubscription.php]
+
+    Fetching the IDs of all invoices created by a subscription
+
++ Request (application/json)
+
+    + Attributes(object)
+        + subscription_id: `1245` (number, required) - The id of the subscription
+
++ Response 200 (application/json)
+
+    + Attributes(object)
+        + generated_invoice_ids: 11400, 11401 (array[number])
+
+### /getRelatedSubscriptionsByInvoice.php [POST /getRelatedSubscriptionsByInvoice.php]
+
+    Fetching the IDs of all subscriptions related to an invoice
+
++ Request (application/json)
+
+    + Attributes(object)
+        + invoice_id: `1471` (number, required) - The id of the invoice
+
++ Response 200 (application/json)
+
+    + Attributes(array)
+        + (object)
+            + subscription_id: `7457` (number)
+            + subscription_title: `Monthly subscription Teamleader` (string)
+
+### /getSubscriptionsByDeal.php [POST /getSubscriptionsByDeal.php]
+
+    Fetching the IDs of all subscriptions related to a deal
+
++ Request (application/json)
+
+    + Attributes(object)
+        + deal_id: `1337` (number, required) - The id of the deal
+
++ Response 200 (application/json)
+
+    + Attributes(object)
+        + related_subscription_ids: 1245, 2584 (array[number])
+
+### /getSubscriptionsByContactOrCompany.php [POST /getSubscriptionsByContactOrCompany.php]
+
+    Fetching all subscripions related to a contact or company
+
++ Request (application/json)
+
+    + Attributes(object)
+        + contact_or_company: `contact` (enum[string], required) - State 'what' you are searching for, a contact or a company
+            + Members
+                + contact
+                + company
+        + contact_or_company_id: `1234` (number, required) - The id of the contact or the company 
+
++ Response 200 (application/json)
+
+    + Attributes(array)
+        + (object)
+            + id: `1247` (number)
+
+## Products [/products]
+
+### /addProduct.php [POST /addProduct.php]
+
+Add product
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Teamleader Monthly Subscription` (string, required) - The name of the product
+        + price: `12.34` (number, required) - The price of the new product
+        + stock_amount: `100` (number, optional) - The new value for stock
+        + external_id: `1234A` (string, optional) - External ID code
+        + vat: `00` (enum[string]), optional) - The VAT tariff for the new product
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + account_id: `1234` (number, optional) - The ID of the bookkeeping account
+        + automerge_by_name: `0` (enum[number]) - If this flag is set to 1, Teamleader will merge this info into an existing product with the same name, if it finds any.
+            + Members
+                + 0
+                + 1
+        + purchase_price: `12.34` (number, optional) - The purchase price of the product
+        + custom_field_ID: `any` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + id: `416654` (number) - ID of the product that was added
+
+### /updateProduct.php [POST /updateProduct.php]
+
+Update product
+
++ Request (application/json)
+
+    + Attributes (object)
+        + product_id: `1234` (number, required) - Id of the product
+        + name: `Teamleader Monthly Subscription` (string, optional) - The name of the product
+        + price: `12.34` (number, optional) - The price of the new product
+        + external_id: `1234A` (string, optional) - External ID code
+        + stock_amount: `100` (number, optional) - The new value for stock
+        + purchase_price: `12.34` (number, optional) - The purchase price of the product
+        + custom_field_ID: `any` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the update operation.
+
+
+### /deleteProduct.php [POST /deleteProduct.php]
+
+Delete product
+
++ Request (application/json)
+
+    + Attributes (object)
+        + product_id: `1234` (number, required) - Id of the product
+
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the update operation.
+
+### /getProducts.php [POST /getProducts.php]
+
+Search all products
+
++ Request (application/json)
+
+    + Attributes
+        + amount: `10` (number, required) - The amount of products returned per request
+        + pageno: `2` (number, required) - The pag number (the first page is 0)
+        + searchBy: `scissor` (string, optional) - The search string. Teamleader will try to match each part of the string to the name or external ID of the product
+        + modifiedsince: `1498056035` (number, optional) - Unix timestamp. Teamleader will only return products that have been added or modified since that timestamp
+
++ Response 200 (application/json)
+    
+    Prices will be returned as `price_value_<index_of_price>`, they are suffixed with the price index. 
+    For example, first price returned will be `price_value_1` and the second will be `price_value_2`.
+
+    + Attributes (array)
+        + (object)
+            + id: `203052` (number)
+            + external_id: `ext_id_827` (string)
+            + name: `Nice product` (string)
+            + vat: `19` (string)
+            + booking_account: `700` (number)
+            + booking_account_id: `10` (number)
+            + price_value_1: `30.0000` (number)
+
+### /getProduct.php [POST /getProduct.php]
+
+Get product details
+
++ Request (application/json)
+
+    + Attributes
+        + product_id: `20` (number, required) - The id of the product
+        + include_all_custom_fields: `1` (number, optional) - If this flag is set to 1, all custom fields will be fetched 
+        + include_photos: `1` (number, optional) - If this flag is set to 1, the product image url will be fetched
+
++ Response 200 (application/json)
+
+    Custom fields will be returned as on object with the custom field id as a key and the custom field value as the value.
+    
+    + Attributes (Product)
+
+## Notes [/notes]
+
+### /addNote.php [POST /addNote.php]
+
+Add a note to an object
+
++ Request (application/json)
+
+    + Attributes (object)
+        + object_type: `contact` (enum[string], required) - The type of object
+            + Members
+                + contact
+                + company
+                + sale
+                + project
+                + meeting
+        + object_id: `1` (number, required) - ID of the object
+        + note_title: `Phone call` (string, required) - A short title for the note (max. 100 characters)
+        + note_extra_information: `A longer text that can contain plaintext or HTML` (string, optional)
+        + note_extra_information_type: `HTML` (enum[string], optional) - The type of extra information
+            + Members
+                + plaintext
+                + HTML
+        + disable_modification: `1` (enum[number], optional) - Can be used to disable editing/deleting this note
+            + Members
+                + 0
+                + 1
+        + date: `1` (number, optional) - Unix timestamp: add a custom timestamp
+
++ Response 200 (application/json)
+
+        {
+            "status": "OK"
+        }
+
+### /getNotes.php [POST /getNotes.php]
+
+Get a list of notes for an object
+
++ Request (application/json)
+
+    + Attributes (object)
+        + object_type: `contact` (enum[string], required) - The type of object
+            + Members
+                + contact
+                + company
+                + sale
+                + project
+                + meeting
+        + object_id: `1` (number, required) - ID of the object
+        + pageno: `0` (number, required) - The current page, the first page is 0
+
++ Response 200 (application/json)
+
+    + Attributes (array[Note])
 
 ## Meetings [/meetings]
 
@@ -1020,6 +1777,44 @@ Delete a meeting from Teamleader
 + date_lost_formatted: 16/02/2017 (string)
 + reason_refused: `No interest` (string)
 + source_id: `8799` (number)
+
+## Product (object)
++ id: 202188 (number)
++ name: Nice product (string)
++ external_id: 23 (string)
++ vat: 19 (string)
++ inv_account_id: 1097 (number)
++ description: A nice product description (string)
++ stock: 30 (number)
++ min_stock: 10 (number)
++ date_edited: 1472645009 (number)
++ prices (array)
+    + (object)
+        + name: Price Foo (string)
+        + price_excl_vat: 20.000 (number)
+        + price_incl_vat: 23.8 (number)
++ custom_fields (object)
++ suppliers (array) - A supplier
+    + (object)
+        + type: company (string)
+        + id : 37625 (number)
+        + name: Products and Services Inc. (string)
+        + purchase_price: 10.0000 (number)
+        + is_main_supplier: 1 (string)
+        + supplier_product_code: PRODUCTCODE1 (string)
+
+## Note (object)
++ date: 1487250618 (number) - UNIX timestamp
++ short_description: `The short description` (string)
++ long_description: `The long description` (string)
++ type: `note` (enum[string])
+    + Members
+        + contact
+        + company
+        + sale
+        + project
+        + meeting
++ custom_type: `-1` (number)
 
 ## Task (object)
 + id: 315 (number)
