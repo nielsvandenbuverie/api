@@ -21,16 +21,12 @@ This repository has, besides `master`, two important branches: [`v1`](https://gi
 Install dependencies:
 
 ```bash
+docker pull apiaryio/client
 npm install -g gulp-cli
 npm install
 ```
 
-Run `gulp build` to build. This will perform two operations:
-
-1. Run `hercule` which "compiles" `src/apiary.apib` into `./apiary.apib`
-2. Run `docprint` to generate HTML from `./apiary.apib`
-
-Once you built the docs, you can open `build/php/index.html` in your browser to preview.
+Run `gulp build` to build. Once you built the docs, you can open `apiary.html` in your browser to preview.
 
 Run `gulp` when in development to automatically build when files change.
 
