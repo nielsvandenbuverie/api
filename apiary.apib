@@ -752,7 +752,7 @@ Adding an invoice
     + Attributes (object)
         + id: `1` (number) - ID of the invoice that was added
 
-### addCreditnote.php [POST /addCreditnote.php]
+### /addCreditnote.php [POST /addCreditnote.php]
 
 Adding a creditnote
 
@@ -915,7 +915,7 @@ Search invoices
 + Request (application/json)
 
     + Attributes (object)
-        + project_id: `1` (number, required)
+        + project_id: `1` (number, required) - ID of the project
         + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
             + Default: `0`
 
@@ -930,7 +930,7 @@ Search creditnotes
 + Request (application/json)
 
     + Attributes (object)
-        + project_id: `1` (number, required)
+        + project_id: `1` (number, required) - ID of the project
         + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
             + Default: `0`
 
@@ -970,7 +970,7 @@ Get the id and name of available email reminder templates for an invoice
 
     + Attributes (object)
         + status: `success` (string) - Indicating success or failure of the operation.
-        + data: (array)
+        + data (array[object])
             + (object)
                 + id: `1` (number)
                 + name: `template1` (string)
@@ -989,9 +989,43 @@ Renders a certain reminder template for a given invoice. You can use this to sen
 
     + Attributes (object)
         + status: `success` (string) - Indicating success or failure of the operation.
-        + data: (object)
+        + data (object)
             + subject: `Reminder to pay invoice 20170001` (string)
             + text: `Please pay invoice 20170001` (string)
+
+### /getInvoiceCloudURL.php [POST /getInvoiceCloudURL.php]
+
+Generates the invoicecloud URL for an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + invoice_nr: `2017 / 8` (string)
+        + invoicecloud_secret_url: `http://dev.invoicecloud.be/?invoice_id=1&gid=1&token=Gg8oUwLf9EmzS7Wxkr0L2fT6kgcBuXO04NeO9QT9l5y43lseCiPvnzryFuZ0` (string)
+        + invoicecloud_secret: `Gg8oUwLf9EmzS7Wxkr0L2fT6kgcBuXO04NeO9QT9l5y43lseCiPvnzryFuZ0` (string)
+
+### /getBookkeepingAccounts.php [POST /getBookkeepingAccounts.php]
+
+Get more information about the bookkeeping accounts
+
++ Request (application/json)
+
+    + Attributes (object)
+        + sys_department_id: `1` (number, required) - ID of the department 
+
++ Response 200 (application/json)
+
+    + Attributes (array[object])
+        + (object)
+            + id: `1` (number)
+            + account: `70000` (number)
+            + name_nl: `general account` (string)
+            + name_fr: `account general` (string)
 
 ## Files [/files]
 
