@@ -970,7 +970,7 @@ Get the id and name of available email reminder templates for an invoice
 
     + Attributes (object)
         + status: `success` (string) - Indicating success or failure of the operation.
-        + data: (array)
+        + data (array[object])
             + (object)
                 + id: `1` (number)
                 + name: `template1` (string)
@@ -989,7 +989,7 @@ Renders a certain reminder template for a given invoice. You can use this to sen
 
     + Attributes (object)
         + status: `success` (string) - Indicating success or failure of the operation.
-        + data: (object)
+        + data (object)
             + subject: `Reminder to pay invoice 20170001` (string)
             + text: `Please pay invoice 20170001` (string)
 
@@ -1020,11 +1020,12 @@ Get more information about the bookkeeping accounts
 
 + Response 200 (application/json)
 
-    + Attributes (array)
-        + id: `1` (number)
-        + account: `70000` (number)
-        + name_nl: `general account` (string)
-        + name_fr: `account general` (string)
+    + Attributes (array[object])
+        + (object)
+            + id: `1` (number)
+            + account: `70000` (number)
+            + name_nl: `general account` (string)
+            + name_fr: `account general` (string)
 
 ## Files [/files]
 
