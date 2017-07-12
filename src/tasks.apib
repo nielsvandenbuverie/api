@@ -5,28 +5,28 @@
 + Request (application/json)
 
     + Attributes
-        + description: Description (string) - Description of the task
-        + due_date: 1265412302 (number) - Due date of the task as Unix timestamp
-        + `user_id`: 1 (number, optional) - Id of the user (is required if team_id is not used)
-        + `team_id`: 2 (number, optional) - Id of the team (is required if user_id is not used)
-        + task_type_id: 3 (number) - Category of the task
-        + duration: 120 (number) - Amount of mintues that should be spent on the task
-        + priority: A (enum[string]) - Priority of the task
+        + description: Description (string, required) - Description of the task
+        + due_date: 1265412302 (number, required) - Due date of the task as Unix timestamp
+        + `user_id`: 1 (number) - Id of the user (is required if team_id is not used)
+        + `team_id`: 2 (number) - Id of the team (is required if user_id is not used)
+        + task_type_id: 3 (number, required) - Category of the task
+        + duration: 120 (number, required) - Amount of mintues that should be spent on the task
+        + priority: A (enum[string], required) - Priority of the task
             + Members
                 + A
                 + B
                 + C
                 + D
-        + for: company (enum[string], optional) - Who this task should be billed to
+        + for: company (enum[string]) - Who this task should be billed to
             + Members
                 + contact
                 + company
                 + project_milestone
-        + for_id: 4 (number, optional) - The id of who this task should be billed to
-        + creator_user_id: 5 (number, optional) - Id the user that created the task
-        + related_deal_id: 6 (number, optional) - Id of the deal related to the task
-        + related_ticket_id: 7 (number, optional) - Id of the ticket related to the task
-        + custom_field_<id>: 6 (number, optional) - Where <id> is an custom field id
+        + for_id: 4 (number) - The id of who this task should be billed to
+        + creator_user_id: 5 (number) - Id the user that created the task
+        + related_deal_id: 6 (number) - Id of the deal related to the task
+        + related_ticket_id: 7 (number) - Id of the ticket related to the task
+        + custom_field_<id>: 6 (number) - Where <id> is an custom field id
 
 + Response 200 (application/json)
 
