@@ -177,7 +177,7 @@ Add subscription
         + total_price_incl_vat: `12.34` (number) - Price incl VAT
         + next_renewal_date: `554774400` (number) - Next renewal date of subscription as unix timestamp
         + next_renewal_date_formatted: `01/08/1987` - (string) Next renewal date of subscritpion in formatted string mm/dd/yyyy.
-        + items: [] (array[object]) - Item line
+        + items (array) - Item line
             + (object)
                 + text: `title` (string) - Title
                 + amount: `1` (number) - Item amount
@@ -192,7 +192,7 @@ Add subscription
                 + contact
                 + company
         + for_id: `1` (number) - ID of the related contact or company
-        + custom_fields: [] (array) - Array containing the id's of the custom fields and their values
+        + custom_fields: 1, 2, 3 (array[number]) - Array containing the id's of the custom fields and their values
 
 
 ### /getSubscriptions.php [POST /getSubscriptions.php]
