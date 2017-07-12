@@ -1,5 +1,185 @@
 ## Invoices [/invoices]
 
+### /addInvoice.php [POST /addInvoice.php]
+
+Adding an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_or_company: `company` (enum[string], required) - Who is the invoice for?
+            + Members
+                + company
+                + contact
+        + contact_or_company_id: `1` (number, required) - ID of the related contact or company
+        + sys_department_id: `2` (number, required) -  ID of the department the invoice will be added to
+        + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) - ID of the bookkeeping account
+        + subtitle_1: `Subtitle` (string, optional)
+        + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
+        + for_attention_of: `An awesome customer` (string, optional)
+        + payment_term: `30D` (enum[string], optional) - 30D by default. 7D : 7 days, 30DEM : 30 days end of month.
+            + Members
+                + 0D
+                + 7D
+                + 10D
+                + 15D
+                + 21D
+                + 30D
+                + 45D
+                + 60D
+                + 30DEM
+                + 60DEM
+                + 90DEM
+        + draft_invoice: `1` (enum[number], optional) - set to 1 to insert this invoice as a draft.(default: 0)
+            + Members
+                + 0
+                + 1
+        + layout_id: `1` (number, optional) - ID of the custom layout you wish to use for this invoice
+        + date: `21/06/2017` (string, optional) - date (dd/mm/yyyy): the date of the invoice. (default: today)
+        + po_number: `1` (string, optional) - The external order number
+        + related_deal_id: `1` (number, optional) - ID of the deal this invoice is related to
+        + direct_debit: `1` (enum[number], optional) - set to 1 to enable direct debit. (default: 0)
+            + Members
+                + 0
+                + 1
+        + comments: `An invoice with awesome products` (string, optional)
+        + force_set_number: `20170001` (number, optional) - force invoice number to the given integer. Is only taken into account when there's no date provided
+        + force_set_date: `21/06/2017` (string, optional) - date (dd/mm/yyyy): forces the date of the invoice. (default: today). Is only taken into account when there's a force_set_number provided and no date
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (number) - ID of the invoice that was added
+
+### /addCreditnote.php [POST /addCreditnote.php]
+
+Adding a creditnote
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice related to this credit note. It must be a booked invoice.
+        + contact_or_company: `company` (enum[string], optional) - When there's no invoice_id provided, you need to provide contact_or_company, contact_or_company, sys_department_id, force_set_number and (if you already have invoices) force_set_date 
+            + Members
+                + company
+                + contact
+        + contact_or_company_id: `1` (number, optional) - ID of the related contact or company
+        + sys_department_id: `2` (number, optional) -  ID of the department the creditnote will be added to
+        + description_1: `An awesome product` (string, required) - At least one creditnote line needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) - ID of the bookkeeping account
+        + subtitle_1: `Subtitle` (string, optional)
+        + force_set_number: `20170001` (number, optional) - force creditnote number to the given integer.
+        + force_set_date: `21/06/2017` (string, optional) - date (dd/mm/yyyy): forces the date of the creditnote. (default: today). Is only taken into account when there's a force_set_number provided
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (number) - ID of the creditnote that was added
+
+### /setInvoicePaymentStatus.php [POST /setInvoicePaymentStatus.php]
+
+Mark an invoice as paid or not paid
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice. The invoice needs to be booked in order to mark it as paid.
+        + status: `paid` (enum[string], required) - It's not possible to mark a paid invoice as paid, or unpaid invoice as unpaid.
+            + Members
+                + paid
+                + not_paid
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
+### /updateInvoice.php [POST /updateInvoice.php]
+
+Update an invoice. The invoice lines you provide will be the new invoice lines of the invoice. The old invoice lines will be removed. All changes made via the API to invoices will be registered in the tracking section of the invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+        + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
+        + price_1: `100` (number, required)
+        + amount_1: `3` (number, required) 
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) - ID of the bookkeeping account
+        + subtitle_1: `Subtitle` (string, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `OK` (string) - Indicating success or failure of the operation.
+
+### /updateInvoiceComments.php [POST /updateInvoiceComments.php]
+
+Update the comments on an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+        + comments: `Comments on the invoice` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
+### /deleteInvoice.php [POST /deleteInvoice.php]
+
+Delete an invoice. It's not possible to delete invoices which are exported to a bookkeeping tool. It's only possible to delete an invoice if this doesn't cause a gap in numbering and if there are no creditnotes for this invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
 ### /getInvoices.php [POST /getInvoices.php]
 
 Search invoices
@@ -48,7 +228,7 @@ Search invoices
 + Request (application/json)
 
     + Attributes (object)
-        + project_id: `1` (number, required)
+        + project_id: `1` (number, required) - ID of the project
         + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
             + Default: `0`
 
@@ -63,10 +243,99 @@ Search creditnotes
 + Request (application/json)
 
     + Attributes (object)
-        + project_id: `1` (number, required)
+        + project_id: `1` (number, required) - ID of the project
         + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
             + Default: `0`
 
 + Response 200 (application/json)
 
     + Attributes (array[Creditnote])
+
+### /sendInvoice.php [POST /sendInvoice.php]
+
+Send booked invoices via email. A maximum of 10 attachments can be provided.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to render to PDF
+        + email_to: `info@teamleader.eu,support@teamleader.eu` (string, required) - Use a comma separated list to send the email to a maximum of 5 addresses.
+        + email_subject: `Reminder to pay invoice` (string, required)
+        + email_text: `Please pay your invoice` (string, required)
+        + attachment_filename_1: `attachment1.pdf` (string, optional) - filename for the attachment
+        + attachment_base64_content_1: `asdfsdfsdf...` (string, optional) - Base64 encoded file contents
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
+### /getInvoiceReminderTemplates.php [POST /getInvoiceReminderTemplates.php]
+
+Get the id and name of available email reminder templates for an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to view available reminders for
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+        + data (array[object])
+            + (object)
+                + id: `1` (number)
+                + name: `template1` (string)
+
+### /getInvoiceReminderTemplateContent.php [POST /getInvoiceReminderTemplateContent.php]
+
+Renders a certain reminder template for a given invoice. You can use this to send a reminder to your customer with the sendInvoice endpoint, as this endpoint does not send any reminders itself.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to view available reminders for
+        + template_id: `1` (number, required) - ID of the template you want to render
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+        + data (object)
+            + subject: `Reminder to pay invoice 20170001` (string)
+            + text: `Please pay invoice 20170001` (string)
+
+### /getInvoiceCloudURL.php [POST /getInvoiceCloudURL.php]
+
+Generates the invoicecloud URL for an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + invoice_nr: `2017 / 8` (string)
+        + invoicecloud_secret_url: `http://dev.invoicecloud.be/?invoice_id=1&gid=1&token=Gg8oUwLf9EmzS7Wxkr0L2fT6kgcBuXO04NeO9QT9l5y43lseCiPvnzryFuZ0` (string)
+        + invoicecloud_secret: `Gg8oUwLf9EmzS7Wxkr0L2fT6kgcBuXO04NeO9QT9l5y43lseCiPvnzryFuZ0` (string)
+
+### /getBookkeepingAccounts.php [POST /getBookkeepingAccounts.php]
+
+Get more information about the bookkeeping accounts
+
++ Request (application/json)
+
+    + Attributes (object)
+        + sys_department_id: `1` (number, required) - ID of the department 
+
++ Response 200 (application/json)
+
+    + Attributes (array[object])
+        + (object)
+            + id: `1` (number)
+            + account: `70000` (number)
+            + name_nl: `general account` (string)
+            + name_fr: `account general` (string)
