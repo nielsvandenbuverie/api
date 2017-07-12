@@ -12,7 +12,7 @@
     additional cost.
 
     + Attributes
-        + description: description (string) - Description of the activity
+        + description: `description` (string) - Description of the activity
         + start_date: `1498048402` (number) - Start date of the activity as Unix timestamp (seconds)
         + end_date: `1498048402` (number) - End date of the activity as Unix timestamp (seconds)
         + worker_id: `12` (number) - Id of the user
@@ -31,12 +31,12 @@
              + Members
                  + 0
                  + 1
-        + related_object_type: task (enum[string], optional) - What kind of item this activity is related to
+        + related_object_type: `task` (enum[string], optional) - What kind of item this activity is related to
             + Members
                 + none
                 + task
         + related_object_id: `1` (number, optional) - If this activity is related to a task, pass in the task ID
-        + description_1: description (string, optional) - Additional costs description
+        + description_1: `description` (string, optional) - Additional costs description
         + price_1: `100` (number, optional) - Additional cost price
         + amount_1: `100` (number, optional) - Additional cost amount
         + vat_1: `06` (enum[string], optional) - The vat tariff for this line for the additional cost
@@ -50,7 +50,7 @@
                 + MC
                 + VCMD
         + product_id_1: `1` (number, optional) - Id of the product for the additional cost
-        + subtitle_1: subtitle (string, optional) - Additional cost subtitle
+        + subtitle_1: `subtitle` (string, optional) - Additional cost subtitle
 
 + Response 200 (text/html)
 
@@ -70,12 +70,12 @@
 
     + Attributes
         + timetracking_id: `1` (number) - ID of the timetracking to update
-        + description: description (string, optional) - Description of the activity
+        + description: `description` (string, optional) - Description of the activity
         + start_date: `1498048402` (number, optional) - Start date of the activity as Unix timestamp (seconds)
         + end_date: `1498048402` (number, optional) - End date of the activity as Unix timestamp (seconds)
         + worker_id: `12` (number, optional) - Id of the user
         + task_type_id: `13` (number, optional) - Type id of the task
-        + for: company (enum[string], optional) - Who this activity should be billed to
+        + for: `company` (enum[string], optional) - Who this activity should be billed to
             + Members
                 + contact
                 + company
@@ -89,12 +89,12 @@
              + Members
                  + 0
                  + 1
-        + related_object_type: task (enum[string], optional) - What kind of item this activity is related to
+        + related_object_type: `task` (enum[string], optional) - What kind of item this activity is related to
             + Members
                 + none
                 + task
         + related_object_id: `1` (number, optional) - If this activity is related to a task, pass in the task ID
-        + description_1: description (string, optional) - Additional costs description
+        + description_1: `description` (string, optional) - Additional costs description
         + price_1: `100` (number, optional) - Additional cost price
         + amount_1: `100` (number, optional) - Additional cost amount
         + vat_1: `06` (enum[string], optional) - The vat tariff for this line for the additional cost
@@ -108,7 +108,7 @@
                 + MC
                 + VCMD
         + product_id_1: `1` (number, optional) - Id of the product for the additional cost
-        + subtitle_1: subtitle (string, optional) - Additional cost subtitle
+        + subtitle_1: `subtitle` (string, optional) - Additional cost subtitle
 
 + Response 200 (text/html)
 
@@ -131,7 +131,7 @@
         + user_id: `1` (number) - Id of the user
         + employee_name: `Jane Doe` (string)
         + date: `1452553200` (number) - Unix timestamp
-        + date_formatted: `dd/mm/yyyy` (string)
+        + date_formatted: `01/01/2017` (string)
         + duration: `5` (number) - Duration of the timetracking in minutes
         + contact_id: `2` (number)
         + company_id: `3` (number)
@@ -191,18 +191,18 @@
 + Request (application/json)
 
     + Attributes
-        + task_id: 1 (number)
+        + task_id: `1` (number)
 
 + Response 200 (application/json)
 
     + Attributes
-        + id: 1 (number)
-        + user_id: 2 (number)
-        + user_name: Jane Doe (string)
-        + date: 1452553200 (number)
-        + date_formatted: 12/01/2016 (string)
-        + duration: 120 (number)
-        + is_invoiceable: 1 (enum[number])
+        + id: `1` (number)
+        + user_id: `2` (number)
+        + user_name: `Jane Doe` (string)
+        + date: `1452553200` (number)
+        + date_formatted: `12/01/2016` (string)
+        + duration: `120` (number)
+        + is_invoiceable: `1` (enum[number])
             + Members
                  + 0
                  + 1
