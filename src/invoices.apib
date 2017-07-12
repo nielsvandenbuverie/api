@@ -70,3 +70,58 @@ Search creditnotes
 + Response 200 (application/json)
 
     + Attributes (array[Creditnote])
+
+### /sendInvoice.php [POST /sendInvoice.php]
+
+Send booked invoices via email. A maximum of 10 attachments can be provided.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to render to PDF
+        + email_to: `info@teamleader.eu,support@teamleader.eu` (string, required) - Use a comma separated list to send the email to a maximum of 5 addresses.
+        + email_subject: `Reminder to pay invoice` (string, required)
+        + email_text: `Please pay your invoice` (string, required)
+        + attachment_filename_1: `attachment1.pdf` (string, optional) - filename for the attachment
+        + attachment_base64_content_1: `asdfsdfsdf...` (string, optional) - Base64 encoded file contents
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+
+### /getInvoiceReminderTemplates.php [POST /getInvoiceReminderTemplates.php]
+
+Get the id and name of available email reminder templates for an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to view available reminders for
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+        + data: (array)
+            + (object)
+                + id: `1` (number)
+                + name: `template1` (string)
+
+### /getInvoiceReminderTemplateContent.php [POST /getInvoiceReminderTemplateContent.php]
+
+Renders a certain reminder template for a given invoice. You can use this to send a reminder to your customer with the sendInvoice endpoint, as this endpoint does not send any reminders itself.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required) - ID of the invoice or credit note you want to view available reminders for
+        + template_id: `1` (number, required) - ID of the template you want to render
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string) - Indicating success or failure of the operation.
+        + data: (object)
+            + subject: `Reminder to pay invoice 20170001` (string)
+            + text: `Please pay invoice 20170001` (string)
