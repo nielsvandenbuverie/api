@@ -1649,6 +1649,215 @@ Delete a meeting from Teamleader
 
 + Response 204
 
+# Group Timetracking
+
+## Timetracking [/timetracking]
+
+### /addTimetracking.php [POST /addTimetracking.php]
+
++ Request (application/json)
+
+    Additional cost can be added with optional params. These params are suffixed with the index (1 based) of the
+    additional cost  (`<param>_<index_of_additional_cost>`).
+    So the description of the first additional cost will be `description_1` and `description_2` for the second
+    additional cost.
+
+    + Attributes
+        + description: `description` (string, required) - Description of the activity
+        + start_date: `1498048402` (number, required) - Start date of the activity as Unix timestamp (seconds)
+        + end_date: `1498048402` (number, required) - End date of the activity as Unix timestamp (seconds)
+        + worker_id: `12` (number, required) - Id of the user
+        + task_type_id: `13` (number, required) - Type id of the task
+        + for: company (enum[string]) - Who this activity should be billed to
+            + Members
+                + contact
+                + company
+                + project_milestone
+        + for_id: `1` (number) - The id of who this activity should be billed to
+        + invoiceable: `0` (enum[number]) - Can this time be invoiced later or not? This parameter has no effect for project-related timetracking, because invoiceability is determined by the related milestone.
+            + Members
+                + 0
+                + 1
+        + subtract_break: `1` (enum[number]) - If this parameter is set to 1 lunchbreaks will be substracted from the timetracking
+             + Members
+                 + 0
+                 + 1
+        + related_object_type: `task` (enum[string]) - What kind of item this activity is related to
+            + Members
+                + none
+                + task
+        + related_object_id: `1` (number) - If this activity is related to a task, pass in the task ID
+        + description_1: `description` (string) - Additional costs description
+        + price_1: `100` (number) - Additional cost price
+        + amount_1: `100` (number) - Additional cost amount
+        + vat_1: `06` (enum[string]) - The vat tariff for this line for the additional cost
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number) - Id of the product for the additional cost
+        + subtitle_1: `subtitle` (string) - Additional cost subtitle
+
++ Response 200 (text/html)
+
+    + Body
+
+            "OK"
+
+
+### /updateTimetracking.php [POST /updateTimetracking.php]
+
++ Request (application/json)
+
+    Additional cost can be added with optional params. These params are suffixed with the index (1 based) of the
+    additional cost  (`<param>_<index_of_additional_cost>`).
+    So the description of the first additional cost will be `description_1` and `description_2` for the second
+    additional cost.
+
+    + Attributes
+        + timetracking_id: `1` (number, required) - ID of the timetracking to update
+        + description: `description` (string) - Description of the activity
+        + start_date: `1498048402` (number) - Start date of the activity as Unix timestamp (seconds)
+        + end_date: `1498048402` (number) - End date of the activity as Unix timestamp (seconds)
+        + worker_id: `12` (number) - Id of the user
+        + task_type_id: `13` (number) - Type id of the task
+        + for: `company` (enum[string]) - Who this activity should be billed to
+            + Members
+                + contact
+                + company
+                + project_milestone
+        + for_id: `1` (number) - The id of who this activity should be billed to
+        + invoiceable: `0` (enum[number]) - Can this time be invoiced later or not? This parameter has no effect for project-related timetracking, because invoiceability is determined by the related milestone.
+            + Members
+                + 0
+                + 1
+        + subtract_break: `1` (enum[number]) - If this parameter is set to 1 lunchbreaks will be substracted from the timetracking
+             + Members
+                 + 0
+                 + 1
+        + related_object_type: `task` (enum[string]) - What kind of item this activity is related to
+            + Members
+                + none
+                + task
+        + related_object_id: `1` (number) - If this activity is related to a task, pass in the task ID
+        + description_1: `description` (string) - Additional costs description
+        + price_1: `100` (number) - Additional cost price
+        + amount_1: `100` (number) - Additional cost amount
+        + vat_1: `06` (enum[string]) - The vat tariff for this line for the additional cost
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number) - Id of the product for the additional cost
+        + subtitle_1: `subtitle` (string) - Additional cost subtitle
+
++ Response 200 (text/html)
+
+    + Body
+
+            "OK"
+
+
+### /getTimetrackingEntry.php [GET /getTimetrackingEntry.php]
+
++ Request (application/json)
+
+    + Attributes
+        + timetracking_id: `1` (number, required) - The id of the timetracking entry
+
++ Response 200 (application/json)
+
+    + Attributes
+        + id: `98` (number) - Id of the timetracking
+        + user_id: `1` (number) - Id of the user
+        + employee_name: `Jane Doe` (string)
+        + date: `1452553200` (number) - Unix timestamp
+        + date_formatted: `01/01/2017` (string)
+        + duration: `5` (number) - Duration of the timetracking in minutes
+        + contact_id: `2` (number)
+        + company_id: `3` (number)
+        + project_id: `4` (number)
+        + project_title: `Title` (string)
+        + description: `Description` (string)
+        + milestone_id: `5` (number)
+        + milestone_title `Title` (string)
+        + ticket_id: `6` (number)
+        + is_invoicable: `true` (boolean)
+        + related_to - (object)
+            + object_type: `none` (string)
+            + object_id: `1` (number)
+
+### /getTimetracking.php [GET /getTimetracking.php]
+
++ Request (application/json)
+
+    Date range can be a maximum period of one month. Id filters cannot be combined.
+
+    + Attributes
+        + date_from: `01/01/2016` (string, required) - The start date of the period you are requesting timetracking for
+        + date_to: `01/01/2016` (string, required) - The end date of the period you are requesting timetracking for
+        + user_id: `1` (number) - Return only timetracking tracked by this user
+        + project_id: `2` (number) - Return only timetracking tracked by this project
+        + company_id: `3` (number) - Return only timetracking tracked by this company
+        + contact_id: `4` (number) - Return only timetracking tracked by this contact
+
++ Response 200 (application/json)
+
+    + Attributes
+        + id: `98` (number) - Id of the timetracking
+        + user_id: `1` (number) - Id of the user
+        + employee_name: `Jane Doe` (string)
+        + team: `Team` (string)
+        + date: `1452553200` (number) - Unix timestamp
+        + date_formatted: `12/06/2016` (string)
+        + duration: `5` (number) - Duration of the timetracking in minutes
+        + type: `Type` (string)
+        + contact_id: `2` (number)
+        + company_id: `3` (number)
+        + project_id: `4` (number)
+        + project_title: `Title` (string)
+        + description: `Description` (string)
+        + milestone_id: `5` (number)
+        + milestone_title `Title` (string)
+        + is_invoicable: `true` (boolean)
+        + related_to (object)
+            + object_type: `none` (string)
+            + object_id: `1` (number)
+        + company_name: `Doe inc.` (string)
+        + contact_name: `John Doe` (string)
+        + hourly_cost: `10` (number)
+
+### getTimetrackingForTask.php [POST /getTimetrackingForTask.php]
+
++ Request (application/json)
+
+    + Attributes
+        + task_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + id: `1` (number)
+        + user_id: `2` (number)
+        + user_name: `Jane Doe` (string)
+        + date: `1452553200` (number)
+        + date_formatted: `12/01/2016` (string)
+        + duration: `120` (number)
+        + is_invoiceable: `1` (enum[number])
+            + Members
+                 + 0
+                 + 1
+
 ## Tasks [/tasks]
 
 ### addTask.php [POST /addTask.php]
