@@ -9,7 +9,7 @@
         + due_date: 1265412302 (number, required) - Due date of the task as Unix timestamp
         + `user_id`: 1 (number) - Id of the user (is required if team_id is not used)
         + `team_id`: 2 (number) - Id of the team (is required if user_id is not used)
-        + task_type_id: 3 (number, required) - Category of the task
+        + task_type_id: 3 (number, required) - Type of the task
         + duration: 120 (number, required) - Amount of minutes that should be spent on the task
         + priority: A (enum[string], required) - Priority of the task
             + Members
@@ -39,8 +39,8 @@
     + Attributes
         + task_id: 1 (number, required) - Id of the task
         + description: Description (string) - Description of the task
-        + task_type_id: 3 (number) - Category of the task
         + duration: 120 (number) - Amount of minutes that should be spent on the task
+        + task_type_id: 3 (number) - Type of the task
         + priority: A (enum[string]) - Priority of the task
             + Members
                 + A
