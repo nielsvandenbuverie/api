@@ -80,15 +80,35 @@
 + due_date_formatted: "25/04/2017" (string)
 + date_paid: `-1` (number)
 + paid: 0 (number)
-+ total_price_excl_vat: "123.00" (string)
-+ total_price_incl_vat: "130.38" (string)
-+ name: "De Rode Duivles" (string)
-+ for_attention_of: "Radja Nainggolan" (string)
-+ incasso_recall_costs: "0.00" (string)
-+ incasso_interest_amount: "0.00" (string)
++ total_price_excl_vat: 123.00 (number)
++ total_price_incl_vat: 130.38 (number)
++ name: "Teamleader" (string)
++ for_attention_of: "Joe Black" (string)
++ incasso_recall_costs: 0.00 (number)
++ incasso_interest_amount: 0.00 (number)
 + structured_communication: "+++000/1731/11048+++" (string)
 + contact_or_company: "company" (string)
 + contact_or_company_id: 485906 (number)
+
+## InvoiceItem (object)
++ text: "An awesome product" (string)
++ subtitle: "Subtitle" (string)
++ line_total_excl_vat: 100 (number)
++ line_total_incl_vat: 121 (number)
++ vat_rate: 21 (enum[string])
+    + Members
+        + 00
+        + 06
+        + 12
+        + 21
+        + CM
+        + EX
+        + MC
+        + VCMD
++ account: 1 (number)
++ amount: 2 (number)
++ price_per_unit: 50 (number)
++ product_id: 7 (number)
 
 ## Creditnote (object)
 + id: 173111 (number)
@@ -98,9 +118,9 @@
 + date_formatted: "04/04/2017" (string)
 + date_paid: `-1` (number)
 + paid: 0 (number)
-+ total_price_excl_vat: "123.00" (string)
-+ total_price_incl_vat: "130.38" (string)
-+ name: "De Rode Duivles" (string)
++ total_price_excl_vat: 123.00 (number)
++ total_price_incl_vat: 130.38 (number)
++ name: "Teamleader" (string)
 + contact_or_company: "company" (string)
 + contact_or_company_id: 485906 (number)
 + related_invoice_id: 173111 (number)
@@ -126,6 +146,46 @@
 + date_lost_formatted: 16/02/2017 (string)
 + reason_refused: `No interest` (string)
 + source_id: `8799` (number)
+
+## Meeting (object)
++ id: 1 (number)
++ title: `Meeting X` (string)
++ duration_minutes: 60 (number)
++ date_timestamp: 554774400 (number)
++ date_day: `01/08/1987` (string)
++ date_hour: `12:00` (string)
++ attending_internal (array)
+    + (MeetingUser)
++ attending_external (array)
+    + (MeetingUser)
++ creator_id: 1 (number)
++ canceller_id: 1 (number)
++ location: `Street 1, B-1234 City` (string)
++ location_detailed: [] (array[object])
+    + (object)
+        + type: `company_location` (enum[string]) - Whose location is it
+            + Members
+                + company_location
+                + contact_location
+                + virtual
+                + predefined_location
+                + manually_entered
+        + contact: `Street 1, B-1234 City` (string) - Contact location detail
+        + company: `Street 1, B-1234 City` (string) - Company location detail
++ project_id: 1 (number)
++ milestone_id: 1 (number)
++ date_added: 554774400 (number)
++ date_added_formatted: `01/08/1987 00:00` (string)
++ related_sale_id: 1 (number)
++ custom_fields array[number, string]
++ description: `Description of meeting.` (string)
+
+## MeetingUser (object)
++ contact_id: 1 (number)
++ name: `name` (string)
++ gsm: `0123 45 67 89` (string)
++ telephone: `012 23 45 67` (string)
++ email: `info@example.com` (string)
 
 ## Product (object)
 + id: 202188 (number)
@@ -164,3 +224,13 @@
         + project
         + meeting
 + custom_type: `-1` (number)
+
+## Task (object)
++ id: 315 (number)
++ description: `Description text` (string)
++ project_id: 1 (number)
++ milestone_id: 2 (number)
+
+## TaskType
++ id: `1` (number)
++ name: `Design` (string)
