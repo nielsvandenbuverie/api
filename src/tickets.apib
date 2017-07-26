@@ -7,7 +7,7 @@ Fetching ticket information
 + Request (application/json)
 
     + Attributes (object)
-        + ticket_id (number, required)
+        + ticket_id: `123` (number, required)
         + return_detailed_timetracking (enum[number], optional) - Pass 1 to return detailed timetracking information about this ticket
             + Members
                 + 0
@@ -28,17 +28,17 @@ Fetching ticket information
                 + closed
                 + not_closed
         + date_closed: `-1` (number)
-        + responsible_user_id: 456 (number)
+        + responsible_user_id: `123` (number)
         + for: `contact` (enum[string])
             + Members
                 + contact
                 + company
-        + for_id: 789 (number)
+        + for_id: `123` (number)
         + deleted: 0 (enum[number])
             + Members
                 + 0
                 + 1
-        + optional_company_id: `567` (number)
+        + optional_company_id: `123` (number)
         + background_info_html (string)
         + custom_fields array[number, string]
 
@@ -77,7 +77,7 @@ Searching tickets
                 + Members
                     + contact
                     + company
-            + for_id: 789 (number)
+            + for_id: `123` (number)
             + subject: `Ticket title` (string)
             + date_created: `13/12/1992` (string)
             + status: `new` (enum[string])
@@ -89,7 +89,7 @@ Searching tickets
                     + closed
                     + not_closed
             + description (string)
-            + responsible_sys_client_id: 456 (number)
+            + responsible_sys_client_id: `123` (number)
             + time_spent: 120 (number)
 
 ### /addTicket.php [POST /addTicket.php]
@@ -127,7 +127,7 @@ Updating a ticket
 + Request (application/json)
 
     + Attributes (object)
-        + ticket_id (number, required)
+        + ticket_id: `123` (number, required)
         + status (enum[string], optional) - Assign a new status to the ticket by passing this parameter
             + Members
                 + new
@@ -156,7 +156,7 @@ Adding a new message to a ticket
 + Request (application/json)
 
     + Attributes (object)
-        + ticket_id (number, required) - The ID of the ticket you want to add this reply to
+        + ticket_id: `123` (number, required) - The ID of the ticket you want to add this reply to
         + message (string, required) - The message you want to insert. Must be UTF-8 encoded text
         + new_ticket_status (enum[string], optional) -  Assign a new status to the ticket by passing this parameter
             + Members
@@ -187,7 +187,7 @@ Getting all messages related to a ticket
 + Request (application/json)
 
     + Attributes (object)
-        + ticket_id (number, required) - Pass the ID of the ticket
+        + ticket_id: `123` (number, required) - Pass the ID of the ticket
         + include_internal_message (enum[number], required) - Display internal messages or not in the output
             + Members
                 + 0
@@ -201,7 +201,7 @@ Getting all messages related to a ticket
 
     + Attributes (array)
         + (object)
-            + id: 123 (number)
+            + id: `123` (number)
             + message: `Message title` (string)
             + date: 1457014300 (number)
             + date_formatted: `03/03/2016 15:11` (string)
@@ -210,7 +210,7 @@ Getting all messages related to a ticket
                     + teamleader_user
                     + contact
                     + company
-            + from_id: 40 (number)
+            + from_id: `40` (number)
             + internal_message: 0 (enum[number])
                 + Members
                     + 0
@@ -229,10 +229,10 @@ Fetching a single message by ID
 
     + Attributes (array)
         + (object)
-            + id: 123 (number)
-            + ticket_id: 456 (number)
+            + id: `123` (number)
+            + ticket_id: `123` (number)
             + from: `teamleader_user` (string)
-            + from_id: 789 (number)
+            + from_id: `123` (number)
             + internal_message: 0 (enum[number], optional)
                 + Members
                     + 0
@@ -249,7 +249,7 @@ Generating the TicketCloud redirect URL
 + Request (application/json)
 
     + Attributes (object)
-        + ticket_id (number, required) - ID of the ticket
+        + ticket_id: `123` (number, required) - ID of the ticket
 
 + Response 200 (application/json)
 
