@@ -1858,6 +1858,110 @@ Delete a meeting from Teamleader
                  + 0
                  + 1
 
+## Tasks [/tasks]
+
+### addTask.php [POST /addTask.php]
+
++ Request (application/json)
+
+    + Attributes
+        + description: Description (string, required) - Description of the task
+        + due_date: 1265412302 (number, required) - Due date of the task as Unix timestamp
+        + `user_id`: 1 (number) - Id of the user (is required if team_id is not used)
+        + `team_id`: 2 (number) - Id of the team (is required if user_id is not used)
+        + task_type_id: 3 (number, required) - Type of the task
+        + duration: 120 (number, required) - Amount of minutes that should be spent on the task
+        + priority: A (enum[string], required) - Priority of the task
+            + Members
+                + A
+                + B
+                + C
+                + D
+        + for: company (enum[string]) - Who this task should be billed to
+            + Members
+                + contact
+                + company
+                + project_milestone
+        + for_id: 4 (number) - The id of who this task should be billed to
+        + creator_user_id: 5 (number) - Id the user that created the task
+        + related_deal_id: 6 (number) - Id of the deal related to the task
+        + related_ticket_id: 7 (number) - Id of the ticket related to the task
+        + custom_field_<id>: 6 (number) - Where <id> is an custom field id
+
++ Response 200 (application/json)
+
+        29
+
+### updateTask.php [POST /updateTask.php]
+
++ Request (application/json)
+
+    + Attributes
+        + task_id: 1 (number, required) - Id of the task
+        + description: Description (string) - Description of the task
+        + duration: 120 (number) - Amount of minutes that should be spent on the task
+        + task_type_id: 3 (number) - Type of the task
+        + priority: A (enum[string]) - Priority of the task
+            + Members
+                + A
+                + B
+                + C
+                + D
+        + done: 0 (enum[number]) - Done state of the task
+            + Members
+                + 0
+                + 1
+        + custom_field_<id>: 6 (number, optional) - Where <id> is an custom field id
+
++ Response 200 (application/json)
+
+        "OK"
+
+### deleteTask.php [POST /deleteTask.php]
+
++ Request (application/json)
+
+    + Attributes
+        + task_id: 1 (number, required) - Id of the task
+
++ Response 200 (application/json)
+
+    + Attributes
+        + state: success (string)
+
+### getTasks.php [POST /getTasks.php]
+
++ Request (application/json)
+
+    + Attributes
+        + amount: `25` (number, required) - The amount of tasks returned per request
+        + pageno: `0` (number, required) - The current page
+        + selected_customfields: `42,142` (string) - Comma-separated list of the Id's of the custom fields you wish to select
+        + user_id: `1` (number) - Return only tasks for this user
+
++ Response 200 (application/json)
+
+    + Attributes (array[Task])
+
+### getTask.php [POST /getTask.php]
+
++ Request (application/json)
+
+    + Attributes
+        + task_id: `1` (number, required) - The id of the task
+
++ Response 200 (application/json)
+
+    + Attribute (Task)
+
+### getTaskTypes.php [POST /getTaskTypes.php]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes (array[TaskType])
+
 # Data Structures
 
 ## Contact (object)
@@ -2024,3 +2128,13 @@ Delete a meeting from Teamleader
         + project
         + meeting
 + custom_type: `-1` (number)
+
+## Task (object)
++ id: 315 (number)
++ description: `Description text` (string)
++ project_id: 1 (number)
++ milestone_id: 2 (number)
+
+## TaskType
++ id: `1` (number)
++ name: `Design` (string)
