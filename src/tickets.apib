@@ -1,0 +1,257 @@
+## Tickets [/tickets]
+
+### /getTicket.php [POST /getTicket.php]
+
+Fetching ticket information
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ticket_id: `123` (number, required)
+        + return_detailed_timetracking (enum[number], optional) - Pass 1 to return detailed timetracking information about this ticket
+            + Members
+                + 0
+                + 1
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `123` (number)
+        + subject: `Ticket title` (string)
+        + date_created: 1454604273 (number) - Date ticket was created as a unix timestamp
+        + status: `new` (enum[string])
+            + Members
+                + new
+                + open
+                + waiting_for_client
+                + escalated_thirdparty
+                + closed
+                + not_closed
+        + date_closed: `-1` (number)
+        + responsible_user_id: `123` (number)
+        + for: `contact` (enum[string])
+            + Members
+                + contact
+                + company
+        + for_id: `123` (number)
+        + deleted: 0 (enum[number])
+            + Members
+                + 0
+                + 1
+        + optional_company_id: `123` (number)
+        + background_info_html (string)
+        + custom_fields array[number, string]
+
+### /getTickets.php [POST /getTickets.php]
+
+Searching tickets
+
++ Request (application/json)
+
+    + Attributes (object)
+        + type (enum[string], required)
+            + Members
+                + new
+                + open
+                + waiting_for_client
+                + escalated_thirdparty
+                + closed
+                + not_closed
+        + contact_or_company (enum[string], optional) - Use this to filter tickets by client
+            + Members
+                + contact
+                + company
+        + contact_or_company_id (number, optional) - ID of the contact or company
+        + deep_search (enum[number], optional) - Pass 1 to return not just tickets related to the requested contact, but also to tickets related to linked companies
+            + Members
+                + 0
+                + 1
+        + project_id (number, optional) - Limits the search result to the tickets related to this project
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: `123` (number)
+            + for: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
+            + for_id: `123` (number)
+            + subject: `Ticket title` (string)
+            + date_created: `13/12/1992` (string)
+            + status: `new` (enum[string])
+                + Members
+                    + new
+                    + open
+                    + waiting_for_client
+                    + escalated_thirdparty
+                    + closed
+                    + not_closed
+            + description (string)
+            + responsible_sys_client_id: `123` (number)
+            + time_spent: 120 (number) - Time spent in minutes
+
+### /addTicket.php [POST /addTicket.php]
+
+Adding a new ticket
+
++ Request (application/json)
+
+    + Attributes (object)
+        + client_email (string, optional) - Email address of the client opening this ticket. (Not required if contact_or_company_id is used)
+        + client_name (string, optional) - Name of the contact. Used when Teamleader needs to create a new contact. (Not required if contact_or_company_id is used)
+        + subject (string, required) - Subject of the ticket
+        + contact_or_company (enum[string], optional) - Who is the ticket for? Use this parameter in case you do not want to use client_email and client_name
+            + Members
+                + contact
+                + company
+        + contact_or_company_id (number, optional) - ID of the contact or company. Use this parameter in case you do not want to use client_email and client_name
+        + optional_company_id (number, optional) - ID of the company related to the contact of the ticket
+        + send_autoreply (enum[number], optional) - If this option is enabled, Teamleader will send autoreplies after this ticket has been created, if an autoreply was set up
+            + Members
+                + 0
+                + 1
+        + description_html (string, optional) - Add extra information about this ticket to be displayed to the user
+        + responsible_sys_client_id (number, optional) - ID of the user that is responsible for this ticket
+        + project_id (number, optional) - The ID of the related project
+
++ Response 200
+
+        41664
+
+### /updateTicket.php [POST /updateTicket.php]
+
+Updating a ticket
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ticket_id: `123` (number, required)
+        + status (enum[string], optional) - Assign a new status to the ticket by passing this parameter
+            + Members
+                + new
+                + open
+                + waiting_for_client
+                + escalated_thirdparty
+                + closed
+                + not_closed
+        + contact_or_company (enum[string], optional) - Set to either contact or company
+            + Members
+                + contact
+                + company
+        + contact_or_company_id (number, optional) - ID of the related contact or company
+        + responsible_sys_client_id (number, optional) - ID of the the new user responsible for this ticket
+
++ Response 200 (application/json)
+
+        {
+            "status": "success"
+        }
+
+### /addTicketMessage.php [POST /addTicketMessage.php]
+
+Adding a new message to a ticket
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ticket_id: `123` (number, required) - The ID of the ticket you want to add this reply to
+        + message (string, required) - The message you want to insert. Must be UTF-8 encoded text
+        + new_ticket_status (enum[string], optional) -  Assign a new status to the ticket by passing this parameter
+            + Members
+                + open
+                + new
+                + closed
+        + from (string, optional) - By default, the new message will be added as if the ticket client added a new message. If you pass a user ID in this parameter, the message will be added as if that Teamleader user added the reply
+        + internal_note (enum[number], optional) - If this parameter is set to 1, the message will be an internal note
+            + Members
+                + 0
+                + 1
+        + announce_reply (enum[number], optional) - If this parameter is set to 1, a new notification will be sent to the person responsible for this ticket. A notification will be sent regardless of this parameter if the ticket was closed and subsequently reopened by this API call
+            + Members
+                + 0
+                + 1
+        + send_email (boolean, optional) - If this parameter is set, an e-mail will be sent out when adding a message
+        + attachment_1_body_base64 (string, optional) - Base64 encoded file
+        + attachment_1_filename (string, optional) - Name of the file including file extension (eg. screenshot.jpg)
+
++ Response 200
+
+        OK
+
+### /getTicketMessages.php [POST /getTicketMessages.php]
+
+Getting all messages related to a ticket
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ticket_id: `123` (number, required) - Pass the ID of the ticket
+        + include_internal_message (enum[number], required) - Display internal messages or not in the output
+            + Members
+                + 0
+                + 1
+        + include_third_party_message (enum[number], optional) - Display third party messages or not in the output
+            + Members
+                + 0
+                + 1
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: `123` (number)
+            + message: `Message title` (string)
+            + date: 1457014300 (number)
+            + date_formatted: `03/03/2016 15:11` (string)
+            + from: `contact` (enum[string])
+                + Members
+                    + teamleader_user
+                    + contact
+                    + company
+            + from_id: `40` (number)
+            + internal_message: 0 (enum[number])
+                + Members
+                    + 0
+                    + 1
+
+### /getTicketMessage.php [POST /getTicketMessage.php]
+
+Fetching a single message by ID
+
++ Request (application/json)
+
+    + Attributes (object)
+        + message_id (number, required) - ID of the message
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: `123` (number)
+            + ticket_id: `123` (number)
+            + from: `teamleader_user` (string)
+            + from_id: `123` (number)
+            + internal_message: 0 (enum[number], optional)
+                + Members
+                    + 0
+                    + 1
+            + message: `Hello World` (string)
+            + raw_message (string)
+            + date: 1493371503 (number)
+            + date_formatted: `28/04/2017 11:25` (string)
+
+### /getTicketCloudURL.php [POST /getTicketCloudURL.php]
+
+Generating the TicketCloud redirect URL
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ticket_id: `123` (number, required) - ID of the ticket
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+          + ticketcloud_secret_url (string)
