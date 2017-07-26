@@ -702,7 +702,7 @@ Adding an invoice
         + sys_department_id: `2` (number, required) -  ID of the department the invoice will be added to
         + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
         + price_1: `100` (number, required)
-        + amount_1: `3` (number, required)
+        + amount_1: `3` (number, required) 
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
             + Members
                 + 00
@@ -760,7 +760,7 @@ Adding a creditnote
 
     + Attributes (object)
         + invoice_id: `1` (number, required) - ID of the invoice related to this credit note. It must be a booked invoice.
-        + contact_or_company: `company` (enum[string], optional) - When there's no invoice_id provided, you need to provide contact_or_company, contact_or_company, sys_department_id, force_set_number and (if you already have invoices) force_set_date
+        + contact_or_company: `company` (enum[string], optional) - When there's no invoice_id provided, you need to provide contact_or_company, contact_or_company, sys_department_id, force_set_number and (if you already have invoices) force_set_date 
             + Members
                 + company
                 + contact
@@ -768,7 +768,7 @@ Adding a creditnote
         + sys_department_id: `2` (number, optional) -  ID of the department the creditnote will be added to
         + description_1: `An awesome product` (string, required) - At least one creditnote line needs to be provided
         + price_1: `100` (number, required)
-        + amount_1: `3` (number, required)
+        + amount_1: `3` (number, required) 
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
             + Members
                 + 00
@@ -818,7 +818,7 @@ Update an invoice. The invoice lines you provide will be the new invoice lines o
         + invoice_id: `1` (number, required) - ID of the invoice
         + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
         + price_1: `100` (number, required)
-        + amount_1: `3` (number, required)
+        + amount_1: `3` (number, required) 
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
             + Members
                 + 00
@@ -1016,7 +1016,7 @@ Get more information about the bookkeeping accounts
 + Request (application/json)
 
     + Attributes (object)
-        + sys_department_id: `1` (number, required) - ID of the department
+        + sys_department_id: `1` (number, required) - ID of the department 
 
 + Response 200 (application/json)
 
@@ -1166,7 +1166,7 @@ Add subscription
         + contact_or_company_id: `1` (number, required) - ID of the contact or company
         + sys_department_id: `1` (number, required) - ID of the department the invoice will be added to
         + date_start: `01/08/1987` (string, required) - Date the first invoice should be created. The date should be in the format dd/mm/yyyy
-        + repeat_after: `monthly` (enum[string], required) - Repeat cycle
+        + repeat_after: `monthly` (enum[string], required) - Repeat cycle 
             + Members
                 + monthly
                 + quarterly
@@ -1300,7 +1300,7 @@ Add subscription
                 + 0
                 + 1
         + title: `Subscription title` (string) - Title
-        + repeat: `monthly` (enum[string], required) - Invoice repeat cycle
+        + repeat: `monthly` (enum[string], required) - Invoice repeat cycle 
             + Members
                 + monthly
                 + quarterly
@@ -1400,7 +1400,7 @@ Add subscription
                     + contact
                     + company
             + contact_or_company_id: `1174438` (number) - The id of the contact or company
-
+            
 
 ### /getInvoicesBySubscription.php [POST /getInvoicesBySubscription.php]
 
@@ -1457,7 +1457,7 @@ Add subscription
             + Members
                 + contact
                 + company
-        + contact_or_company_id: `1234` (number, required) - The id of the contact or the company
+        + contact_or_company_id: `1234` (number, required) - The id of the contact or the company 
 
 + Response 200 (application/json)
 
@@ -1549,8 +1549,8 @@ Search all products
         + modifiedsince: `1498056035` (number, optional) - Unix timestamp. Teamleader will only return products that have been added or modified since that timestamp
 
 + Response 200 (application/json)
-
-    Prices will be returned as `price_value_<index_of_price>`, they are suffixed with the price index.
+    
+    Prices will be returned as `price_value_<index_of_price>`, they are suffixed with the price index. 
     For example, first price returned will be `price_value_1` and the second will be `price_value_2`.
 
     + Attributes (array)
@@ -1571,13 +1571,13 @@ Get product details
 
     + Attributes
         + product_id: `20` (number, required) - The id of the product
-        + include_all_custom_fields: `1` (number, optional) - If this flag is set to 1, all custom fields will be fetched
+        + include_all_custom_fields: `1` (number, optional) - If this flag is set to 1, all custom fields will be fetched 
         + include_photos: `1` (number, optional) - If this flag is set to 1, the product image url will be fetched
 
 + Response 200 (application/json)
 
     Custom fields will be returned as on object with the custom field id as a key and the custom field value as the value.
-
+    
     + Attributes (Product)
 
 ## Notes [/notes]
