@@ -1879,7 +1879,15 @@ Get all teams
 
 + Request (application/json)
 
+    + Attributes (object)
+        + team_id: `1` (number, required) - Identifier of the team.
+
 + Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + team_name: `Sales` (string) - Name of the team.
+            + team_leader_id: `1` (number) - Identifier of the team leader.
 
 # Data Structures
 
