@@ -1333,7 +1333,10 @@ Fetching ticket information
                 + not_closed
         + date_closed: `-1` (number)
         + responsible_user_id: 456 (number)
-        + for: `contact` (string)
+        + for: `contact` (enum[string])
+            + Members
+                + contact
+                + company
         + for_id: 789 (number)
         + deleted: 0 (enum[number])
             + Members
@@ -1374,7 +1377,10 @@ Searching tickets
     + Attributes (array)
         + (object)
             + id: `123` (number)
-            + for: `contact` (string)
+            + for: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
             + for_id: 789 (number)
             + subject: `Ticket title` (string)
             + date_created: `13/12/1992` (string)
