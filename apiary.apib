@@ -2346,6 +2346,66 @@ Update a Teamleader meeting
 
     + Attributes (array[TaskType])
 
+## Custom fields [/customFields]
+
+### /getCustomFields.php [POST /getCustomFields.php]
+
+Get all custom fields for one object type.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + for: `company` (enum[string], required) - type of the object
+            + Members
+                + company
+                + contact
+                + sale
+                + project
+                + invoice
+                + ticket
+                + milestone
+                + todo
+                + meeting
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: 1 (number)
+            + for: contact (enum[string])
+                + Members
+                    + company
+                    + contact
+                    + sale
+                    + project
+                    + invoice
+                    + ticket
+                    + milestone
+                    + todo
+                    + meeting
+            + name: custom field name (string)
+            + type: date (enum[string])
+                + Members
+                    + date
+                    + string
+                    + int
+                    + money
+                    + boolean
+                    + alt_email
+                    + enum
+                    + textblob
+                    + set
+                    + company
+                    + contact
+                    + employee
+                    + auto_calculated_field
+                    + telephone
+                    + product
+                    + number
+                    + url
+                    + auto_increment
+            + group: extra information (string)
+
 # Data Structures
 
 ## Contact (object)
