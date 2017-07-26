@@ -702,7 +702,7 @@ Adding an invoice
         + sys_department_id: `2` (number, required) -  ID of the department the invoice will be added to
         + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
         + price_1: `100` (number, required)
-        + amount_1: `3` (number, required) 
+        + amount_1: `3` (number, required)
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
             + Members
                 + 00
@@ -760,7 +760,7 @@ Adding a creditnote
 
     + Attributes (object)
         + invoice_id: `1` (number, required) - ID of the invoice related to this credit note. It must be a booked invoice.
-        + contact_or_company: `company` (enum[string], optional) - When there's no invoice_id provided, you need to provide contact_or_company, contact_or_company, sys_department_id, force_set_number and (if you already have invoices) force_set_date 
+        + contact_or_company: `company` (enum[string], optional) - When there's no invoice_id provided, you need to provide contact_or_company, contact_or_company, sys_department_id, force_set_number and (if you already have invoices) force_set_date
             + Members
                 + company
                 + contact
@@ -768,7 +768,7 @@ Adding a creditnote
         + sys_department_id: `2` (number, optional) -  ID of the department the creditnote will be added to
         + description_1: `An awesome product` (string, required) - At least one creditnote line needs to be provided
         + price_1: `100` (number, required)
-        + amount_1: `3` (number, required) 
+        + amount_1: `3` (number, required)
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
             + Members
                 + 00
@@ -818,7 +818,7 @@ Update an invoice. The invoice lines you provide will be the new invoice lines o
         + invoice_id: `1` (number, required) - ID of the invoice
         + description_1: `An awesome product` (string, required) - At least one invoice line needs to be provided
         + price_1: `100` (number, required)
-        + amount_1: `3` (number, required) 
+        + amount_1: `3` (number, required)
         + vat_1: `21` (enum[string], required) - The vat tariff for this line
             + Members
                 + 00
@@ -1016,7 +1016,7 @@ Get more information about the bookkeeping accounts
 + Request (application/json)
 
     + Attributes (object)
-        + sys_department_id: `1` (number, required) - ID of the department 
+        + sys_department_id: `1` (number, required) - ID of the department
 
 + Response 200 (application/json)
 
@@ -1026,6 +1026,281 @@ Get more information about the bookkeeping accounts
             + account: `70000` (number)
             + name_nl: `general account` (string)
             + name_fr: `account general` (string)
+
+### /getInvoicesByDeal.php [POST /getInvoicesByDeal.php]
+
+Search invoices: get all invoices related to a deal
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + related_invoice_ids (array[number]) - array containing all the id's of the invoices related to this deal
+
+### /getInvoice.php [POST /getInvoice.php]
+
+Search invoices
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: 173111 (number)
+        + invoice_nr: 5 (number)
+        + invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
+        + booked: 0 (enum[number])
+            + Members
+                + 0
+                + 1
+        + date: 1491343199 (number)
+        + date_formatted: "04/04/2017" (string)
+        + due_date: 1493157599 (number)
+        + due_date_formatted: "25/04/2017" (string)
+        + date_paid: `-1` (number)
+        + paid: 0 (enum[number])
+            + Members
+                + 0
+                + 1
+        + total_price_excl_vat: 100 (number)
+        + total_price_incl_vat: 121 (number)
+        + for: "company" (enum[string])
+            + Members
+                + "company"
+                + "contact"
+        + for_id: 12 (number) - id of the contact or company
+        + items (array[InvoiceItem])
+        + discount_info (object)
+            + discounts_excl_vat_by_vat_rate (array[number])
+            + discounts_on_vat_by_vat_rate (array[number])
+        + comments: "Comments on the invoice" (string)
+        + invoice_on_hold: 0 (enum[number])
+            + Members
+                + 0
+                + 1
+        + client_name: "Teamleader" (string)
+        + for_attention_of: "Joe Black" (string)
+        + structured_communication: "+++000/1731/11048+++" (string)
+        + partial_payments: 50 (number)
+        + custom_fields (object)
+
+### /getCreditnote.php [POST /getCreditnote.php]
+
+Search creditnotes
+
++ Request (application/json)
+
+    + Attributes (object)
+        + creditnote_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: 173111 (number)
+        + creditnote_nr: 5 (number)
+        + creditnote_nr_detailed: `2017 / 5 (MAIN)` (string)
+        + date: 1491343199 (number)
+        + date_formatted: "04/04/2017" (string)
+        + date_paid: `1491429599` (number)
+        + date_paid_formatted: "05/04/2017" (string)
+        + paid: 1 (enum[number])
+            + Members
+                + 0
+                + 1
+        + total_price_excl_vat: 123.00 (number)
+        + total_price_incl_vat: 130.38 (number)
+        + for: "company" (enum[string])
+            + Members
+                + "company"
+                + "contact"
+        + for_id: 12 (number) - id of the contact or company
+        + items (array[InvoiceItem])
+        + discount_info (object)
+            + discounts_excl_vat_by_vat_rate (array[number])
+            + discounts_on_vat_by_vat_rate (array[number])
+        + comments: "Comments on the credit note" (string)
+        + related_invoice_id: 173111 (number)
+
+### /getTimetrackingForInvoice.php [POST /getTimetrackingForInvoice.php]
+
+Search all timetracking related to an invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: 1 (number) - id of the timetracking
+        + employee_name: `Gavin Belson` (string)
+        + date: 1491480887 (number)
+        + duration: 60 (number) - duration in minutes
+        + type: `meeting` (string)
+        + milestone_id: 5 (number)
+        + milestone_title: `Milestone 5` (string)
+        + hourly_cost: 25 (string)
+        + description: `Timetracking description` (string)
+
+### /getInvoiceByNr.php [POST /getInvoiceByNr.php]
+
+Search information about an invoice by invoice number and fiscal year
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_nr: `1` (number, required)
+        + sys_department_id: `1` (number, required)
+        + fiscal_year_label: `P2017` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: 173111 (number)
+        + invoice_nr: 5 (number)
+        + invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
+        + booked: 0 (enum[number])
+            + Members
+                + 0
+                + 1
+        + date: 1491343199 (number)
+        + date_formatted: "04/04/2017" (string)
+        + date_paid: 1493157599 (number)
+        + date_paid_formatted: "25/04/2017" (string)
+        + paid: 1 (enum[number])
+            + Members
+                + 0
+                + 1
+        + total_price_excl_vat: 100 (number)
+        + total_price_incl_vat: 121 (number)
+        + for: "company" (enum[string])
+            + Members
+                + "company"
+                + "contact"
+        + for_id: 12 (number) - id of the contact or company
+        + items (array[InvoiceItem])
+        + discount_info (object)
+            + discounts_excl_vat_by_vat_rate (array[number])
+            + discounts_on_vat_by_vat_rate (array[number])
+        + comments: "Comments on the invoice" (string)
+        + due_date: 1493157599 (number)
+        + due_date_formatted: "25/04/2017" (string)
+
+### /getCreditnoteByNr.php [POST /getCreditnoteByNr.php]
+
+Search information about a credit note by credit note number and fiscal year
+
++ Request (application/json)
+
+    + Attributes (object)
+        + creditnote_nr: `1` (number, required)
+        + sys_department_id: `1` (number, required)
+        + fiscal_year_label: `P2017` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: 173111 (number)
+        + creditnote_nr: 5 (number)
+        + creditnote_nr_detailed: `2017 / 5 (MAIN)` (string)
+        + date: 1491343199 (number)
+        + date_formatted: "04/04/2017" (string)
+        + date_paid: 1493157599 (number)
+        + date_paid_formatted: "25/04/2017" (string)
+        + paid: 1 (enum[number])
+            + Members
+                + 0
+                + 1
+        + total_price_excl_vat: 100 (number)
+        + total_price_incl_vat: 121 (number)
+        + for: "company" (enum[string])
+            + Members
+                + "company"
+                + "contact"
+        + for_id: 12 (number) - id of the contact or company
+        + items (array[InvoiceItem])
+        + discount_info (object)
+            + discounts_excl_vat_by_vat_rate (array[number])
+            + discounts_on_vat_by_vat_rate (array[number])
+        + comments: "Comments on the credit note" (string)
+        + related_invoice_id: 173111 (number)
+
+### /getInvoiceByOGM.php [POST /getInvoiceByOGM.php]
+
+Search information about an invoice by structured announcement (OGM)
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ogm: `1` (string, required) - the entire OGM in the following format: +++xxx/yyy/zzzzz+++
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: 173111 (number)
+        + invoice_nr: 5 (number)
+        + invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
+        + booked: 0 (enum[number])
+                    + Members
+                        + 0
+                        + 1
+        + structured_communication: "+++000/1731/11048+++" (string)
+        + date: 1491343199 (number)
+        + date_formatted: "04/04/2017" (string)
+        + date_paid: 1493157599 (number)
+        + date_paid_formatted: "25/04/2017" (string)
+        + paid: 1 (enum[number])
+            + Members
+                + 0
+                + 1
+        + total_price_excl_vat: 100 (number)
+        + total_price_incl_vat: 121 (number)
+        + for: "company" (enum[string])
+            + Members
+                + "company"
+                + "contact"
+        + for_id: 12 (number) - id of the contact or company
+        + items (array[InvoiceItem])
+        + discount_info (object)
+            + discounts_excl_vat_by_vat_rate (array[number])
+            + discounts_on_vat_by_vat_rate (array[number])
+        + comments: "Comments on the credit note" (string)
+        + due_date: 1493157599 (number)
+        + due_date_formatted: "25/04/2017" (string)
+
+### /downloadInvoicePDF.php [POST /downloadInvoicePDF.php]
+
+Generating PDF files from invoices
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    Teamleader will return the PDF data and also sent the correct headers.
+
+### /downloadCreditnotePDF.php [POST /downloadCreditnotePDF.php]
+
+Generating PDF files from credit notes
+
++ Request (application/json)
+
+    + Attributes (object)
+        + creditnote_id: `1` (number, required)
+
++ Response 200 (application/json)
+
+    Teamleader will return the PDF data and also sent the correct headers.
 
 ## Files [/files]
 
@@ -2044,15 +2319,35 @@ Delete a meeting from Teamleader
 + due_date_formatted: "25/04/2017" (string)
 + date_paid: `-1` (number)
 + paid: 0 (number)
-+ total_price_excl_vat: "123.00" (string)
-+ total_price_incl_vat: "130.38" (string)
-+ name: "De Rode Duivles" (string)
-+ for_attention_of: "Radja Nainggolan" (string)
-+ incasso_recall_costs: "0.00" (string)
-+ incasso_interest_amount: "0.00" (string)
++ total_price_excl_vat: 123.00 (number)
++ total_price_incl_vat: 130.38 (number)
++ name: "Teamleader" (string)
++ for_attention_of: "Joe Black" (string)
++ incasso_recall_costs: 0.00 (number)
++ incasso_interest_amount: 0.00 (number)
 + structured_communication: "+++000/1731/11048+++" (string)
 + contact_or_company: "company" (string)
 + contact_or_company_id: 485906 (number)
+
+## InvoiceItem (object)
++ text: "An awesome product" (string)
++ subtitle: "Subtitle" (string)
++ line_total_excl_vat: 100 (number)
++ line_total_incl_vat: 121 (number)
++ vat_rate: 21 (enum[string])
+    + Members
+        + 00
+        + 06
+        + 12
+        + 21
+        + CM
+        + EX
+        + MC
+        + VCMD
++ account: 1 (number)
++ amount: 2 (number)
++ price_per_unit: 50 (number)
++ product_id: 7 (number)
 
 ## Creditnote (object)
 + id: 173111 (number)
@@ -2062,9 +2357,9 @@ Delete a meeting from Teamleader
 + date_formatted: "04/04/2017" (string)
 + date_paid: `-1` (number)
 + paid: 0 (number)
-+ total_price_excl_vat: "123.00" (string)
-+ total_price_incl_vat: "130.38" (string)
-+ name: "De Rode Duivles" (string)
++ total_price_excl_vat: 123.00 (number)
++ total_price_incl_vat: 130.38 (number)
++ name: "Teamleader" (string)
 + contact_or_company: "company" (string)
 + contact_or_company_id: 485906 (number)
 + related_invoice_id: 173111 (number)

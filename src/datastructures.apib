@@ -80,15 +80,35 @@
 + due_date_formatted: "25/04/2017" (string)
 + date_paid: `-1` (number)
 + paid: 0 (number)
-+ total_price_excl_vat: "123.00" (string)
-+ total_price_incl_vat: "130.38" (string)
-+ name: "De Rode Duivles" (string)
-+ for_attention_of: "Radja Nainggolan" (string)
-+ incasso_recall_costs: "0.00" (string)
-+ incasso_interest_amount: "0.00" (string)
++ total_price_excl_vat: 123.00 (number)
++ total_price_incl_vat: 130.38 (number)
++ name: "Teamleader" (string)
++ for_attention_of: "Joe Black" (string)
++ incasso_recall_costs: 0.00 (number)
++ incasso_interest_amount: 0.00 (number)
 + structured_communication: "+++000/1731/11048+++" (string)
 + contact_or_company: "company" (string)
 + contact_or_company_id: 485906 (number)
+
+## InvoiceItem (object)
++ text: "An awesome product" (string)
++ subtitle: "Subtitle" (string)
++ line_total_excl_vat: 100 (number)
++ line_total_incl_vat: 121 (number)
++ vat_rate: 21 (enum[string])
+    + Members
+        + 00
+        + 06
+        + 12
+        + 21
+        + CM
+        + EX
+        + MC
+        + VCMD
++ account: 1 (number)
++ amount: 2 (number)
++ price_per_unit: 50 (number)
++ product_id: 7 (number)
 
 ## Creditnote (object)
 + id: 173111 (number)
@@ -98,9 +118,9 @@
 + date_formatted: "04/04/2017" (string)
 + date_paid: `-1` (number)
 + paid: 0 (number)
-+ total_price_excl_vat: "123.00" (string)
-+ total_price_incl_vat: "130.38" (string)
-+ name: "De Rode Duivles" (string)
++ total_price_excl_vat: 123.00 (number)
++ total_price_incl_vat: 130.38 (number)
++ name: "Teamleader" (string)
 + contact_or_company: "company" (string)
 + contact_or_company_id: 485906 (number)
 + related_invoice_id: 173111 (number)
