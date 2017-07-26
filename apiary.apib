@@ -2582,3 +2582,39 @@ Update a Teamleader meeting
 ## TaskType
 + id: `1` (number)
 + name: `Design` (string)
+
+## External Costs
+
+### /addExternalCost.php [POST /addExternalCost.php]
+
+Add a deal for a contact or company.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Rent` (string, required) - Name describing this cost
+        + description_1: `description` (string, required)
+        + price_1: 100.0 (number, required)
+        + amount_1: 1.0 (number, required)
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id: 1 (number, optional)  - ID of the product
+        + subtitle_1: `Subtitle` (string, optional)
+        + project_id: 1 (number, optional) - ID of the related project
+        + milestone_id: 1 (number, optional) - ID of the related milestone
+        + creator_id: 1 (number, optional) - ID of the user that added this cost
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
++ Response 200 (application/json)
+
+        {
+            "id": 41664
+        }
