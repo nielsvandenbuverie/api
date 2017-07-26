@@ -77,10 +77,13 @@ Update a Teamleader meeting
 + Request (application/json)
 
     + Attributes (object)
-        + meeting_id: `1` (number, required) - The ID of the meeting you want to update
-        + title: `Lunch meeting` (string, optional)
-        + start_date: `1386756548` (number, optional) - Unix timestamp
-        + duration_minutes: `30` (number, optional) - Duration in minutes
+        + meeting_id: 1 (number, required) - The ID of the meeting you want to update
+        + title: Lunch meeting (string, optional)
+        + start_date: 1386756548 (number, optional) - Unix timestamp
+        + duration_minutes: 30 (number, optional) - Duration in minutes
+        + milestone_id: 1 (number, optional)
+        + related_sale_id: 1 (number, optional)
+        + sale_selector: 1 (number, optional)
 
 + Response 200 (application/json)
 
