@@ -1,5 +1,44 @@
 ## Meetings [/meetings]
 
+### /getMeetings.php [POST /getMeetings.php]
+
+Search meetings
+
++ Request (application/json)
+
+    + Attributes (object)
+        + amount: `20` (number, required) - The amount of meetings returned per request, between 1 and 100
+        + pageno: `0` (number, required) - The current page, the first page is 0
+        + date_from: `12/01/2012` (string, optional) - date (dd/mm/yyyy): the start date of the period you are requesting meetings for
+        + date_to: `21/02/2012` (string, optional) - date (dd/mm/yyyy): the end date of the period you are requesting meetings for
+        + project_id: `1` (number, optional) - The ID of the project you want to restrict this search to
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: 1 (number)
+            + title: `Lunch meeting` (string)
+            + duration_minutes: 30 (number)
+            + date_timestamp: 1498055469 (number)
+            + date_day: `21/02/2012` (string)
+            + date_hour: `12:30` (string)
+            + related_project_id: 5 (number)
+            + related_milestone_id: 10 (number)
+
+### /getMeeting.php [POST /getMeeting.php]
+
+Get a detailed overview of a single meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + meeting_id: `1` (number, required) - The ID of the meeting you wish to retrieve
+
++ Response 200 (application/json)
+
+    + Attributes (Meeting)
+
 ### /deleteMeeting.php [POST /deleteMeeting.php]
 
 Delete a meeting from Teamleader
@@ -10,3 +49,73 @@ Delete a meeting from Teamleader
         + meeting_id: `1` (number, required) - The ID of the meeting you wish to delete
 
 + Response 204
+
+### /addMeeting.php [POST /addMeeting.php]
+
+Add a Teamleader meeting
+
++ Request (application/json)
+
+    + Attributes (object)
+        + start_date: `1386756548` (number, required) - Unix timestamp
+        + user_id: `1` (number, required) - The user_id of the attending user
+        + title: `Lunch meeting` (string, required)
+        + description: `Met at expo` (string, required)
+        + duration: `30` (number, required) - Duration in minutes
+        + milestone_id: `5` (number, optional)
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `416654` (number) - ID of the meeting that was added
+
+### /updateMeeting.php [POST /updateMeeting.php]
+
+Update a Teamleader meeting
+
++ Request (application/json)
+
+    + Attributes (object)
+        + meeting_id: 1 (number, required) - The ID of the meeting you want to update
+        + title: Lunch meeting (string, optional)
+        + start_date: 1386756548 (number, optional) - Unix timestamp
+        + duration_minutes: 30 (number, optional) - Duration in minutes
+        + milestone_id: 1 (number, optional)
+        + related_sale_id: 1 (number, optional)
+        + sale_selector: 1 (number, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `success` (string)
+
+### /addContactToMeeting.php [POST /addContactToMeeting.php]
+
+Update a Teamleader meeting
+
++ Request (application/json)
+
+    + Attributes (object)
+        + meeting_id: `1` (number, required) - The ID of the meeting you want to add a contact to
+        + contact_id: `5` (number, required) - The ID of the contact you want to add
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `OK` (string)
+
+### /removeContactFromMeeting.php [POST /removeContactFromMeeting.php]
+
+Update a Teamleader meeting
+
++ Request (application/json)
+
+    + Attributes (object)
+        + meeting_id: `1` (number, required) - The ID of the meeting you want to remove a contact from
+        + contact_id: `5` (number, required) - The ID of the contact you want to remove
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + status: `OK` (string)
