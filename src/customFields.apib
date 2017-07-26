@@ -104,3 +104,18 @@ Getting detailed custom field info.
                     + url
                     + auto_increment
             + options: (array[number, string]) - array with the id's and values of the options for custom fields of the types enum and set
+
+### /addCustomFieldOption.php [POST /addCustomFieldOption.php]
+
+Adding options to a custom field (for set and enum type custom fields).
+
++ Request (application/json)
+
+    + Attributes (object)
+        + custom_field_id: 1 (number, required) - ID of the custom field
+        + option_name: option 5 (string, required) - name of the option
++ Response 200 (application/json)
+
+        {
+            127 (number) - ID of the custom field option
+        }
