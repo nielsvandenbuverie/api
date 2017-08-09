@@ -2500,6 +2500,37 @@ Update a Teamleader meeting
                  + 0
                  + 1
 
+## Teams [/teams]
+
+### /getTeams.php [POST /getTeams.php]
+
+Get all teams
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: `1` (number) - Identifier of the team.
+            + team_name: `Sales` (string) - Name of the team.
+            + team_leader_id: `1` (number) - Identifier of the team leader.
+            + team_leader_name: `Jane Doe` (string) - Name of the team leader.
+
+### /getTeam.php [POST /getTeam.php]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + team_id: `1` (number, required) - Identifier of the team.
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + team_name: `Sales` (string) - Name of the team.
+            + team_leader_id: `1` (number) - Identifier of the team leader.
+
 ## Tasks [/tasks]
 
 ### addTask.php [POST /addTask.php]
