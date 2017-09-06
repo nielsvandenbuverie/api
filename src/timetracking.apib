@@ -1,0 +1,194 @@
+## Timetracking [/timetracking]
+
+### timetracking.start [POST /timetracking.start]
+
+Start a new timetracking timer.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + user_id: `123` (string, optional)
+        + topic_id: `456` (string, optional)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
+        + description (string, optional)
+        + subject (object, optional)
+            + type: `project` (enum[string], required)
+                + Members
+                    + project
+                    + milestone
+                    + company
+                    + contact
+                    + ticket
+            + id: `456` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### timetracking.current [POST /timetracking.current]
+
+Get the current timetracking timer.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + user_id: `123` (string)
+        + topic_id: `456` (string)
+        + started_at: `2017-04-26T10:01:49+00:00` (string)
+        + description: `Timer description` (string)
+        + subject (object)
+            + type: `project` (enum[string])
+                + Members
+                    + project
+                    + milestone
+                    + company
+                    + contact
+                    + ticket
+            + id: `456` (string)
+
+### timetracking.stop [POST /timetracking.stop]
+
+Stop the current timetracking timer.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ended_at: `2017-04-26T10:01:49+00:00` (string, optional)
+
++ Response 204 (application/json)
+
+### timetracking.resume [POST /timetracking.resume]
+
+Start a new timer based on previously tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `2` (string)
+
+### timetracking.info [POST /timetracking.info]
+
+Get information about tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + user_id: `123` (string)
+        + topic_id: `456` (string)
+        + started_at: `2017-04-26T10:01:49+00:00` (string)
+        + ended_at: `2017-04-26T11:01:49+00:00` (string)
+        + duration: 60 (number) - Tracked time in minutes
+        + description: `Timer description` (string)
+        + subject (object)
+            + type: `project` (enum[string])
+                + Members
+                    + project
+                    + milestone
+                    + company
+                    + contact
+                    + ticket
+            + id: `456` (string)
+
+### timetracking.log [POST /timetracking.log]
+
+Add tracked time based on a start and end time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + user_id: `123` (string, optional)
+        + topic_id: `456` (string, optional)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
+        + ended_at: `2017-04-26T11:01:49+00:00` (string, optional)
+        + description (string, optional)
+        + subject (object, optional)
+            + type: `project` (enum[string], required)
+                + Members
+                    + project
+                    + milestone
+                    + company
+                    + contact
+                    + ticket
+            + id: `456` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### timetracking.add [POST /timetracking.add]
+
+Add tracked time on a date with a duration in minutes.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + user_id: `123` (string, optional)
+        + topic_id: `456` (string, optional)
+        + date: `2017-04-26` (string, optional)
+        + duration: 60 (number, optional)
+        + description (string, optional)
+        + subject (object, optional)
+            + type: `project` (enum[string], required)
+                + Members
+                    + project
+                    + milestone
+                    + company
+                    + contact
+                    + ticket
+            + id: `456` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### timetracking.update [POST /timetracking.update]
+
+Update tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+        + user_id: `123` (string, optional)
+        + topic_id: `456` (string, optional)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+        + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
+        + description (string, optional)
+        + subject (object, optional)
+            + type: `project` (enum[string], required)
+                + Members
+                    + project
+                    + milestone
+                    + company
+                    + contact
+                    + ticket
+            + id: `456` (string, required)
+
++ Response 204
+
+### timetracking.delete [POST /timetracking.delete]
+
+Delete tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204
