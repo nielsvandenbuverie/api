@@ -10,18 +10,18 @@
 + label: `Reception` (string, optional)
 
 ## Address (object)
-+ street: `Newell Road` (string)
-+ number: `5230` (string)
-+ zipcode: `94020` (string)
-+ city: `Palo Alto` (string)
-+ country: `US` (string)
-
-## Addressee (object)
++ type: `business` (enum[string], required)
+    + Members
+        + business
+        + invoice
+        + delivery
+        + visiting
+        + other
 + addressee: `Pied Piper Finance Dep.` (string, optional)
-+ street: `Newell Road` (string)
-+ number: `5230` (string)
-+ zipcode: `94020` (string)
++ line1: `5230 Newell Road` (string)
++ line2: `2nd floor` (string, optional)
 + city: `Palo Alto` (string)
++ postal_code: `94020` (string)
 + country: `US` (string)
 
 ## Money (object)

@@ -32,7 +32,7 @@ Get a paginated list of contacts
                 + telephone (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + avatar (string)
-                + address (Address)
+                + addresses (array[Address])
                 + gender: `M` (enum[string])
                     + Members
                         + M
@@ -84,10 +84,7 @@ Get the details for a single contact
         + telephone (array[Telephone])
         + website: `https://piedpiper.com` (string)
         + avatar (string)
-        + address (Address)
-        + delivery_address (Addressee)
-        + visiting_address (Addressee)
-        + invoice_address (Addressee)
+        + addresses (array[Address])
         + gender: `M` (enum[string])
             + Members
                 + M
@@ -133,10 +130,7 @@ Add a contact to Teamleader
         + email: `john@example.com` (string, required)
         + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
-        + delivery_address (Addressee, optional)
-        + visiting_address (Addressee, optional)
-        + invoice_address (Addressee, optional)
+        + addresses (array[Address])
         + language: `en` (string, optional)
         + gender: `M` (enum[string], optional)
             + Members
@@ -170,10 +164,7 @@ Update a Teamleader contact
         + email: `john@example.com` (string, required)
         + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
-        + delivery_address (Addressee, optional)
-        + visiting_address (Addressee, optional)
-        + invoice_address (Addressee, optional)
+        + addresses (array[Address])
         + language: `en` (string, optional)
         + gender: `M` (enum[string], optional)
             + Members

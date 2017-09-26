@@ -308,7 +308,7 @@ Get a paginated list of contacts
                 + telephone (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + avatar (string)
-                + address (Address)
+                + addresses (array[Address])
                 + gender: `M` (enum[string])
                     + Members
                         + M
@@ -360,10 +360,7 @@ Get the details for a single contact
         + telephone (array[Telephone])
         + website: `https://piedpiper.com` (string)
         + avatar (string)
-        + address (Address)
-        + delivery_address (Addressee)
-        + visiting_address (Addressee)
-        + invoice_address (Addressee)
+        + addresses (array[Address])
         + gender: `M` (enum[string])
             + Members
                 + M
@@ -409,10 +406,7 @@ Add a contact to Teamleader
         + email: `john@example.com` (string, required)
         + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
-        + delivery_address (Addressee, optional)
-        + visiting_address (Addressee, optional)
-        + invoice_address (Addressee, optional)
+        + addresses (array[Address])
         + language: `en` (string, optional)
         + gender: `M` (enum[string], optional)
             + Members
@@ -446,10 +440,7 @@ Update a Teamleader contact
         + email: `john@example.com` (string, required)
         + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
-        + delivery_address (Addressee, optional)
-        + visiting_address (Addressee, optional)
-        + invoice_address (Addressee, optional)
+        + addresses (array[Address])
         + language: `en` (string, optional)
         + gender: `M` (enum[string], optional)
             + Members
@@ -564,7 +555,7 @@ Search companies
                 + telephone (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + avatar (string)
-                + address (Address)
+                + addresses (array[Address])
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
@@ -606,10 +597,7 @@ Get company info
         + telephone (array[Telephone])
         + website: `https://piedpiper.com` (string)
         + avatar (string)
-        + address (Address)
-        + delivery_address (Addressee)
-        + visiting_address (Addressee)
-        + invoice_address (Addressee)
+        + addresses (array[Address])
         + iban: `BE12123412341234` (string)
         + bic: `BICBANK` (string)
         + language: `nl` (string)
@@ -645,10 +633,7 @@ Add a Teamleader company
         + invoice_email: `invoicing@example.com` (string, optional)
         + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
-        + delivery_address (Addressee, optional)
-        + visiting_address (Addressee, optional)
-        + invoice_address (Addressee, optional)
+        + addresses (array[Address], optional)
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
@@ -682,10 +667,7 @@ Update a Teamleader company
         + invoice_email: `invoicing@example.com` (string, optional)
         + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
-        + delivery_address (Addressee, optional)
-        + visiting_address (Addressee, optional)
-        + invoice_address (Addressee, optional)
+        + addresses (array[Address], optional)
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
@@ -1703,18 +1685,18 @@ Register a webhook.
 + label: `Reception` (string, optional)
 
 ## Address (object)
-+ street: `Newell Road` (string)
-+ number: `5230` (string)
-+ zipcode: `94020` (string)
-+ city: `Palo Alto` (string)
-+ country: `US` (string)
-
-## Addressee (object)
++ type: `business` (enum[string], required)
+    + Members
+        + business
+        + invoice
+        + delivery
+        + visiting
+        + other
 + addressee: `Pied Piper Finance Dep.` (string, optional)
-+ street: `Newell Road` (string)
-+ number: `5230` (string)
-+ zipcode: `94020` (string)
++ line1: `5230 Newell Road` (string)
++ line2: `2nd floor` (string, optional)
 + city: `Palo Alto` (string)
++ postal_code: `94020` (string)
 + country: `US` (string)
 
 ## Money (object)
