@@ -17,14 +17,16 @@ Get the current timetracking timer.
         + started_at: `2017-04-26T10:01:49+00:00` (string)
         + description: `Timer description` (string)
         + subject (object)
-            + type: `project` (enum[string])
+            + type: `project` (enum[string], required)
                 + Members
-                    + project
-                    + milestone
                     + company
                     + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
                     + ticket
-            + id: `456` (string)
+            + id: `456` (string, required)
 
 ### timetracking.info [POST /timetracking.info]
 
@@ -50,14 +52,16 @@ Get information about tracked time.
         + duration: 3600 (number) - Tracked time in seconds
         + description: `Timer description` (string)
         + subject (object)
-            + type: `project` (enum[string])
+            + type: `project` (enum[string], required)
                 + Members
-                    + project
-                    + milestone
                     + company
                     + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
                     + ticket
-            + id: `456` (string)
+            + id: `456` (string, required)
 
 ### timetracking.start [POST /timetracking.start]
 
@@ -70,13 +74,15 @@ Start a new timetracking timer.
         + topic_id: `456` (string, optional)
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
         + description (string, optional)
-        + subject (object, optional)
+        + subject (object)
             + type: `project` (enum[string], required)
                 + Members
-                    + project
-                    + milestone
                     + company
                     + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
                     + ticket
             + id: `456` (string, required)
 
@@ -123,13 +129,15 @@ Add tracked time based on a start and end time.
         + started_at: `2017-04-26T10:01:49+00:00` (string, required)
         + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
         + description (string, optional)
-        + subject (object, optional)
+        + subject (object)
             + type: `project` (enum[string], required)
                 + Members
-                    + project
-                    + milestone
                     + company
                     + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
                     + ticket
             + id: `456` (string, required)
 
@@ -150,13 +158,15 @@ Add tracked time on a date with a duration in seconds.
         + date: `2017-04-26` (string, optional)
         + duration: 3600 (number, optional) - Duration in seconds
         + description (string, optional)
-        + subject (object, optional)
+        + subject (object)
             + type: `project` (enum[string], required)
                 + Members
-                    + project
-                    + milestone
                     + company
                     + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
                     + ticket
             + id: `456` (string, required)
 
@@ -178,13 +188,15 @@ Update tracked time.
         + started_at: `2017-04-26T10:01:49+00:00` (string, required)
         + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
         + description (string, optional)
-        + subject (object, optional)
+        + subject (object)
             + type: `project` (enum[string], required)
                 + Members
-                    + project
-                    + milestone
                     + company
                     + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
                     + ticket
             + id: `456` (string, required)
 
