@@ -8,8 +8,12 @@ Get the current timetracking timer.
 
     + Attributes (object)
         + id: `1` (string)
-        + user_id: `123` (string)
-        + topic_id: `456` (string)
+        + user (object)
+            + _type: `User` (string)
+            + id: `123` (string)
+        + topic (object)
+            + _type: `Topic` (string)
+            + id: `456` (string)
         + started_at: `2017-04-26T10:01:49+00:00` (string)
         + description: `Timer description` (string)
         + subject (object)
@@ -35,11 +39,15 @@ Get information about tracked time.
 
     + Attributes (object)
         + id: `1` (string)
-        + user_id: `123` (string)
-        + topic_id: `456` (string)
+        + user (object)
+            + _type: `User` (string)
+            + id: `123` (string)
+        + topic (object)
+            + _type: `Topic` (string)
+            + id: `456` (string)
         + started_at: `2017-04-26T10:01:49+00:00` (string)
         + ended_at: `2017-04-26T11:01:49+00:00` (string)
-        + duration: 60 (number) - Tracked time in minutes
+        + duration: 3600 (number) - Tracked time in seconds
         + description: `Timer description` (string)
         + subject (object)
             + type: `project` (enum[string])
@@ -60,7 +68,7 @@ Start a new timetracking timer.
     + Attributes (object)
         + user_id: `123` (string, optional)
         + topic_id: `456` (string, optional)
-        + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
         + description (string, optional)
         + subject (object, optional)
             + type: `project` (enum[string], required)
@@ -84,7 +92,7 @@ Stop the current timetracking timer.
 + Request (application/json)
 
     + Attributes (object)
-        + ended_at: `2017-04-26T10:01:49+00:00` (string, optional)
+        + ended_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
 
 + Response 204 (application/json)
 
@@ -96,7 +104,7 @@ Start a new timer based on previously tracked time.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
 
 + Response 200 (application/json)
 
@@ -112,8 +120,8 @@ Add tracked time based on a start and end time.
     + Attributes (object)
         + user_id: `123` (string, optional)
         + topic_id: `456` (string, optional)
-        + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
-        + ended_at: `2017-04-26T11:01:49+00:00` (string, optional)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+        + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
         + description (string, optional)
         + subject (object, optional)
             + type: `project` (enum[string], required)
@@ -132,7 +140,7 @@ Add tracked time based on a start and end time.
 
 ### timetracking.add [POST /timetracking.add]
 
-Add tracked time on a date with a duration in minutes.
+Add tracked time on a date with a duration in seconds.
 
 + Request (application/json)
 
@@ -140,7 +148,7 @@ Add tracked time on a date with a duration in minutes.
         + user_id: `123` (string, optional)
         + topic_id: `456` (string, optional)
         + date: `2017-04-26` (string, optional)
-        + duration: 60 (number, optional)
+        + duration: 3600 (number, optional) - Duration in seconds
         + description (string, optional)
         + subject (object, optional)
             + type: `project` (enum[string], required)
