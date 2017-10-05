@@ -2635,6 +2635,128 @@ Get all teams
 
     + Attributes (array[TaskType])
 
+## Custom fields [/customFields]
+
+### /getCustomFields.php [POST /getCustomFields.php]
+
+Get all custom fields for one object type.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + for: `company` (enum[string], required) - type of the object
+            + Members
+                + company
+                + contact
+                + sale
+                + project
+                + invoice
+                + ticket
+                + milestone
+                + todo
+                + meeting
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: 1 (number)
+            + for: contact (enum[string])
+                + Members
+                    + company
+                    + contact
+                    + sale
+                    + project
+                    + invoice
+                    + ticket
+                    + milestone
+                    + todo
+                    + meeting
+            + name: custom field name (string)
+            + type: date (enum[string])
+                + Members
+                    + date
+                    + string
+                    + int
+                    + money
+                    + boolean
+                    + alt_email
+                    + enum
+                    + textblob
+                    + set
+                    + company
+                    + contact
+                    + employee
+                    + auto_calculated_field
+                    + telephone
+                    + product
+                    + number
+                    + url
+                    + auto_increment
+            + group: extra information (string)
+
+### /getCustomFieldInfo.php [POST /getCustomFieldInfo.php]
+
+Getting detailed custom field info.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + custom_field_id: 1 (number, required) - ID of the custom field
+
++ Response 200 (application/json)
+
+        + (object)
+            + id: 1 (number)
+            + for: contact (enum[string])
+                + Members
+                    + company
+                    + contact
+                    + sale
+                    + project
+                    + invoice
+                    + ticket
+                    + milestone
+                    + todo
+                    + meeting
+            + name: custom field name (string)
+            + type: date (enum[string])
+                + Members
+                    + date
+                    + string
+                    + int
+                    + money
+                    + boolean
+                    + alt_email
+                    + enum
+                    + textblob
+                    + set
+                    + company
+                    + contact
+                    + employee
+                    + auto_calculated_field
+                    + telephone
+                    + product
+                    + number
+                    + url
+                    + auto_increment
+            + options: (array[number, string]) - array with the id's and values of the options for custom fields of the types enum and set
+
+### /addCustomFieldOption.php [POST /addCustomFieldOption.php]
+
+Adding options to a custom field (for set and enum type custom fields).
+
++ Request (application/json)
+
+    + Attributes (object)
+        + custom_field_id: 1 (number, required) - ID of the custom field
+        + option_name: option 5 (string, required) - name of the option
++ Response 200 (application/json)
+
+        {
+            127 (number) - ID of the custom field option
+        }
+
 # Data Structures
 
 ## Contact (object)
