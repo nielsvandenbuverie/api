@@ -163,7 +163,7 @@ Use this access token to make API calls on behalf of the user using the `Authori
 ```
 GET https://api.teamleader.eu/contacts.list HTTP/1.1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
-Accept: application/json
+Accept: application/json;charset=utf-8
 ```
 
 ### Refresh tokens
@@ -219,9 +219,14 @@ To retrieve information about the user who authorized your application (the reso
 
 ### users.list [GET /users.list]
 
-Get a list of all users
+Get a list of all users.
 
-+ Response 200 (application/json)
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -238,9 +243,14 @@ Get a list of all users
 
 ### tags.list [GET /tags.list]
 
-Get a list of all tags
+Get a list of all tags.
 
-+ Response 200 (application/json)
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items : expo, upsell (array[string])
@@ -249,7 +259,7 @@ Get a list of all tags
 
 Get a list of all activity types.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array[object])
@@ -263,7 +273,7 @@ Get a list of all activity types.
 
 Get a list of all topics.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array[object])
@@ -278,23 +288,20 @@ Get a list of all topics.
 
 ### contacts.list [GET /contacts.list]
 
-Get a paginated list of contacts
+Get a list of contacts.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
             + ids (array[string], optional)
-            + company_id: `1` (string, optional) - Filter contacts by a certain company.
+            + company_id: `1` (string, optional)
             + term: `teamleader` (string, optional)
-            + updated_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that time (inclusive).
-        + page (object, optional)
-            + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
-                + Default: `20`
-            + number: `1` (number, optional) - The numerated page you want, starts at 1.
-                + Default: `1`
+            + telephone: `092980615` (string, optional)
+            + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
+        + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -304,9 +311,7 @@ Get a paginated list of contacts
                 + last_name: `Bachman` (string)
                 + salutation: `Mr` (string)
                 + email: `info@piedpiper.eu` (string)
-                + phone: `092980615` (string)
-                + mobile: `0412121212` (string)
-                + fax: `091234567` (string)
+                + telephone (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + avatar (string)
                 + address (Address)
@@ -342,14 +347,14 @@ Get a paginated list of contacts
 
 ### contacts.info [GET /contacts.info]
 
-Get the details for a single contact
+Get details for a single contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + `contact_id`: `1` (string, required)
+        + id: `1` (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `456` (string)
@@ -358,9 +363,7 @@ Get the details for a single contact
         + salutation: `Mr` (string)
         + email: `info@piedpiper.eu` (string)
         + invoice_email: `invoicing@example.com` (string)
-        + phone: `092980615` (string)
-        + mobile: `0412121212` (string)
-        + fax: `091234567` (string)
+        + telephone (array[Telephone])
         + website: `https://piedpiper.com` (string)
         + avatar (string)
         + address (Address)
@@ -400,123 +403,119 @@ Get the details for a single contact
 
 ### contacts.add [POST /contacts.add]
 
-Add a contact to Teamleader
+Add a new contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + first_name: `John` (string, required) - The first name of the new contact
-        + last_name: `Smith` (string, required) - The last name of the new contact
-        + email: `john@example.com` (string, required) - The email address of the new contact
+        + first_name: `John` (string, required)
+        + last_name: `Smith` (string, required)
+        + email: `john@example.com` (string, required)
         + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, required) - The email address of the new contact
-        + phone: `1234567` (string, optional)
-        + mobile: `7654321` (string, optional)
-        + fax: `7654321` (string, optional)
+        + email: `john@example.com` (string, required)
+        + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
         + delivery_address (Addressee, optional)
         + visiting_address (Addressee, optional)
         + invoice_address (Addressee, optional)
-        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
+        + language: `en` (string, optional)
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
         + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Background information on the contact
-        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, other tags will be automatically created for you.
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
                 + custom_field_id: 123 (string)
                 + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
 
 ### contacts.update [POST /contacts.update]
 
-Update a Teamleader contact
+Update a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + contact_id: `1` (string, required) - The ID of the contact you want to update
-        + first_name: `John` (string) - The given name of the new contact
-        + last_name: `Smith` (string) - The last name of the new contact
+        + id: `1` (string, required)
+        + first_name: `John` (string)
+        + last_name: `Smith` (string)
         + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, required) - The email address of the new contact
-        + phone: `1234567` (string, optional)
-        + mobile: `7654321` (string, optional)
-        + fax: `7654321` (string, optional)
+        + email: `john@example.com` (string, required)
+        + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
         + delivery_address (Addressee, optional)
         + visiting_address (Addressee, optional)
         + invoice_address (Addressee, optional)
-        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
+        + language: `en` (string, optional)
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
         + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Background information on the contact.
-        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, other tags will be automatically created for you.
-        + custom_fields (array)
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
+       + custom_fields (array)
             + (object)
-                + custom_field_id: 123 (string)
+                + field_id: 123 (string)
                 + value
 
 + Response 204
 
 ### contacts.delete [POST /contacts.delete]
 
-Delete a contact from Teamleader
+Delete a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + contact_id: `1` (string, required) - The account ID of the contact you wish to delete
+        + id: `1` (string, required)
 
 + Response 204
 
 ### contacts.tag [POST /contacts.tag]
 
-Add a tag to a contact
+Add a new or existing tag to a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + tags: prospect, expo (array[string], required) - A list of tags to add
+        + id: `123` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
 ### contacts.untag [POST /contacts.untag]
 
-Remove a tag from a contact
+Remove a tag from a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + tags: prospect, expo (array[string], required) - A list of tags to remove
+        + id: `123` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
 ### contacts.linkToCompany [POST /contacts.linkToCompany]
 
-Linking a contact to a company
+Link a contact to a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + company_id: `5` (string, required) - The ID of a company
+        + id: `123` (string, required)
+        + company_id: `5` (string, required)
         + position: `CEO` (string)
         + decision_maker: true (boolean)
 
@@ -524,13 +523,13 @@ Linking a contact to a company
 
 ### contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
 
-Unlinking a contact from a company
+Unlink a contact from a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + company_id: `5` (string, required) - The ID of a company
+        + id: `123` (string, required)
+        + company_id: `5` (string, required)
 
 + Response 204
 
@@ -538,23 +537,20 @@ Unlinking a contact from a company
 
 ### companies.list [GET /companies.list]
 
-Search companies
+Get a list of companies.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
             + ids (array[string], optional)
-            + tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
-            + updated_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that time (inclusive).
+            + tag: `upsell` (string, optional)
+            + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + term: `teamleader` (string, optional)
-        + page (object, optional)
-            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
-                + Default: `20`
-            + number: `1` (number, optional) - The current page, the first page is 1
-                + Default: `1`
+            + telephone: `092980615` (string, optional)
+        + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + `_items` (array)
@@ -566,14 +562,16 @@ Search companies
                 + local_business_number: `63326426` (string)
                 + email: `info@piedpiper.eu` (string)
                 + invoice_email: `invoicing@example.com` (string, optional)
-                + phone: `092980615` (string)
-                + fax: `091234567` (string)
+                + telephone (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + avatar (string)
                 + address (Address)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
+                + responsible_user (object)
+                    + _type: `user`
+                    + id: 1 (string)
                 + tags (object)
                     + _items: tag1, tag2 (array[string])
                 + custom_fields (object)
@@ -589,14 +587,14 @@ Search companies
 
 ### companies.info [GET /companies.info]
 
-Get company info
+Get details for a single company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + company_id: 123 (string)
+        + id: 123 (string)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string)
@@ -606,8 +604,7 @@ Get company info
         + local_business_number: `63326426` (string)
         + email: `info@piedpiper.eu` (string)
         + invoice_email: `invoicing@example.com` (string, optional)
-        + phone: `092980615` (string)
-        + fax: `091234567` (string)
+        + telephone (array[Telephone])
         + website: `https://piedpiper.com` (string)
         + avatar (string)
         + address (Address)
@@ -617,6 +614,10 @@ Get company info
         + iban: `BE12123412341234` (string)
         + bic: `BICBANK` (string)
         + language: `nl` (string)
+        + responsible_user (object)
+            + _type: `user`
+            + id: 1 (string)
+        + remarks: `First contact at expo` (string)
         + tags (object)
             + _items: tag1, tag2 (array[string])
         + custom_fields (object)
@@ -626,26 +627,24 @@ Get company info
                         + _type: `customField`
                         + id: 123 (string)
                     + value: `092980616`
-        + remarks: `First contact at expo` (string)
         + _meta (object)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.add [POST /companies.create]
 
-Add a Teamleader company
+Add a new company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + name: `Pied Piper` (string, required)
-        + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
+        + business_type: `NV` (string, optional)
         + vat_number: `BE0899623035` (string, optional)
-        + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
-        + email: `john@example.com` (string, required) - The email address of the new contact
+        + local_business_number: `63326426` (string, optional)
+        + email: `john@example.com` (string, required)
         + invoice_email: `invoicing@example.com` (string, optional)
-        + phone: `1234567` (string, optional)
-        + fax: `7654321` (string, optional)
+        + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
         + delivery_address (Addressee, optional)
@@ -653,80 +652,86 @@ Add a Teamleader company
         + invoice_address (Addressee, optional)
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
-        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
-        + remarks: `Met at expo` (string, optional) - Background information on the contact
-        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, new tags will be automatically created for you.
-        + custom_fields (array)
-            + (object)
-                + custom_field_id: 123 (string)
-                + value
+        + language: `en` (string, optional)
+        + responsible_user_id (string, optional)
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
+        + custom_fields (object)
+            + _items (array)
+                + (object)
+                    + custom_field_id: 123 (string)
+                    + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
 
 ### companies.update [POST /companies.update]
 
-Update a Teamleader company
+Update a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + company_id: `1` (string, required) - The ID of the contact you want to update
-        + name: `1` (string, required)
-        + email: `john@example.com` (string, required) - The email address of the new contact
-        + vat_number: `BE0899623035` (string, optional)
-        + phone: `1234567` (string, optional)
-        + fax: `7654321` (string, optional)
-        + address (Address, optional)
-        + invoice_email: `invoicing@example.com` (string, optional)
-        + website: `http://example.com` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Background information on the contact
-        + account_manager_id: `1` (string, optional)
-        + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
+        + id: `1` (string, required) - The ID of the contact you want to update
+        + name: `1` (string)
         + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
-        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
-        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, new tags will be automatically created for you.
+        + vat_number: `BE0899623035` (string, optional)
+        + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
+        + email: `john@example.com` (string) - The email address of the new contact
+        + invoice_email: `invoicing@example.com` (string, optional)
+        + telephone (array[Telephone])
+        + website: `http://example.com` (string, optional)
+        + address (Address, optional)
+        + delivery_address (Addressee, optional)
+        + visiting_address (Addressee, optional)
+        + invoice_address (Addressee, optional)
+        + iban: `BE12 1234 1234 1234` (string)
+        + bic: `BICBANK` (string)
+        + language: `en` (string, optional)
+        + responsible_user_id (string, optional)
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + custom_field_id: 123 (string)
+                + field_id: 123 (string)
                 + value
 
 + Response 204
 
 ### companies.delete [POST /companies.delete]
 
-Delete a company from Teamleader
+Delete a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + company_id: `1` (string, required) - The account ID of the company you wish to delete
+        + id: `1` (string, required)
 
 + Response 204
 
 ### companies.tag [POST /companies.tag]
 
-Add a tag to a company
+Add a new or existing tag to a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + company_id: `123` (string, required) - The ID of a company
-        + tags: prospect, expo (array[string], required) - A list of tags to add
+        + id: `123` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
 ### companies.untag [POST /companies.untag]
 
-Remove a tag from a company
+Remove a tag from a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + company_id: `123` (string, required) - The ID of a company
-        + tags: prospect, expo (array[string], required) - A list of tags to remove
+        + id: `123` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
@@ -734,12 +739,12 @@ Remove a tag from a company
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + country: `BE` (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + country: `BE` (string)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -750,16 +755,12 @@ Get the names of business types (legal structures) a company can have within a c
 
 ### deals.list [GET /deals.list]
 
-Get a list of all deals
+Get a list of deals.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + page (object, optional)
-            + size: `10` (number, optional) - Amount of results you want
-                + Default: `20`
-            + number: `1` (number, optional) - Page of results you want
-                + Default: `1`
+        + page (Page, optional)
         + filter (object, optional)
             + term: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
             + phase_id: `5` (string, optional) - Only return deals with this phase ID
@@ -767,7 +768,7 @@ Get a list of all deals
             + contact_id: `456` (string, optional) - Only return deals for this contact
             + project_id: `789` (string, optional) - Only return deals for this project
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -794,39 +795,20 @@ Get a list of all deals
                     + _items (array)
                         + (object)
                             + field (object)
+                                + _type: `customField`
                                 + id: 123 (string)
-                                + name: `A custom field` (string)
-                                + type: `single_line` (enum[string])
-                                    + Members
-                                        + auto_increment
-                                        + boolean
-                                        + company
-                                        + contact
-                                        + date
-                                        + email
-                                        + enum
-                                        + integer
-                                        + money
-                                        + multi_line
-                                        + number
-                                        + phone_number
-                                        + product
-                                        + set
-                                        + single_line
-                                        + url
-                                        + user
-                            + value
+                            + value: `092980616`
 
 ### deals.info [GET /deals.info]
 
-Get deal details
+Get details for a single deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `164938` (string)
@@ -853,34 +835,17 @@ Get deal details
             + _items (array)
                 + (object)
                     + field (object)
+                        + _type: `customField`
                         + id: 123 (string)
-                        + name: `A custom field` (string)
-                        + type: `single_line` (enum[string])
-                            + Members
-                                + auto_increment
-                                + boolean
-                                + company
-                                + contact
-                                + date
-                                + email
-                                + enum
-                                + integer
-                                + money
-                                + multi_line
-                                + number
-                                + phone_number
-                                + product
-                                + set
-                                + single_line
-                                + url
-                                + user
-                    + value
+                    + value: `092980616`
         + phase_changes (object)
             + _items (array)
                 + (object)
                     + old_phase (object)
+                        + _type: dealPhase (string)
                         + id: `1` (string)
                     + new_phase (object)
+                        + _type: dealPhase (string)
                         + id: `2` (string)
                     + changed_at: `2017-05-01 12:00:00` (string)
                     + changed_by (object)
@@ -889,9 +854,9 @@ Get deal details
 
 ### deals.create [POST /deals.create]
 
-Create a deal for a contact or company.
+Create a new deal for a customer.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + customer (object)
@@ -912,7 +877,7 @@ Create a deal for a contact or company.
                 + field_id: 123 (string)
                 + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -921,7 +886,7 @@ Create a deal for a contact or company.
 
 Update a deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
@@ -940,9 +905,9 @@ Update a deal.
 
 ### deals.changePhase [POST /deals.changePhase]
 
-Move a deal to a new phase.
+Change the phase of a deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
@@ -952,9 +917,9 @@ Move a deal to a new phase.
 
 ### dealPhases.list [GET /dealPhases.list]
 
-Get a list of all phases a deal can go through
+Get a list of all phases a deal can go through.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -964,24 +929,82 @@ Get a list of all phases a deal can go through
 
 ### dealSources.list [GET /dealSources.list]
 
-Get a list of all deal sources
+Get a list of all deal sources.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items: Facebook, Twitter (array[string])
 
 ## Todos [/todos]
 
+### todos.list [GET /todos.list]
+
+Get a list of todos.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + ids (array[string], optional)
+            + creator_id (string, optional)
+            + activity_type_id (string, optional)
+            + topic_id (string, optional)
+            + project_id (string, optional)
+            + due_after: `2017-01-01T00:00:00+00:00` (string, optional)
+            + due_before: `2017-01-01T00:00:00+00:00` (string, optional)
+            + status: `open` (enum[string])
+                + Members
+                    + open
+                    + completed
+                    + overdue
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (array)
+        + (object)
+            + id: 1 (string)
+            + title: `Meeting with stakeholders` (string)
+            + description (string)
+            + activity_type (object)
+                + _type: `activityType` (string)
+                + id: 2 (string)
+            + completed: false (boolean)
+            + completed_at: `2016-02-04T16:44:33+00:00` (string)
+            + creator (object)
+                + _type: `user` (string)
+                + id: 1 (string)
+            + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + estimated_duration: 60 (number)
+            + links (array)
+                + (object)
+                    + _type (enum[string])
+                        + Members
+                            + deal
+                            + company
+                            + project
+                            + milestone
+                            + ticket
+                    + id (string)
+            + location (Address)
+            + attendees (array)
+                + (object)
+                    + _type (enum[string])
+                        + Members
+                            + user
+                            + contact
+                    + id (string)
+
 ### todos.create [POST /todos.create]
 
 Create a new todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + user_id (string, optional)
-        + activity_id (string, optional)
+        + creator_id (string, optional)
+        + activity_type_id (string, optional)
         + topic_id (string, optional)
         + title: `Meeting with stakeholders` (string, required)
         + description (string, optional)
@@ -1006,7 +1029,7 @@ Create a new todo.
                         + ticket
                 + id (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `456` (string)
@@ -1015,7 +1038,7 @@ Create a new todo.
 
 Schedule a todo in your calendar.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, required)
@@ -1031,7 +1054,7 @@ Schedule a todo in your calendar.
                         + contact
                 + id (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _type: `event` (string)
@@ -1041,12 +1064,12 @@ Schedule a todo in your calendar.
 
 Update a todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, required)
-        + user_id (string, optional)
-        + activity_id (string, optional)
+        + creator_id (string, optional)
+        + activity_type_id (string, optional)
         + topic_id (string, optional)
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
@@ -1077,21 +1100,23 @@ Update a todo.
 
 Get information about a todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, required)
 
-+ Response 201 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: 1 (string)
         + title: `Meeting with stakeholders` (string)
         + description (string)
-        + activity (object)
-            + _type: activity (string)
+        + activity_type (object)
+            + _type: activityType (string)
             + id: 2 (string)
-        + user (object)
+        + completed: false (boolean)
+        + completed_at: `2016-02-04T16:44:33+00:00` (string)
+        + creator (object)
             + _type: `user` (string)
             + id: 1 (string)
         + due_at: `2016-02-04T16:44:33+00:00` (string)
@@ -1115,11 +1140,23 @@ Get information about a todo.
                         + contact
                 + id (string)
 
+### todos.complete [POST /todos.complete]
+
+Mark a todo as completed.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + completed_at: `2016-02-04T16:44:33+00:00` (string)
+
++ Response 204
+
 ### todos.delete [POST /todos.delete]
 
 Delete a todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -1130,14 +1167,14 @@ Delete a todo.
 
 ### events.list [GET /events.list]
 
-Search calendar events
+Get a list of calendar events.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, required)
             + ids (array[string], optional)
-            + user_id (string, optional)
+            + creator_id (string, optional)
             + activity_type_id (string, optional)
             + topic_id (string, optional)
             + project_id (string, optional)
@@ -1145,14 +1182,25 @@ Search calendar events
             + starts_before: `2017-01-01T00:00:00+00:00` (string, optional)
             + ends_after: `2018-01-01T00:00:00+00:00` (string, optional)
             + ends_before: `2018-01-01T00:00:00+00:00` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field: `starts_at` (enum[string], required)
+                    + Members
+                        + starts_at
+                        + ends_at
+                + order: `asc` (enum[string], optional)
+                    + Members
+                        + asc
+                        + desc
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
             + (object)
                 + id: `123` (string)
-                + user (object)
+                + creator (object)
                     + _type: `user` (string)
                     + id: 1 (string)
                 + todo (object)
@@ -1168,61 +1216,43 @@ Search calendar events
                 + description (string)
                 + starts_at: `2016-02-04T16:00:00+00:00` (string)
                 + ends_at: `2016-02-04T18:00:00+00:00` (string)
-                + location (Address)
-                + attendees (array)
-                    + (object)
-                        + _type (enum[string])
-                            + Members
-                                + user
-                                + contact
-                        + id (string)
-                + links (array)
-                    + (object)
-                        + _type (enum[string])
-                            + Members
-                                + deal
-                                + company
-                                + project
-                                + milestone
-                                + ticket
-                        + id (string)
-
-### events.link [POST /events.link]
-
-Link a calendar event to something.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id (string)
-        + link (object)
-            + type (enum[string])
-                + Members
-                    + deal
-                    + company
-                    + project
-                    + milestone
-                    + ticket
-            + id (string)
-
-+ Response 204
+                + location (string)
+                + attendees (object)
+                    + _items (array)
+                        + (object)
+                            + _type (enum[string])
+                                + Members
+                                    + user
+                                    + contact
+                            + id (string)
+                + links (object)
+                    + _items (array)
+                        + (object)
+                            + _type (enum[string])
+                                + Members
+                                    + deal
+                                    + company
+                                    + project
+                                    + milestone
+                                    + ticket
+                            + id (string)
 
 ### events.info [GET /events.info]
 
-Get calender event information.
+Get details for a single calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: 1 (string)
         + title: `Meeting with stakeholders` (string)
         + description (string)
-        + user (object)
+        + creator (object)
             + _type: `user` (string)
             + id: 1 (string)
         + todo (object)
@@ -1255,16 +1285,36 @@ Get calender event information.
                         + ticket
                 + id (string)
 
+### events.link [POST /events.link]
+
+Link a calendar event to something.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string)
+        + link (object)
+            + type (enum[string])
+                + Members
+                    + deal
+                    + company
+                    + project
+                    + milestone
+                    + ticket
+            + id (string)
+
++ Response 204
+
 ### events.create [POST /events.create]
 
 Create a new calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
-        + user_id: 1 (string, optional)
+        + creator_id: 1 (string, optional)
         + todo_id: 1 (string, optional)
         + activity_type_id: 1 (string, required)
         + topic_id: 1 (string, optional)
@@ -1289,7 +1339,7 @@ Create a new calendar event.
                         + ticket
                 + id (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -1298,13 +1348,13 @@ Create a new calendar event.
 
 Update a calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes
         + id: 1 (string, required)
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
-        + user_id: 1 (string, optional)
+        + creator_id: 1 (string, optional)
         + todo_id: 1 (string, optional)
         + activity_type_id: 1 (string, optional)
         + topic_id: 1 (string, optional)
@@ -1331,11 +1381,11 @@ Update a calendar event.
 
 + Response 204
 
-### events.delete [POST /events.delete]
+### events.cancel [POST /events.cancel]
 
-Delete a calendar event.
+Cancel a calendar event (for all attendees).
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -1346,15 +1396,15 @@ Delete a calendar event.
 
 ### departments.list [GET /departments.list]
 
-Get a list of all departments
+Get a list of all departments.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
             + (object)
                 + _type: `department` (string)
-                + id: `42` (number)
+                + id: `42` (string)
                 + name: `Human Resources` (string)
                 + name_short: `HR` (string)
                 + email: `hr@example.com` (string)
@@ -1375,9 +1425,9 @@ Get a list of all departments
 
 ### departments.add [POST /departments.add]
 
-Add a department
+Add a new department.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + name: `Human Resources` (string, required)
@@ -1398,20 +1448,20 @@ Add a department
         + minimum_late_fee: `12` (number) - Minimum late fee
         + registration_number: `12` (number)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes
         + data (object)
-            + id: `1` (number)
+            + id: `1` (string)
 
 ### departments.update [POST /departments.update]
 
-Update a department
+Update a department.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `42` (number, required)
+        + id: `42` (string, required)
         + name: `Human Resources` (string)
         + name_short: `HR` (string)
         + email: `hr@example.com` (string)
@@ -1436,9 +1486,9 @@ Update a department
 
 ### invoices.list [GET /invoices.list]
 
-List invoices
+Get a list of invoices.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -1454,13 +1504,9 @@ List invoices
                 + Members
                     + draft
                     + booked
-        + page (object, optional)
-            + size: `20` (number, optional) - Amount of invoices you want returned, 1 to 100.
-                + Default: `20`
-            + number: `1` (number, optional) - The numerated page you want, starts at 1.
-                + Default: `1`
+        + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -1508,9 +1554,9 @@ List invoices
 
 ### creditNotes.list [GET /creditNotes.list]
 
-List credit notes
+Get a list of credit notes.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -1521,13 +1567,9 @@ List credit notes
             + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
             + project_id: `1` (number, optional) - The ID of the project you wish to filter on.
             + invoice_id: `1` (number, optional) - The ID of the invoice you wih to filter on.
-        + page (object, optional)
-            + size: `20` (number, optional) - Amount of credit notes you want returned, 1 to 100.
-                + Default: `20`
-            + number: `1` (number, optional) - The numerated page you want, starts at 1.
-                + Default: `1`
+        + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array[object])
@@ -1575,28 +1617,109 @@ List credit notes
 
 ### milestones.list [GET /milestones.list]
 
-Search the milestones (cross projects)
+Get a list of project milestones.
 
-+ Request (application/json)
-
-    + Attributes (object)
-        + filter (object, required)
-             + responsible_employee_id: `1` (number, required) - Use this to filter by responsible employee
-             + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
-             + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
-
-+ Response 200 (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
-            + (object)
-                + id: `247` (number)
-                + name: `Optimize the middle-out compression` (string)
-                + due_date: `2017-01-15` (string)
-                + done: `false` (boolean)
-                + project (object)
-                    + id: `20` (number)
-                    + name: `PiperChat` (string)
+        + filter (object, optional)
+            + ids (array[string], optional)
+            + project_id (string, optional)
+            + status (enum[string], optional)
+                + Members
+                    + open
+                    + closed
+            + due_before: `2017-01-01` (string, optional)
+            + due_after: `2017-01-01` (string, optional)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + project (object)
+            + _type: `project` (string)
+            + id: `2` (string)
+        + due_on: `2018-01-01` (string)
+        + name: `Initial setup` (string)
+        + status: `done` (enum[string])
+            + Members
+                + open
+                + closed
+
+### milestones.info [GET /milestones.info]
+
+Get details for a single milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + project (object)
+            + _type: `project` (string)
+            + id: `2` (string)
+        + due_on: `2018-01-01` (string)
+        + name: `Initial setup` (string)
+        + status: `done` (enum[string])
+            + Members
+                + open
+                + closed
+
+### milestones.create [GET /milestones.create]
+
+Create a new milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + project_id: `1` (string, required)
+        + due_on: `2018-01-01` (string, required)
+        + name: `Initial setup` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### milestones.update [GET /milestones.update]
+
+Update a milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+        + due_on: `2018-01-01` (string, optional)
+        + name: `Initial setup` (string, optional)
+
++ Response 204 (application/json;charset=utf-8)
+
+### milestones.close [GET /milestones.close]
+
+Close a milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204 (application/json;charset=utf-8)
+
+### milestones.reopen [GET /milestones.reopen]
+
+Open a closed milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204 (application/json;charset=utf-8)
 
 ## Timetracking [/timetracking]
 
@@ -1763,9 +1886,9 @@ Delete tracked time.
 
 ### /webhooks.register [POST /webhooks.register]
 
-Register a webhook.
+Register a new webhook.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + url: `https://www.mywebhookurl.com` (string, required) - Your webhook url
@@ -1832,6 +1955,15 @@ Register a webhook.
 
 # Data Structures
 
+## Telephone (object)
++ type: `phone` (enum[string], required)
+    + Members
+        + phone
+        + mobile
+        + fax
++ number: `092980615` (string, required)
++ label: `Reception` (string, optional)
+
 ## Address (object)
 + street: `Newell Road` (string)
 + number: `5230` (string)
@@ -1874,3 +2006,9 @@ Register a webhook.
         + TRY
         + USD
         + ZAR
+
+## Page
++ size: `20` (number, optional)
+    + Default: `20`
++ number: `1` (number, optional)
+    + Default: `1`

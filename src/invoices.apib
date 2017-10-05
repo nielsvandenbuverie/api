@@ -2,9 +2,9 @@
 
 ### invoices.list [GET /invoices.list]
 
-List invoices
+Get a list of invoices.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -20,13 +20,9 @@ List invoices
                 + Members
                     + draft
                     + booked
-        + page (object, optional)
-            + size: `20` (number, optional) - Amount of invoices you want returned, 1 to 100.
-                + Default: `20`
-            + number: `1` (number, optional) - The numerated page you want, starts at 1.
-                + Default: `1`
+        + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -74,9 +70,9 @@ List invoices
 
 ### creditNotes.list [GET /creditNotes.list]
 
-List credit notes
+Get a list of credit notes.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -87,13 +83,9 @@ List credit notes
             + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
             + project_id: `1` (number, optional) - The ID of the project you wish to filter on.
             + invoice_id: `1` (number, optional) - The ID of the invoice you wih to filter on.
-        + page (object, optional)
-            + size: `20` (number, optional) - Amount of credit notes you want returned, 1 to 100.
-                + Default: `20`
-            + number: `1` (number, optional) - The numerated page you want, starts at 1.
-                + Default: `1`
+        + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array[object])

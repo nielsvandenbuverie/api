@@ -2,14 +2,14 @@
 
 ### events.list [GET /events.list]
 
-Search calendar events
+Get a list of calendar events.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, required)
             + ids (array[string], optional)
-            + user_id (string, optional)
+            + creator_id (string, optional)
             + activity_type_id (string, optional)
             + topic_id (string, optional)
             + project_id (string, optional)
@@ -17,14 +17,25 @@ Search calendar events
             + starts_before: `2017-01-01T00:00:00+00:00` (string, optional)
             + ends_after: `2018-01-01T00:00:00+00:00` (string, optional)
             + ends_before: `2018-01-01T00:00:00+00:00` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field: `starts_at` (enum[string], required)
+                    + Members
+                        + starts_at
+                        + ends_at
+                + order: `asc` (enum[string], optional)
+                    + Members
+                        + asc
+                        + desc
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
             + (object)
                 + id: `123` (string)
-                + user (object)
+                + creator (object)
                     + _type: `user` (string)
                     + id: 1 (string)
                 + todo (object)
@@ -40,61 +51,43 @@ Search calendar events
                 + description (string)
                 + starts_at: `2016-02-04T16:00:00+00:00` (string)
                 + ends_at: `2016-02-04T18:00:00+00:00` (string)
-                + location (Address)
-                + attendees (array)
-                    + (object)
-                        + _type (enum[string])
-                            + Members
-                                + user
-                                + contact
-                        + id (string)
-                + links (array)
-                    + (object)
-                        + _type (enum[string])
-                            + Members
-                                + deal
-                                + company
-                                + project
-                                + milestone
-                                + ticket
-                        + id (string)
-
-### events.link [POST /events.link]
-
-Link a calendar event to something.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id (string)
-        + link (object)
-            + type (enum[string])
-                + Members
-                    + deal
-                    + company
-                    + project
-                    + milestone
-                    + ticket
-            + id (string)
-
-+ Response 204
+                + location (string)
+                + attendees (object)
+                    + _items (array)
+                        + (object)
+                            + _type (enum[string])
+                                + Members
+                                    + user
+                                    + contact
+                            + id (string)
+                + links (object)
+                    + _items (array)
+                        + (object)
+                            + _type (enum[string])
+                                + Members
+                                    + deal
+                                    + company
+                                    + project
+                                    + milestone
+                                    + ticket
+                            + id (string)
 
 ### events.info [GET /events.info]
 
-Get calender event information.
+Get details for a single calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: 1 (string)
         + title: `Meeting with stakeholders` (string)
         + description (string)
-        + user (object)
+        + creator (object)
             + _type: `user` (string)
             + id: 1 (string)
         + todo (object)
@@ -127,16 +120,36 @@ Get calender event information.
                         + ticket
                 + id (string)
 
+### events.link [POST /events.link]
+
+Link a calendar event to something.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string)
+        + link (object)
+            + type (enum[string])
+                + Members
+                    + deal
+                    + company
+                    + project
+                    + milestone
+                    + ticket
+            + id (string)
+
++ Response 204
+
 ### events.create [POST /events.create]
 
 Create a new calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
-        + user_id: 1 (string, optional)
+        + creator_id: 1 (string, optional)
         + todo_id: 1 (string, optional)
         + activity_type_id: 1 (string, required)
         + topic_id: 1 (string, optional)
@@ -161,7 +174,7 @@ Create a new calendar event.
                         + ticket
                 + id (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -170,13 +183,13 @@ Create a new calendar event.
 
 Update a calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes
         + id: 1 (string, required)
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
-        + user_id: 1 (string, optional)
+        + creator_id: 1 (string, optional)
         + todo_id: 1 (string, optional)
         + activity_type_id: 1 (string, optional)
         + topic_id: 1 (string, optional)
@@ -203,11 +216,11 @@ Update a calendar event.
 
 + Response 204
 
-### events.delete [POST /events.delete]
+### events.cancel [POST /events.cancel]
 
-Delete a calendar event.
+Cancel a calendar event (for all attendees).
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)

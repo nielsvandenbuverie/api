@@ -2,15 +2,15 @@
 
 ### departments.list [GET /departments.list]
 
-Get a list of all departments
+Get a list of all departments.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
             + (object)
                 + _type: `department` (string)
-                + id: `42` (number)
+                + id: `42` (string)
                 + name: `Human Resources` (string)
                 + name_short: `HR` (string)
                 + email: `hr@example.com` (string)
@@ -31,9 +31,9 @@ Get a list of all departments
 
 ### departments.add [POST /departments.add]
 
-Add a department
+Add a new department.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + name: `Human Resources` (string, required)
@@ -54,20 +54,20 @@ Add a department
         + minimum_late_fee: `12` (number) - Minimum late fee
         + registration_number: `12` (number)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes
         + data (object)
-            + id: `1` (number)
+            + id: `1` (string)
 
 ### departments.update [POST /departments.update]
 
-Update a department
+Update a department.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `42` (number, required)
+        + id: `42` (string, required)
         + name: `Human Resources` (string)
         + name_short: `HR` (string)
         + email: `hr@example.com` (string)
