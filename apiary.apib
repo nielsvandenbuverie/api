@@ -2527,8 +2527,8 @@ Retrieve a list of records about an item
                          + todo
                          + ...
                 + id: '123' (string)
-            + recorded_before: `2017-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
-            + recorded_after: `2016-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+            + recorded_before: `2017-01-01T00:00:00+0200` (string, optional)
+            + recorded_after: `2016-01-01T00:00:00+0200` (string, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -2592,7 +2592,7 @@ Retrieve a list of records about an item
                                      + application ??
                                      + integration ??
                             + id: `123` (string)
-                + recorded_at: `2016-02-04T00:02:23+200` (string) - ISO...
+                + recorded_at: `2016-02-04T00:02:23+0200` (string)
                 + title: `New company website` (string) - markdown ?? (with possibility to include links to ticket/meeting ids, etc..)?
                 + description: `A longer text` (string) - markdown ?? (with possibility to include links to ticket/meeting ids, etc..)?
                 + about (object)
@@ -2628,8 +2628,8 @@ Retrieve a list of records about an item
                          + todo
                          + ...
                 + id: '123' (string)
-            + recorded_before: `2017-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
-            + recorded_after: `2016-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+            + commented_before: `2016-02-04T00:02:23+0200` (string, optional)
+            + commented_after: `2016-02-04T00:02:23+0200` (string, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -2643,7 +2643,7 @@ Retrieve a list of records about an item
                          + Members
                              + user
                     + id: `123` (string)
-                + commented_on: `2016-02-04T00:02:23+200` (string) - ISO...
+                + commented_at: `2016-02-04T00:02:23+0200` (string)
                 + comment: `New company website` (string) - markdown
                 + in_reply_to (object, nullable)
                     + _type: `comment` (string)
