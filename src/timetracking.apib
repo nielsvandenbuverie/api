@@ -10,10 +10,8 @@ Get a list of tracked time.
         + filter (object, optional)
             + user_id: `1` (string, optional)
             + topic_id: `2` (string, optional)
-            + started_after: `2017-04-26T10:01:49+00:00` (string, optional)
-            + started_before: `2017-04-26T10:01:49+00:00` (string, optional)
-            + ended_after: `2017-04-26T10:01:49+00:00` (string, optional)
-            + ended_before: `2017-04-26T10:01:49+00:00` (string, optional)
+            + tracked_after: `2017-04-26T10:01:49+00:00` (string, optional)
+            + tracked_before: `2017-04-26T10:01:49+00:00` (string, optional)
 
 + Response 200 (application/json)
 
@@ -26,9 +24,9 @@ Get a list of tracked time.
             + topic (object)
                 + _type: `topic` (string)
                 + id: `456` (string)
+            + tracked_on: `2017-04-26` (string)
             + started_at: `2017-04-26T10:01:49+00:00` (string)
             + ended_at: `2017-04-26T11:01:49+00:00` (string)
-            + date: `2017-04-26` (string)
             + duration: 3600 (number) - Tracked time in seconds
             + description: `Timer description` (string)
             + subject (object)
@@ -62,9 +60,9 @@ Get information about tracked time.
         + topic (object)
             + _type: `topic` (string)
             + id: `456` (string)
+        + tracked_on: `2017-04-26` (string)
         + started_at: `2017-04-26T10:01:49+00:00` (string)
         + ended_at: `2017-04-26T11:01:49+00:00` (string)
-        + date: `2017-04-26` (string)
         + duration: 3600 (number) - Tracked time in seconds
         + description: `Timer description` (string)
         + subject (object)
@@ -199,8 +197,8 @@ Add tracked time on a date with a duration in seconds.
     + Attributes (object)
         + user_id: `123` (string, optional)
         + topic_id: `456` (string, optional)
-        + date: `2017-04-26` (string, optional)
-        + duration: 3600 (number, optional) - Duration in seconds
+        + tracked_on: `2017-04-26` (string, required)
+        + duration: 3600 (number, required) - Duration in seconds
         + description (string, optional)
         + subject (object)
             + type: `project` (enum[string], required)
@@ -229,9 +227,9 @@ Update tracked time.
         + id: `1` (string, required)
         + user_id: `123` (string, optional)
         + topic_id: `456` (string, optional)
+        + tracked_on: `2017-04-26` (string, optional)
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
         + ended_at: `2017-04-26T11:01:49+00:00` (string, optional)
-        + date: `2017-04-26` (string, optional)
         + duration: 3600 (number, optional) - Duration in seconds
         + description (string, optional)
         + subject (object)
