@@ -225,8 +225,9 @@ Update tracked time.
         + topic_id: `456` (string, optional)
         + tracked_on: `2017-04-26` (string, optional)
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
-        + ended_at: `2017-04-26T11:01:49+00:00` (string, optional)
-        + duration: 3600 (number, optional) - Duration in seconds
+        + One Of
+            + ended_at: `2017-04-26T11:01:49+00:00` (string, optional)
+            + duration: 3600 (number, optional) - Duration in seconds
         + description (string, optional)
         + subject (object)
             + type: `project` (enum[string], required)
