@@ -2505,6 +2505,178 @@ Delete tracked time.
 
 + Response 204
 
+## History & Comments
+
+### history.list [GET /history.list]
+
+Retrieve a list of records about an item
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object)
+            + about (object, optional)
+                + type (enum[string])
+                     + Members
+                         + contact
+                         + company
+                         + deal
+                         + ticket
+                         + project
+                         + event
+                         + todo
+                         + ...
+                + id: '123' (string)
+            + recorded_before: `2017-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+            + recorded_after: `2016-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + _type: `record` (string)
+                + id: `1` (string)
+                + type (enum[string])
+                    + Members
+                        + `------- THESE ARE EXISTING TYPES`
+                        + email
+                        + call
+                        + note
+                        + deal
+                        + project
+                        + invoice
+                        + mailing
+                        + meeting
+                        + contact
+                        + company
+                        + event
+                        + product
+                        + file
+                        + sale
+                        + edit
+                        + mail_sent
+                        + external_interaction
+                        + gmail_email
+                        + todo
+                        + client_satisation_mail_sent_ticket
+                        + client_satisation_mail_sent_project
+                        + client_form_filled_out
+                        + ticket_closed
+                        + linkedin
+                        + creditnote
+                        + timetracking
+                        + custom
+                        + order
+                        + permanent_note
+                        + `------- THESE ARE NEW PROPOSALS`
+                        + creation
+                        + update
+                        + linked
+                        + commented
+                        + assigned
+                        + `invoiced/credited`
+                        + timetracked
+                        + `finished/completed/done/closed`
+                        + contacted
+                        + offered
+                        + `sold/lost/ordered/... (?)`
+                        + planned
+                        + ...
+                + by (object)
+                    + _items (array[object])
+                        + (object)
+                            + _type (enum[string])
+                                 + Members
+                                     + user
+                                     + application ??
+                                     + integration ??
+                            + id: `123` (string)
+                + recorded_on: `2016-02-04T00:02:23+200` (string) - ISO...
+                + title: `New company website` (string) - markdown ?? (with possibility to include links to ticket/meeting ids, etc..)?
+                + description: `A longer text` (string) - markdown ?? (with possibility to include links to ticket/meeting ids, etc..)?
+                + about (object)
+                    + _items (array[object])
+                        + (object)
+                            + _type (enum[string])
+                                 + Members
+                                     + contact
+                                     + company
+                                     + deal
+                                     + ticket
+                                     + project
+                                     + event
+                                     + todo
+                                     + ...
+                            + id: `123` (string)
+
+### comments.list [GET /comments.list]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object)
+            + subject (object, optional)
+                + type (enum[string])
+                     + Members
+                         + contact
+                         + company
+                         + deal
+                         + ticket
+                         + project
+                         + event
+                         + todo
+                         + ...
+                + id: '123' (string)
+            + recorded_before: `2017-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+            + recorded_after: `2016-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + _type: `comment` (string)
+                + id: `1` (string)
+                + by (object)
+                    + _type (enum[string])
+                         + Members
+                             + user
+                    + id: `123` (string)
+                + commented_on: `2016-02-04T00:02:23+200` (string) - ISO...
+                + comment: `New company website` (string) - markdown
+                + in_reply_to (object, nullable)
+                    + _type: `comment` (string)
+                    + id: `123` (string)
+                + subject (object)
+                    + _type (enum[string])
+                         + Members
+                             + record
+                             + contact
+                             + company
+                             + deal
+                             + ticket
+                             + project
+                             + event
+                             + todo
+                             + ...
+                    + id: `123` (string)
+                + comments
+                    + _items (array[object])
+                       + (object)
+                           + _type: `comment` (string)
+                           + id: `123` (string)
+
+### comments.add
+
+### comments.delete
+
+### comments.reply
+
+### comments.update - should this be possible ??
+
+### comments.add
+
 # Data Structures
 
 ## Telephone (object)
