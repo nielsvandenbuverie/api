@@ -1807,7 +1807,6 @@ Start a new timetracking timer.
 + Request (application/json)
 
     + Attributes (object)
-        + user_id: `123` (string, optional)
         + topic_id: `456` (string, optional)
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
         + description (string, optional)
@@ -1889,7 +1888,6 @@ Add tracked time based on a start and end time.
 + Request (application/json)
 
     + Attributes (object)
-        + user_id: `123` (string, optional)
         + topic_id: `456` (string, optional)
         + started_at: `2017-04-26T10:01:49+00:00` (string, required)
         + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
@@ -1918,7 +1916,6 @@ Add tracked time on a date with a duration in seconds.
 + Request (application/json)
 
     + Attributes (object)
-        + user_id: `123` (string, optional)
         + topic_id: `456` (string, optional)
         + tracked_on: `2017-04-26` (string, required)
         + duration: 3600 (number, required) - Duration in seconds
@@ -1948,7 +1945,6 @@ Update tracked time.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + user_id: `123` (string, optional)
         + topic_id: `456` (string, optional)
         + tracked_on: `2017-04-26` (string, optional)
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
