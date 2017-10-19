@@ -18,7 +18,7 @@ We chose this RPC-style approach over the more popular REST, because it enables 
 
 ### Requests
 
-All methods must be called using HTTPS. Data is always passed as JSON data in a POST request or as GET query parameters.
+All methods must be called using HTTPS. Data is passed as JSON data in a POST request or as GET query parameters.
 
 For more complex actions we recommend using POST requests with JSON:
 
@@ -39,7 +39,7 @@ POST https://api.teamleader.eu/invoices.list
 The GET equivalent:
 
 ```
-GET https://api.teamleader.eu/invoices.list?filter[department_id]="ee72ae60-d4df-4f27-beec-d105d5b3e170"&page[number]=3&page[size]=50
+GET https://api.teamleader.eu/invoices.list?filter[department_id]=ee72ae60-d4df-4f27-beec-d105d5b3e170&page[number]=3&page[size]=50
 ```
 
 ### Responses
@@ -77,7 +77,7 @@ Errors are always returned as an array of error objects under an `errors` top le
 
 ### Status codes
 
-When objects are created, we return a `201` response containing the id of the resource. When objects are updated or actions are performated, we often return an empty response with a `204` status code.
+When objects are created, we return a `201` response containing the id of the resource. When objects are updated or actions are performed, we often return an empty response with a `204` status code.
 
 Common used status codes:
 
