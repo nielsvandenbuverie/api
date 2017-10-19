@@ -10,7 +10,7 @@ Before creating a new integration, be sure to check out our **[Marketplace](http
 
 ## General principles
 
-### RPC
+### Endpoints
 
 Our API consists of HTTP RPC-style methods, in the form of `https://api.teamleader.eu/resource.action`.
 
@@ -18,7 +18,7 @@ We chose this RPC-style approach over the more popular REST, because it enables 
 
 ### Requests
 
-All methods must be called using HTTPS. Data can be passed as JSON data in a POST request or as GET query parameters.
+All methods must be called using HTTPS. Data is always passed as JSON data in a POST request or as GET query parameters.
 
 For more complex actions we recommend using POST requests with JSON:
 
@@ -27,52 +27,38 @@ POST https://api.teamleader.eu/invoices.list
 
 {
     "filter": {
-        "department_id": 1
+        "department_id": "ee72ae60-d4df-4f27-beec-d105d5b3e170"
     },
     "page": {
         "size": 50,
         "number": 3
-    },
-    "company_id": 1234
+    }
 }
 ```
 
 The GET equivalent:
 
 ```
-GET https://api.teamleader.eu/invoices.list?filter[department_id]=1&page[number]=3&page[size]=50&company_id=1234
+GET https://api.teamleader.eu/invoices.list?filter[department_id]="ee72ae60-d4df-4f27-beec-d105d5b3e170"&page[number]=3&page[size]=50
 ```
 
 ### Responses
 
-All data is returned as JSON objects:
+Both single objects and collections are returned as JSON objects with a top-level `data` property:
 
 ```
 {
-    "id": 456,
-    "first_name": "Erlich",
-    "last_name": "Bachman",
-    "salutation": "Mr",
-    "email": "info@piedpiper.eu"
-}
-```
-
-### Collections
-
-When a collection of objects are returned, they are nested in an `_items` property. This allows us to add additional meta data to the collection for pagination etc.
-
-```
-{
-    "_items": [
-        { "foo": "bar" },
-        { "foo": "baz" },
-        { "foo": "boo" },
-    ],
-    "_meta": {
-        "total": 3
+    "data": {
+        "id": "f1dfb84c-3c29-4548-9b9b-9090a080742a",
+        "first_name": "Erlich",
+        "last_name": "Bachman",
+        "salutation": "Mr",
+        "email": "info@piedpiper.eu"
     }
 }
 ```
+
+Responses may also contain meta data for pagination on the top-level.
 
 ### Errors
 
@@ -82,7 +68,7 @@ Errors are always returned as an array of error objects under an `errors` top le
 {
     "errors": [
         {
-            "status": 400,
+            "code": 9000,
             "title": "Bad request"
         }
     ]
@@ -91,7 +77,7 @@ Errors are always returned as an array of error objects under an `errors` top le
 
 ### Status codes
 
-When objects are created, we return a `201` response containing the id of the resource. When objects are updated or actions are performated, we othen return an empty response with a `204` status code.
+When objects are created, we return a `201` response containing the id of the resource. When objects are updated or actions are performated, we often return an empty response with a `204` status code.
 
 Common used status codes:
 
@@ -100,5 +86,6 @@ Common used status codes:
  - `204` - No Content, on resource updates or actions
  - `400` - Bad Request, if the request contains invalid data
  - `401` - Unauthorized, invalid or missing access token
+ - `403` - Forbidden, not allowd to access this resource
  - `404` - Not Found, resource not found
  - `500` - Internal Server Error, something went wrong on our end

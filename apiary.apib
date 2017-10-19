@@ -15,7 +15,7 @@ Before creating a new integration, be sure to check out our **[Marketplace](http
 
 ## General principles
 
-### RPC
+### Endpoints
 
 Our API consists of HTTP RPC-style methods, in the form of `https://api.teamleader.eu/resource.action`.
 
@@ -23,7 +23,7 @@ We chose this RPC-style approach over the more popular REST, because it enables 
 
 ### Requests
 
-All methods must be called using HTTPS. Data can be passed as JSON data in a POST request or as GET query parameters.
+All methods must be called using HTTPS. Data is always passed as JSON data in a POST request or as GET query parameters.
 
 For more complex actions we recommend using POST requests with JSON:
 
@@ -32,52 +32,38 @@ POST https://api.teamleader.eu/invoices.list
 
 {
     "filter": {
-        "department_id": 1
+        "department_id": "ee72ae60-d4df-4f27-beec-d105d5b3e170"
     },
     "page": {
         "size": 50,
         "number": 3
-    },
-    "company_id": 1234
+    }
 }
 ```
 
 The GET equivalent:
 
 ```
-GET https://api.teamleader.eu/invoices.list?filter[department_id]=1&page[number]=3&page[size]=50&company_id=1234
+GET https://api.teamleader.eu/invoices.list?filter[department_id]="ee72ae60-d4df-4f27-beec-d105d5b3e170"&page[number]=3&page[size]=50
 ```
 
 ### Responses
 
-All data is returned as JSON objects:
+Both single objects and collections are returned as JSON objects with a top-level `data` property:
 
 ```
 {
-    "id": 456,
-    "first_name": "Erlich",
-    "last_name": "Bachman",
-    "salutation": "Mr",
-    "email": "info@piedpiper.eu"
-}
-```
-
-### Collections
-
-When a collection of objects are returned, they are nested in an `_items` property. This allows us to add additional meta data to the collection for pagination etc.
-
-```
-{
-    "_items": [
-        { "foo": "bar" },
-        { "foo": "baz" },
-        { "foo": "boo" },
-    ],
-    "_meta": {
-        "total": 3
+    "data": {
+        "id": "f1dfb84c-3c29-4548-9b9b-9090a080742a",
+        "first_name": "Erlich",
+        "last_name": "Bachman",
+        "salutation": "Mr",
+        "email": "info@piedpiper.eu"
     }
 }
 ```
+
+Responses may also contain meta data for pagination on the top-level.
 
 ### Errors
 
@@ -87,7 +73,7 @@ Errors are always returned as an array of error objects under an `errors` top le
 {
     "errors": [
         {
-            "status": 400,
+            "code": 9000,
             "title": "Bad request"
         }
     ]
@@ -96,7 +82,7 @@ Errors are always returned as an array of error objects under an `errors` top le
 
 ### Status codes
 
-When objects are created, we return a `201` response containing the id of the resource. When objects are updated or actions are performated, we othen return an empty response with a `204` status code.
+When objects are created, we return a `201` response containing the id of the resource. When objects are updated or actions are performated, we often return an empty response with a `204` status code.
 
 Common used status codes:
 
@@ -105,6 +91,7 @@ Common used status codes:
  - `204` - No Content, on resource updates or actions
  - `400` - Bad Request, if the request contains invalid data
  - `401` - Unauthorized, invalid or missing access token
+ - `403` - Forbidden, not allowd to access this resource
  - `404` - Not Found, resource not found
  - `500` - Internal Server Error, something went wrong on our end
 
@@ -146,6 +133,11 @@ The following values should be passed as POST parameters:
  - `code` - the authorization code
  - `grant_type` - must be "authorization_code"
  - `redirect_uri` - the original submitted redirect URL
+
+Please note that a `content-type` header is **required** for this request. These types are supported:
+
+ - application/x-www-form-urlencoded
+ - application/json
 
 You will receive a JSON response containing an `access_token` and `refresh_token`:
 
@@ -448,7 +440,7 @@ Get a list of contacts.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
+        + data (array)
             + (object)
                 + id: `456` (string)
                 + first_name: `Erlich` (string)
@@ -467,27 +459,23 @@ Get a list of contacts.
                 + birthdate: `1987-04-25` (string)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
-                + tags (object)
-                    + _items: tag1, tag2 (array[string])
-                + custom_fields (object)
-                    + _items (array)
-                        + (object)
-                            + field (object)
-                                + _type: `customField` (string)
-                                + id: 123 (string)
-                            + value: `092980616`
-                + companies (object)
-                    + _items (array)
-                        + (object)
-                            + position: `CEO` (string)
-                            + decision_maker: true (boolean)
-                            + company (object)
-                                + _type: `company` (string)
-                                + id: 123 (string)
+                + tags: tag1, tag2 (array[string])
+                + custom_fields (array)
+                    + (object)
+                        + field (object)
+                            + type: `custom_field` (string)
+                            + id: 123 (string)
+                        + value: `092980616`
+                + companies (array)
+                    + (object)
+                        + position: `CEO` (string)
+                        + decision_maker: true (boolean)
+                        + company (object)
+                            + type: `company` (string)
+                            + id: 123 (string)
                 + language: `en` (string)
-                + _meta (object)
-                    + added_at: `2016-02-04T16:44:33+00:00` (string)
-                    + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### contacts.info [GET /contacts.info]
 
@@ -501,47 +489,44 @@ Get details for a single contact.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `456` (string)
-        + first_name: `Erlich` (string)
-        + last_name: `Bachman` (string)
-        + salutation: `Mr` (string)
-        + email: `info@piedpiper.eu` (string)
-        + invoice_email: `invoicing@example.com` (string)
-        + telephones (array[Telephone])
-        + website: `https://piedpiper.com` (string)
-        + avatar (string)
-        + address (Address)
-        + delivery_address (Addressee)
-        + visiting_address (Addressee)
-        + invoice_address (Addressee)
-        + gender: `M` (enum[string])
-            + Members
-                + M
-                + F
-                + U
-        + birthdate: `1987-04-25` (string)
-        + iban: `BE12123412341234` (string)
-        + bic: `BICBANK` (string)
-        + tags (object)
-            + _items: tag1, tag2 (array[string])
-        + custom_fields (object)
-            + _items (array)
+        + data (object)
+            + id: `456` (string)
+            + first_name: `Erlich` (string)
+            + last_name: `Bachman` (string)
+            + salutation: `Mr` (string)
+            + email: `info@piedpiper.eu` (string)
+            + invoice_email: `invoicing@example.com` (string)
+            + telephones (array[Telephone])
+            + website: `https://piedpiper.com` (string)
+            + avatar (string)
+            + address (Address)
+            + delivery_address (Addressee)
+            + visiting_address (Addressee)
+            + invoice_address (Addressee)
+            + gender: `M` (enum[string])
+                + Members
+                    + M
+                    + F
+                    + U
+            + birthdate: `1987-04-25` (string)
+            + iban: `BE12123412341234` (string)
+            + bic: `BICBANK` (string)
+            + tags: tag1, tag2 (array[string])
+            + custom_fields (array)
                 + (object)
                     + field (object)
-                        + _type: `customField` (string)
+                        + type: `custom_field` (string)
                         + id: 123 (string)
                     + value: `092980616`
-        + companies (object)
-            + _items (array)
+            + companies (array)
                 + (object)
                     + position: `CEO` (string)
                     + decision_maker: true (boolean)
                     + company (object)
-                        + _type: `company` (string)
+                        + type: `company` (string)
                         + id: 123 (string)
-        + language: `en` (string)
-        + remarks: `First contact at expo` (string)
-        + _meta (object)
+            + language: `en` (string)
+            + remarks: `First contact at expo` (string)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
@@ -574,7 +559,9 @@ Add a new contact.
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + custom_field_id: 123 (string)
+                + field (object)
+                    + type: `custom_field` (string)
+                    + id: 123 (string)
                 + value
 
 + Response 201 (application/json;charset=utf-8)
@@ -609,9 +596,11 @@ Update a contact.
         + birthdate: `1989-08-19` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
-       + custom_fields (array)
+        + custom_fields (array)
             + (object)
-                + field_id: 123 (string)
+                + field (object)
+                    + type: `custom_field` (string)
+                    + id: 123 (string)
                 + value
 
 + Response 204
@@ -659,7 +648,9 @@ Link a contact to a company.
 
     + Attributes (object)
         + id: `123` (string, required)
-        + company_id: `5` (string, required)
+        + company (object)
+            + type: `company` (string, optional)
+            + id: `5` (string, required)
         + position: `CEO` (string)
         + decision_maker: true (boolean)
 
@@ -673,7 +664,9 @@ Unlink a contact from a company.
 
     + Attributes (object)
         + id: `123` (string, required)
-        + company_id: `5` (string, required)
+        + company (object)
+            + type: `company` (string, optional)
+            + id: `5` (string, required)
 
 + Response 204
 
@@ -697,7 +690,7 @@ Get a list of companies.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + `_items` (array)
+        + data (array)
             + (object)
                 + id: `123` (string)
                 + name: `Pied Piper` (string)
@@ -714,20 +707,17 @@ Get a list of companies.
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
                 + responsible_user (object)
-                    + _type: `user`
+                    + type: `user` (string)
                     + id: 1 (string)
-                + tags (object)
-                    + _items: tag1, tag2 (array[string])
-                + custom_fields (object)
-                    + _items (array)
-                        + (object)
-                            + field (object)
-                                + _type: `customField`
-                                + id: 123 (string)
-                            + value: `092980616`
-                + _meta (object)
-                    + added_at: `2016-02-04T16:44:33+00:00` (string)
-                    + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + tags: tag1, tag2 (array)
+                + custom_fields (array)
+                    + (object)
+                        + field (object)
+                            + type: `custom_field` (string)
+                            + id: 123 (string)
+                        + value: `092980616`
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.info [GET /companies.info]
 
@@ -741,37 +731,35 @@ Get details for a single company.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `123` (string)
-        + name: `Pied Piper` (string)
-        + business_type: `NV` (string)
-        + vat_number: `BE0899623035` (string)
-        + local_business_number: `63326426` (string)
-        + email: `info@piedpiper.eu` (string)
-        + invoice_email: `invoicing@example.com` (string, optional)
-        + telephones (array[Telephone])
-        + website: `https://piedpiper.com` (string)
-        + avatar (string)
-        + address (Address)
-        + delivery_address (Addressee)
-        + visiting_address (Addressee)
-        + invoice_address (Addressee)
-        + iban: `BE12123412341234` (string)
-        + bic: `BICBANK` (string)
-        + language: `nl` (string)
-        + responsible_user (object)
-            + _type: `user`
-            + id: 1 (string)
-        + remarks: `First contact at expo` (string)
-        + tags (object)
-            + _items: tag1, tag2 (array[string])
-        + custom_fields (object)
-            + _items (array)
+        + data (object)
+            + id: `123` (string)
+            + name: `Pied Piper` (string)
+            + business_type: `NV` (string)
+            + vat_number: `BE0899623035` (string)
+            + local_business_number: `63326426` (string)
+            + email: `info@piedpiper.eu` (string)
+            + invoice_email: `invoicing@example.com` (string, optional)
+            + telephones (array[Telephone])
+            + website: `https://piedpiper.com` (string)
+            + avatar (string)
+            + address (Address)
+            + delivery_address (Addressee)
+            + visiting_address (Addressee)
+            + invoice_address (Addressee)
+            + iban: `BE12123412341234` (string)
+            + bic: `BICBANK` (string)
+            + language: `nl` (string)
+            + responsible_user (object)
+                + type: `user` (string)
+                + id: 1 (string)
+            + remarks: `First contact at expo` (string)
+            + tags: tag1, tag2 (array[string])
+            + custom_fields (array)
                 + (object)
                     + field (object)
-                        + _type: `customField`
+                        + type: `custom_field` (string)
                         + id: 123 (string)
                     + value: `092980616`
-        + _meta (object)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
@@ -800,11 +788,12 @@ Add a new company.
         + responsible_user_id (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
-        + custom_fields (object)
-            + _items (array)
-                + (object)
-                    + custom_field_id: 123 (string)
-                    + value
+        + custom_fields (array)
+            + (object)
+                + field (object)
+                    + type: `custom_field` (string)
+                    + id: 123 (string)
+                + value
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -834,12 +823,16 @@ Update a company.
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
-        + responsible_user_id (string, optional)
+        + responsible_user (object)
+            + type: `user` (string)
+            + id: `456` (string)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field_id: 123 (string)
+                + field (object)
+                    + type: `custom_field` (string)
+                    + id: 123 (string)
                 + value
 
 + Response 204
